@@ -66,30 +66,25 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
             </header>
 
             {/* Speakers Section */}
-            <section className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-mh-blue font-black uppercase tracking-[0.2em] text-xs block mb-4">Nuestros Speakers</span>
-                        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900">Liderazgo y Estrategia.</h2>
-                    </div>
+            <section className="py-24 bg-slate-50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_30%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                        {speakers.map((speaker, i) => (
-                            <div key={i} className="group relative p-12 rounded-[4rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center">
-                                {speaker.isFounder && (
-                                    <div className="absolute top-8 right-8 bg-mh-blue text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg z-20">
-                                        Socio Fundador
-                                    </div>
-                                )}
-                                <div className="w-48 h-48 rounded-[3rem] overflow-hidden mb-10 border-8 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
-                                    <img src={speaker.img} className="w-full h-full object-cover" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    {speakers.map((speaker, i) => (
+                        <div key={i} className="group relative p-12 rounded-[4rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center">
+                            {speaker.isFounder && (
+                                <div className="absolute top-8 right-8 bg-mh-blue text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg z-20">
+                                    Socio Fundador
                                 </div>
-                                <h4 className="text-2xl font-bold text-mh-blue mb-2">{speaker.name}</h4>
-                                <p className="text-sm font-black text-mh-gold uppercase tracking-[0.3em] mb-6">{speaker.role}</p>
-                                <p className="text-lg text-slate-500 leading-relaxed font-light">{speaker.desc}</p>
+                            )}
+                            <div className="w-48 h-48 rounded-[3rem] overflow-hidden mb-10 border-8 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
+                                <img src={speaker.img} className="w-full h-full object-cover" />
                             </div>
-                        ))}
-                    </div>
+                            <h4 className="text-2xl font-bold text-mh-blue mb-2">{speaker.name}</h4>
+                            <p className="text-sm font-black text-mh-gold uppercase tracking-[0.3em] mb-6">{speaker.role}</p>
+                            <p className="text-lg text-slate-500 leading-relaxed font-light">{speaker.desc}</p>
+                        </div>
+                    ))}
                 </div>
             </section>
 
@@ -151,10 +146,10 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Collaboration Tiers */}
-            <section className="py-24 bg-white">
+            < section className="py-24 bg-white" >
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-4">Opciones de Colaboración</h2>
@@ -219,10 +214,10 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* CTA Section */}
-            <section className="py-24 bg-mh-blue relative overflow-hidden">
+            < section className="py-24 bg-mh-blue relative overflow-hidden" >
                 <div className="absolute inset-0 bg-gradient-to-r from-mh-blue via-mh-blue/95 to-transparent z-10"></div>
                 <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-30 z-0">
                     <img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/medium.jpg" className="w-full h-full object-cover" />
@@ -240,11 +235,11 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                         <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[3rem]">
                             <div className="flex flex-col md:flex-row items-center gap-8">
                                 <div className="shrink-0 w-24 h-24 rounded-full border-4 border-mh-gold overflow-hidden">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-full h-full object-cover" />
+                                    <img src="/mafe_sabat.jpg" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="text-center md:text-left flex-grow">
-                                    <h4 className="text-2xl font-bold text-white mb-1">Maria Fernanda Ríos</h4>
-                                    <p className="text-mh-gold font-bold text-sm uppercase tracking-widest mb-4">Gerente Administrativa - MedHause</p>
+                                    <h4 className="text-2xl font-bold text-white mb-1">Mafe Sabat</h4>
+                                    <p className="text-mh-gold font-bold text-sm uppercase tracking-widest mb-4">Socio Fundador - MedHause</p>
                                     <button
                                         onClick={() => window.open('https://wa.me/573053412292', '_blank')}
                                         className="bg-white text-mh-blue px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-mh-gold hover:scale-105 transition-all shadow-xl flex items-center justify-center gap-3 w-full md:w-fit"
@@ -256,10 +251,10 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Location Section */}
-            <section className="py-20 bg-slate-100">
+            < section className="py-20 bg-slate-100" >
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
@@ -270,14 +265,14 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                         <LocationCard variant="light" />
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Footer Minimal */}
-            <footer className="bg-white border-t border-slate-100 py-12">
+            < footer className="bg-white border-t border-slate-100 py-12" >
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black">© 2026 MedHause™ — Medellín, Colombia</p>
                 </div>
-            </footer>
-        </div>
+            </footer >
+        </div >
     );
 };

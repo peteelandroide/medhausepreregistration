@@ -65,8 +65,9 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
             </header>
 
             {/* El Problema - The Reality */}
-            <section className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6">
+            <section className="py-24 bg-slate-50 relative overflow-hidden text-slate-900 border-y border-slate-100">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <span className="text-red-500 font-black uppercase tracking-[0.2em] text-xs block mb-4">El Problema</span>
@@ -117,10 +118,11 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
             </section>
 
             {/* La Solución - Three Pillars */}
-            <section className="py-24 bg-mh-blue text-white relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-mh-gold rounded-full blur-[120px]"></div>
+            <section className="py-32 bg-mh-blue text-white relative overflow-hidden">
+                <div className="absolute inset-0 opacity-20">
+                    <img src="/hero_colaboradores.png" className="w-full h-full object-cover" />
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-mh-blue via-mh-blue/90 to-mh-blue"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-16">
                         <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">La Solución Inteligente</span>
@@ -157,8 +159,9 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
             </section>
 
             {/* Experiencia del Paciente */}
-            <section className="py-24 bg-slate-50">
-                <div className="max-w-7xl mx-auto px-6">
+            <section className="py-24 bg-white relative overflow-hidden border-y border-slate-100">
+                <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.05)_0%,transparent_60%)]"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1">
                             <div className="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
@@ -202,8 +205,9 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
             </section>
 
             {/* Program - Transformation Workshop */}
-            <section className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6">
+            <section className="py-24 bg-slate-50 relative overflow-hidden border-y border-slate-100">
+                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_30%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-16">
                         <span className="text-mh-blue font-black uppercase tracking-[0.2em] text-xs block mb-4">Agenda del Evento</span>
                         <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 italic">Ponencias Confirmadas.</h2>
