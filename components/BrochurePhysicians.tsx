@@ -9,9 +9,9 @@ interface BrochureProps {
 
 export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
     const speakers = [
-        { name: "Mafe Sabat", role: "Socio Fundador & Estratega", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "/mafe_sabat.jpg", isFounder: true },
-        { name: "Dr. Pedro Vergara", role: "Socio Fundador & Especialista", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "/pedro_vergara.png", isFounder: true },
-        { name: "Dr. Jan Frank Lio", role: "Neuroventas Médicas", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "https://randomuser.me/api/portraits/men/32.jpg", isFounder: false }
+        { name: "Mafe Sabat", role: "SOCIO FUNDADOR - FINANZAS MÉDICAS", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "/mafe_sabat.jpg", isFounder: true },
+        { name: "Dr. Pedro Vergara", role: "SOCIO FUNDADOR - MARKETING DIGITAL", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "/pedro_vergara.png", isFounder: true },
+        { name: "Dr. Jan Frank Lio", role: "ESTRATEGA EN NEUROVENTAS", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "https://randomuser.me/api/portraits/men/32.jpg", isFounder: false }
     ];
 
     return (
@@ -40,10 +40,10 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             <Sparkles size={14} /> Lanzamiento Exclusivo Medellín 2026
                         </div>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white leading-[0.95] mb-8 tracking-tight animate-fade-in-up">
-                            El Lanzamiento de tu <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-mh-gold via-yellow-200 to-white">Próximo Nivel Profesional.</span>
+                            Duplica tu Rentabilidad <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-mh-gold via-yellow-200 to-white">Sin Costos Fijos.</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-slate-400 mb-12 font-light leading-relaxed max-w-2xl animate-fade-in-up">
-                            Te invitamos al evento de apertura de <strong className="text-white">MedHause™</strong>. Descubre cómo el prestigio, la libertad y la seguridad normativa se unen para potenciar tu carrera.
+                            La promesa es simple: libertad absoluta para ejercer, prestigio de élite y el fin de la tiranía de los arriendos tradicionales. Descubre cómo transformar tu consulta en un negocio escalable.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] text-white animate-fade-in-up">
@@ -70,12 +70,12 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <span className="text-red-500 font-black uppercase tracking-[0.2em] text-xs block mb-4">El Problema</span>
+                            <span className="text-red-500 font-black uppercase tracking-[0.2em] text-xs block mb-4">La Cruda Realidad</span>
                             <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 mb-8 leading-tight">
-                                Eres un profesional de la salud, <span className="text-red-500">no un administrador de inmuebles.</span>
+                                El 90% de los especialistas <span className="text-red-500">ven estancado su crecimiento</span> por falta de estrategia.
                             </h2>
                             <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-                                La práctica médica independiente tradicional te obliga a dividir tu enfoque. En nuestro evento de apertura, descubrirás cómo la "tiranía de los costos fijos" y el "laberinto de la habilitación" dejarán de alejarte de tu verdadera vocación: <strong className="text-slate-900">sanar</strong>.
+                                No es falta de pacientes, es falta de eficiencia. En nuestro evento de apertura, te revelaremos cómo el modelo tradicional de consultorio drena tu rentabilidad y cómo el "laberinto normativo" limita tu expansión. Es hora de dejar de ser un administrador de inmuebles y volver a ser un <strong className="text-slate-900">estratega médico</strong>.
                             </p>
                         </div>
                         <div className="space-y-6">
@@ -125,34 +125,93 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-mh-blue via-mh-blue/90 to-mh-blue"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-16">
-                        <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">La Solución Inteligente</span>
-                        <h2 className="text-3xl md:text-5xl font-heading font-black mb-6">La mejor decisión para tu carrera.</h2>
+                        <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">El Salto Cuántico</span>
+                        <h2 className="text-3xl md:text-5xl font-heading font-black mb-6">La Solución Inteligente (MedHause).</h2>
                         <p className="text-xl text-slate-300 max-w-3xl mx-auto font-light">
-                            Durante el evento, conocerás el ecosistema diseñado para que accedas a un consultorio de lujo solo cuando lo necesitas, fundamentado en tres pilares innegociables:
+                            Durante el evento, te entregaremos las llaves de un modelo financiero, operativo y de marketing diseñado para que tu consulta sea, por fin, un negocio altamente rentable y no una carga operativa.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-8 text-center hover:bg-white/10 transition-all">
-                            <div className="w-16 h-16 bg-mh-gold/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {/* Pilar 1: Prestigio */}
+                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-10 hover:bg-white/10 transition-all duration-500 group">
+                            <div className="w-16 h-16 bg-mh-gold/20 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                                 <Star size={32} className="text-mh-gold" />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Prestigio</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed">Ubicación VIP en El Poblado. El ambiente de lujo se transfiere directamente a tu marca personal.</p>
+                            <h3 className="text-2xl font-bold mb-4">Prestigio</h3>
+                            <p className="text-slate-300 mb-8 leading-relaxed">Tu marca personal se eleva al nivel de las mejores clínicas de Medellín.</p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-gold shrink-0 mt-0.5" />
+                                    <span>Dirección en El Poblado — el sector más exclusivo</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-gold shrink-0 mt-0.5" />
+                                    <span>Diseño hospitalario 5 estrellas sin inversión inicial</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-gold shrink-0 mt-0.5" />
+                                    <span>Recepción profesional que potencia tu imagen</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-slate-400/60 pt-4 mt-4 border-t border-white/10">
+                                    <X size={18} className="text-red-400/80 shrink-0 mt-0.5" />
+                                    <span><strong>Tradicional:</strong> Mobiliario genérico, marcas diluidas</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-8 text-center hover:bg-white/10 transition-all">
-                            <div className="w-16 h-16 bg-mh-turquoise/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+
+                        {/* Pilar 2: Libertad */}
+                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-10 hover:bg-white/10 transition-all duration-500 group">
+                            <div className="w-16 h-16 bg-mh-turquoise/20 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                                 <Zap size={32} className="text-mh-turquoise" />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Libertad</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed">Cero costos fijos. Paga solo por las horas que utilizas. Sin contratos forzosos.</p>
+                            <h3 className="text-2xl font-bold mb-4">Libertad</h3>
+                            <p className="text-slate-300 mb-8 leading-relaxed">Cero costos fijos. Cero contratos forzosos. 100% flexibilidad.</p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-turquoise shrink-0 mt-0.5" />
+                                    <span>Paga solo por las horas de consulta real</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-turquoise shrink-0 mt-0.5" />
+                                    <span>Sin nómina de secretaria ni costos de servicios</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-mh-turquoise shrink-0 mt-0.5" />
+                                    <span>Escala tu práctica sin penalizaciones</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-slate-400/60 pt-4 mt-4 border-t border-white/10">
+                                    <X size={18} className="text-red-400/80 shrink-0 mt-0.5" />
+                                    <span><strong>Tradicional:</strong> Contratos a 2 años, costos fijos de $8M-12M</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-8 text-center hover:bg-white/10 transition-all">
-                            <div className="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+
+                        {/* Pilar 3: Seguridad */}
+                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] p-10 hover:bg-white/10 transition-all duration-500 group">
+                            <div className="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                                 <ShieldCheck size={32} className="text-green-400" />
                             </div>
-                            <h3 className="text-xl font-bold mb-3">Seguridad</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed">Consultorios que cumplen con la Resolución 3100. Asesoría y convenios para tu habilitación.</p>
+                            <h3 className="text-2xl font-bold mb-4">Seguridad</h3>
+                            <p className="text-slate-300 mb-8 leading-relaxed">Infraestructura que cumple todas las normas sin que te preocupes.</p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-green-400 shrink-0 mt-0.5" />
+                                    <span>Habilitación Secretaría de Salud incluida</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-green-400 shrink-0 mt-0.5" />
+                                    <span>Esterilización, bioseguridad y RUPS al día</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm">
+                                    <CheckCircle size={18} className="text-green-400 shrink-0 mt-0.5" />
+                                    <span>Mantenimiento y cumplimiento normativo garantizado</span>
+                                </li>
+                                <li className="flex items-start gap-3 text-sm text-slate-400/60 pt-4 mt-4 border-t border-white/10">
+                                    <X size={18} className="text-red-400/80 shrink-0 mt-0.5" />
+                                    <span><strong>Tradicional:</strong> Tú asumes toda la carga legal y técnica</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -192,12 +251,12 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             </div>
                         </div>
                         <div className="order-1 lg:order-2">
-                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">Tu Marca Personal</span>
+                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">La Percepción de Valor</span>
                             <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 mb-6 leading-tight">
-                                La experiencia de tu paciente <span className="text-mh-blue">comienza en nuestra puerta.</span>
+                                Aumenta tus tarifas <span className="text-mh-blue">sin perder pacientes.</span>
                             </h2>
                             <p className="text-lg text-slate-500 leading-relaxed">
-                                Los pacientes perciben un mayor estatus y calidad desde que llegan, fortaleciendo su confianza en ti incluso antes de la consulta.
+                                Un consultorio premium en El Poblado no es solo estética; es psicología de ventas. Te mostraremos cómo el entorno MedHause permite que tus pacientes perciban un valor 5x mayor, facilitando el cierre de tratamientos de alto costo desde el primer segundo.
                             </p>
                         </div>
                     </div>
@@ -209,8 +268,8 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_30%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-16">
-                        <span className="text-mh-blue font-black uppercase tracking-[0.2em] text-xs block mb-4">Agenda del Evento</span>
-                        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 italic">Ponencias Confirmadas.</h2>
+                        <span className="text-mh-blue font-black uppercase tracking-[0.2em] text-xs block mb-4">Tu Hoja de Ruta al Éxito</span>
+                        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 italic">Neuroventas, Marketing y Finanzas Médicas.</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
