@@ -75,18 +75,18 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                         {speakers.map((speaker, i) => (
-                            <div key={i} className="group relative flex flex-col items-center text-center p-8 rounded-[2.5rem] bg-slate-50 hover:bg-white hover:shadow-2xl transition-all duration-500">
+                            <div key={i} className="group relative p-12 rounded-[4rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center">
                                 {speaker.isFounder && (
-                                    <div className="absolute top-6 right-6 bg-mh-blue text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                                    <div className="absolute top-8 right-8 bg-mh-blue text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg z-20">
                                         Socio Fundador
                                     </div>
                                 )}
-                                <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-white shadow-lg group-hover:scale-105 transition-transform">
+                                <div className="w-48 h-48 rounded-[3rem] overflow-hidden mb-10 border-8 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
                                     <img src={speaker.img} className="w-full h-full object-cover" />
                                 </div>
-                                <h4 className="text-xl font-bold text-mh-blue mb-2">{speaker.name}</h4>
-                                <p className="text-xs font-black text-mh-gold uppercase tracking-widest mb-3">{speaker.role}</p>
-                                <p className="text-sm text-slate-500 leading-relaxed font-light">{speaker.desc}</p>
+                                <h4 className="text-2xl font-bold text-mh-blue mb-2">{speaker.name}</h4>
+                                <p className="text-sm font-black text-mh-gold uppercase tracking-[0.3em] mb-6">{speaker.role}</p>
+                                <p className="text-lg text-slate-500 leading-relaxed font-light">{speaker.desc}</p>
                             </div>
                         ))}
                     </div>
