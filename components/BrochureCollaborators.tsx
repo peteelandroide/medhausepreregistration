@@ -9,9 +9,9 @@ interface BrochureProps {
 
 export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
     const speakers = [
-        { name: "Mafe Sabat", role: "Socio Fundador & Estratega", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "/mafe_sabat.jpg", isFounder: true },
-        { name: "Dr. Pedro Vergara", role: "Socio Fundador & Especialista", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "/pedro_vergara.png", isFounder: true },
-        { name: "Dr. Jan Frank Lio", role: "Experto en Marketing y Neuroventas Médicas", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "https://randomuser.me/api/portraits/men/32.jpg", isFounder: false }
+        { name: "Dr. Jan Frank Lio", role: "INVITADO ESPECIAL - ESTRATEGA EN NEUROVENTAS", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "/jan_lio.png", isFounder: false, isSpecial: true },
+        { name: "Mafe Sabat", role: "SOCIO FUNDADOR - FINANZAS MÉDICAS", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "/mafe_sabat.jpg", isFounder: true, isSpecial: false },
+        { name: "Dr. Pedro Vergara", role: "SOCIO FUNDADOR - MARKETING DIGITAL", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "/pedro_vergara.png", isFounder: true, isSpecial: false }
     ];
 
     return (
@@ -48,7 +48,7 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] animate-fade-in-up">
                         <div className="flex flex-col items-center gap-2">
                             <Calendar className="text-mh-gold" size={24} />
-                            <span className="text-white font-bold">28 de enero, 2026</span>
+                            <span className="text-white font-bold">Miércoles 27 de enero, 2026</span>
                             <span className="text-xs text-slate-400 uppercase tracking-widest">Fecha</span>
                         </div>
                         <div className="flex flex-col items-center gap-2 border-y md:border-y-0 md:border-x border-white/10 py-4 md:py-0">
@@ -71,18 +71,26 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {speakers.map((speaker, i) => (
-                        <div key={i} className="group relative p-12 rounded-[4rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center">
+                        <div key={i} className={`group relative p-12 rounded-[4rem] border transition-all duration-500 flex flex-col items-center text-center ${speaker.isSpecial
+                            ? 'bg-gradient-to-b from-mh-blue to-slate-900 border-mh-gold/30 shadow-[0_20px_50px_-10px_rgba(212,175,55,0.2)]'
+                            : 'bg-slate-50 border-slate-100 hover:bg-white hover:shadow-2xl'
+                            }`}>
+                            {speaker.isSpecial && (
+                                <div className="absolute top-8 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-mh-gold text-mh-blue text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full shadow-xl z-30">
+                                    Invitado Especial
+                                </div>
+                            )}
                             {speaker.isFounder && (
                                 <div className="absolute top-8 right-8 bg-mh-blue text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg z-20">
                                     Socio Fundador
                                 </div>
                             )}
-                            <div className="w-48 h-48 rounded-[3rem] overflow-hidden mb-10 border-8 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
+                            <div className={`w-48 h-48 rounded-[3rem] overflow-hidden mb-10 border-8 shadow-xl group-hover:scale-105 transition-transform duration-500 ${speaker.isSpecial ? 'border-mh-gold/20' : 'border-white'}`}>
                                 <img src={speaker.img} className="w-full h-full object-cover" />
                             </div>
-                            <h4 className="text-2xl font-bold text-mh-blue mb-2">{speaker.name}</h4>
-                            <p className="text-sm font-black text-mh-gold uppercase tracking-[0.3em] mb-6">{speaker.role}</p>
-                            <p className="text-lg text-slate-500 leading-relaxed font-light">{speaker.desc}</p>
+                            <h4 className={`text-2xl font-bold mb-2 ${speaker.isSpecial ? 'text-white' : 'text-mh-blue'}`}>{speaker.name}</h4>
+                            <p className={`text-sm font-black uppercase tracking-[0.3em] mb-6 ${speaker.isSpecial ? 'text-mh-gold' : 'text-mh-gold'}`}>{speaker.role}</p>
+                            <p className={`text-lg leading-relaxed font-light ${speaker.isSpecial ? 'text-slate-300' : 'text-slate-500'}`}>{speaker.desc}</p>
                         </div>
                     ))}
                 </div>
