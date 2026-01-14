@@ -9,8 +9,8 @@ interface BrochureProps {
 
 export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
     const speakers = [
-        { name: "Mafe Sabat", role: "Socio Fundador & Estratega", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "https://randomuser.me/api/portraits/women/44.jpg", isFounder: true },
-        { name: "Dr. Pedro Vergara", role: "Socio Fundador & Especialista", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "https://randomuser.me/api/portraits/men/45.jpg", isFounder: true },
+        { name: "Mafe Sabat", role: "Socio Fundador & Estratega", desc: "Cómo transformar un consultorio en un activo rentable eliminando la tiranía de los costos fijos.", img: "/mafe_sabat.jpg", isFounder: true },
+        { name: "Dr. Pedro Vergara", role: "Socio Fundador & Especialista", desc: "El 'Efecto Halo' y cómo la automatización digital escala tu marca personal al siguiente nivel.", img: "/pedro_vergara.png", isFounder: true },
         { name: "Dr. Jan Frank Lio", role: "Neuroventas Médicas", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "https://randomuser.me/api/portraits/men/32.jpg", isFounder: false }
     ];
 
