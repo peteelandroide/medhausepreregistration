@@ -10,7 +10,7 @@ interface BrochureProps {
 // Reusable WhatsApp Button Component with custom text
 const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Unirme al Grupo de Lanzamiento', light }) => (
     <button
-        onClick={() => window.open('https://chat.whatsapp.com/your-group-link', '_blank')}
+        onClick={() => window.open('https://chat.whatsapp.com/E8VD7ivqgqXEjijFpNZL44', '_blank')}
         className={`group mt-8 px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 duration-300 flex items-center justify-center gap-3 ${light
             ? 'bg-white text-mh-blue hover:bg-mh-gold hover:text-mh-blue'
             : 'bg-slate-950 text-white hover:bg-mh-blue'
