@@ -197,7 +197,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             <div className="space-y-8">
                                 {[
                                     { title: "Experiencia Completa", icon: <Wine />, desc: "Recepción exclusiva y networking élite con líderes del sector." },
-                                    { title: "Tarifas de Lanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $50,000 COP solo para asistentes." },
+                                    { title: "Tarifas de Lanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $75,000 COP solo para asistentes." },
                                     { title: "Prioridad Membresía", icon: <Trophy />, desc: "Primeros en la fila para las Membresías Premium con parking privado." },
                                     { title: "Apoyo en Habilitación", icon: <ShieldCheck />, desc: "Asesoría inicial para el trámite ante la Secretaría de Salud." }
                                 ].map((item, i) => (

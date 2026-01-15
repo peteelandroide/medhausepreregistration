@@ -18,9 +18,7 @@ const IMAGES = {
 };
 
 const SPACE_TYPES = [
-  { id: 'BASIC', name: 'Basic', basePrice: 50000, desc: 'Para consulta general, psicología y nutrición.', icon: <Coffee size={20} />, img: IMAGES.basic },
-  { id: 'MEDIUM', name: 'Medium', basePrice: 75000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <ShieldCheck size={20} />, img: IMAGES.medium },
-  { id: 'PREMIUM', name: 'Premium', basePrice: 100000, desc: 'Diseño de alto nivel con experiencia hospitality 5 estrellas.', icon: <Star size={20} />, img: IMAGES.premium }
+  { id: 'PREMIUM', name: 'Premium', basePrice: 75000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <Star size={20} />, img: IMAGES.medium }
 ];
 
 // --------------------------------------------------------------------------
@@ -28,7 +26,7 @@ const SPACE_TYPES = [
 // --------------------------------------------------------------------------
 const BookingView = ({ onClose }: { onClose: () => void }) => {
   const [isPremium, setIsPremium] = useState(false);
-  const [selectedSpace, setSelectedSpace] = useState(SPACE_TYPES[1]);
+  const [selectedSpace, setSelectedSpace] = useState(SPACE_TYPES[0]);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Rango de reserva
@@ -148,45 +146,47 @@ const BookingView = ({ onClose }: { onClose: () => void }) => {
         {/* Panel Principal (Scroll) */}
         <div className="lg:col-span-8 p-6 md:p-10 overflow-y-auto custom-scrollbar bg-[#F8FAFC]">
 
-          {/* 1. Selector de Espacio - Tarjetas Grandes */}
-          <section className="mb-12">
-            <h2 className="text-lg font-heading font-bold text-slate-800 mb-6 flex items-center gap-3">
-              <span className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px] font-black">01</span>
-              Selecciona tu Espacio
-            </h2>
-            <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar px-2 snap-x">
-              {SPACE_TYPES.map(space => (
-                <button
-                  key={space.id}
-                  onClick={() => { setSelectedSpace(space); setStartHour(null); setEndHour(null); }}
-                  className={`flex-shrink-0 w-80 group relative flex flex-col rounded-[2rem] overflow-hidden transition-all duration-500 snap-center text-left ${selectedSpace.id === space.id ? 'ring-4 ring-mh-blue/10 shadow-2xl scale-[1.01]' : 'shadow-lg hover:shadow-xl opacity-80 hover:opacity-100 scale-100'}`}
-                >
-                  <div className="h-40 relative overflow-hidden">
-                    <img src={space.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                    <div className="absolute bottom-4 left-5 right-5 flex justify-between items-end text-white">
-                      <div>
-                        <div className="bg-white/20 backdrop-blur-md w-fit p-2 rounded-xl mb-2 text-white">{space.icon}</div>
-                        <span className="font-heading font-bold text-lg leading-none">{space.name}</span>
-                      </div>
-                      <div className="text-right">
-                        <span className="block text-xl font-bold text-mh-gold">{formatPrice(space.basePrice)}</span>
-                        <span className="text-[10px] opacity-70 uppercase tracking-widest">/ Hora</span>
+          {/* 1. Selector de Espacio - Hid if only one */}
+          {SPACE_TYPES.length > 1 && (
+            <section className="mb-12">
+              <h2 className="text-lg font-heading font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px] font-black">01</span>
+                Selecciona tu Espacio
+              </h2>
+              <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar px-2 snap-x">
+                {SPACE_TYPES.map(space => (
+                  <button
+                    key={space.id}
+                    onClick={() => { setSelectedSpace(space); setStartHour(null); setEndHour(null); }}
+                    className={`flex-shrink-0 w-80 group relative flex flex-col rounded-[2rem] overflow-hidden transition-all duration-500 snap-center text-left ${selectedSpace.id === space.id ? 'ring-4 ring-mh-blue/10 shadow-2xl scale-[1.01]' : 'shadow-lg hover:shadow-xl opacity-80 hover:opacity-100 scale-100'}`}
+                  >
+                    <div className="h-40 relative overflow-hidden">
+                      <img src={space.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+                      <div className="absolute bottom-4 left-5 right-5 flex justify-between items-end text-white">
+                        <div>
+                          <div className="bg-white/20 backdrop-blur-md w-fit p-2 rounded-xl mb-2 text-white">{space.icon}</div>
+                          <span className="font-heading font-bold text-lg leading-none">{space.name}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className="block text-xl font-bold text-mh-gold">{formatPrice(space.basePrice)}</span>
+                          <span className="text-[10px] opacity-70 uppercase tracking-widest">/ Hora</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={`p-6 flex-grow transition-colors duration-300 ${selectedSpace.id === space.id ? 'bg-white' : 'bg-slate-50'}`}>
-                    <p className="text-xs text-slate-500 leading-relaxed font-medium">{space.desc}</p>
-                  </div>
-                  {selectedSpace.id === space.id && (
-                    <div className="absolute top-4 right-4 bg-white text-mh-blue p-1.5 rounded-full shadow-lg animate-fade-in">
-                      <CheckCircle size={18} className="fill-mh-blue text-white" />
+                    <div className={`p-6 flex-grow transition-colors duration-300 ${selectedSpace.id === space.id ? 'bg-white' : 'bg-slate-50'}`}>
+                      <p className="text-xs text-slate-500 leading-relaxed font-medium">{space.desc}</p>
                     </div>
-                  )}
-                </button>
-              ))}
-            </div>
-          </section>
+                    {selectedSpace.id === space.id && (
+                      <div className="absolute top-4 right-4 bg-white text-mh-blue p-1.5 rounded-full shadow-lg animate-fade-in">
+                        <CheckCircle size={18} className="fill-mh-blue text-white" />
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* 2. Calendario y Horas */}
           <section className="mb-24">
@@ -387,7 +387,7 @@ export default function App() {
   const [showBooking, setShowBooking] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [budget, setBudget] = useState(50000);
+  const [budget, setBudget] = useState(75000);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -667,9 +667,9 @@ export default function App() {
             <button onClick={() => setShowBooking(true)} className="text-mh-blue font-bold text-sm uppercase tracking-widest border-b-2 border-mh-blue pb-1 hover:text-mh-gold hover:border-mh-gold transition-colors">Ver disponibilidad real</button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex justify-center">
             {SPACE_TYPES.map((space) => (
-              <div key={space.id} className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2">
+              <div key={space.id} className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2 max-w-sm w-full mx-auto">
                 <div className="h-80 overflow-hidden relative">
                   <img src={space.img} alt={space.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
