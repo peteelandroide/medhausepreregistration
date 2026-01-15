@@ -58,6 +58,33 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                         <p className="text-xl md:text-2xl text-slate-400 mb-12 font-light leading-relaxed max-w-2xl animate-fade-in-up">
                             Asiste al lanzamiento de MedHause y aprende cómo lograr un consultorio rentable desde el momento 1, cupos limitados.
                         </p>
+
+                        {/* Event Quick Details Bar */}
+                        <div className="inline-flex flex-wrap items-center gap-y-4 gap-x-8 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-[2rem] animate-fade-in-up delay-300">
+                            <div className="flex items-center gap-3">
+                                <Calendar className="text-mh-gold" size={20} />
+                                <div className="text-left">
+                                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Fecha</p>
+                                    <p className="text-sm font-bold text-white">28 de Enero, 2026</p>
+                                </div>
+                            </div>
+                            <div className="hidden md:block w-px h-8 bg-white/10"></div>
+                            <div className="flex items-center gap-3">
+                                <Clock className="text-mh-gold" size={20} />
+                                <div className="text-left">
+                                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Hora</p>
+                                    <p className="text-sm font-bold text-white">6:00 PM – 8:30 PM</p>
+                                </div>
+                            </div>
+                            <div className="hidden md:block w-px h-8 bg-white/10"></div>
+                            <div className="flex items-center gap-3">
+                                <Users className="text-mh-gold" size={20} />
+                                <div className="text-left">
+                                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Cupos</p>
+                                    <p className="text-sm font-bold text-white">Solo 60 Cupos</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -379,7 +406,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             <div className="flex flex-col gap-6 mb-12">
                                 <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 w-fit mx-auto lg:mx-0">
                                     <Calendar className="text-mh-gold" size={24} />
-                                    <span className="text-lg font-bold text-slate-900">Miércoles 27 de Enero, 2026</span>
+                                    <span className="text-lg font-bold text-slate-900">Miércoles 28 de Enero, 2026</span>
                                 </div>
                                 <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 w-fit mx-auto lg:mx-0">
                                     <Clock className="text-mh-gold" size={24} />

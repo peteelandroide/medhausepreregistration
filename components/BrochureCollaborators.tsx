@@ -48,7 +48,7 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] animate-fade-in-up">
                         <div className="flex flex-col items-center gap-2">
                             <Calendar className="text-mh-gold" size={24} />
-                            <span className="text-white font-bold">Miércoles 27 de enero, 2026</span>
+                            <span className="text-white font-bold">Miércoles 28 de enero, 2026</span>
                             <span className="text-xs text-slate-400 uppercase tracking-widest">Fecha</span>
                         </div>
                         <div className="flex flex-col items-center gap-2 border-y md:border-y-0 md:border-x border-white/10 py-4 md:py-0">
