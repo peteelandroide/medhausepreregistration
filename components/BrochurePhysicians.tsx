@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, MapPin, Star, CheckCircle, ChevronRight, Zap, ArrowLeft, Trophy, Sparkles, Coffee, Wine, Car, ShieldCheck, Users, X } from 'lucide-react';
+import { Calendar, Clock, MapPin, Star, CheckCircle, ChevronRight, Zap, ArrowLeft, Trophy, Sparkles, Wine, ShieldCheck, Users, X } from 'lucide-react';
 import { Logo } from './Logo';
 import { LocationCard } from './LocationCard';
 
@@ -7,8 +7,8 @@ interface BrochureProps {
     onBack: () => void;
 }
 
-// Reusable WhatsApp Button Component
-const WhatsAppButton: React.FC<{ light?: boolean }> = ({ light }) => (
+// Reusable WhatsApp Button Component with custom text
+const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Unirme al Grupo de Lanzamiento', light }) => (
     <button
         onClick={() => window.open('https://chat.whatsapp.com/your-group-link', '_blank')}
         className={`group mt-8 px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 duration-300 flex items-center justify-center gap-3 ${light
@@ -16,7 +16,7 @@ const WhatsAppButton: React.FC<{ light?: boolean }> = ({ light }) => (
             : 'bg-slate-950 text-white hover:bg-mh-blue'
             }`}
     >
-        Unirme al Grupo de Lanzamiento <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+        {text} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
     </button>
 );
 
@@ -62,51 +62,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 </div>
             </header>
 
-            {/* 2. Location & Event Details (Asistir) */}
-            <section className="py-24 bg-slate-100 relative border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">Confirmar Asistencia</span>
-                            <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 mb-8 leading-tight">
-                                El Lanzamiento de tu <br /><span className="text-mh-blue italic text-4xl md:text-5xl">Próximo Nivel.</span>
-                            </h2>
-
-                            <div className="space-y-6 mb-10">
-                                <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                                    <Calendar className="text-mh-gold" size={24} />
-                                    <div>
-                                        <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Fecha del Evento</p>
-                                        <p className="text-lg font-bold text-slate-900">Miércoles 27 de Enero, 2026</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                                    <Clock className="text-mh-gold" size={24} />
-                                    <div>
-                                        <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Hora</p>
-                                        <p className="text-lg font-bold text-slate-900">6:00 PM – 8:30 PM</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                                    <Users className="text-mh-gold" size={24} />
-                                    <div>
-                                        <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Disponibilidad</p>
-                                        <p className="text-lg font-bold text-slate-900 text-red-600">Cupos Limitados (Solo 60 asistentes)</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <p className="text-slate-500 leading-relaxed mb-8">
-                                En el corazón de El Poblado, el sector más exclusivo de Medellín, <strong className="text-slate-900 italic">Cross Medical Center by MedHause</strong> abre sus puertas. Sé uno de los pocos especialistas que asegurarán su futuro en este ecosistema premium.
-                            </p>
-                            <WhatsAppButton />
-                        </div>
-                        <LocationCard variant="light" />
-                    </div>
-                </div>
-            </section>
-
-            {/* 3. El Problema */}
+            {/* 2. La Cruda Realidad */}
             <section className="py-24 bg-slate-50 relative overflow-hidden text-slate-900 border-b border-slate-100">
                 <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -119,7 +75,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             <p className="text-lg text-slate-500 mb-8 leading-relaxed">
                                 No es falta de pacientes, es falta de eficiencia. En nuestro evento de apertura, te revelaremos cómo el modelo tradicional de consultorio drena tu rentabilidad. Es hora de dejar de ser un administrador de inmuebles y volver a ser un <strong className="text-slate-900">estratega médico</strong>.
                             </p>
-                            <WhatsAppButton />
+                            <WhatsAppButton text="Quiero una consulta rentable" />
                         </div>
                         <div className="space-y-6">
                             <div className="bg-red-50 border border-red-100 rounded-2xl p-6">
@@ -160,7 +116,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 </div>
             </section>
 
-            {/* 4. Aprende de los Expertos (Program) */}
+            {/* 3. Aprende de los Expertos (Program) */}
             <section className="py-24 bg-white relative overflow-hidden border-b border-slate-100">
                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_30%,rgba(212,175,55,0.03)_0%,transparent_70%)]"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -195,12 +151,109 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                         ))}
                     </div>
                     <div className="mt-16 flex justify-center">
-                        <WhatsAppButton />
+                        <WhatsAppButton text="Reservar mi cupo con los expertos" />
                     </div>
                 </div>
             </section>
 
-            {/* 5. La Solución (MedHause Matrix) */}
+            {/* 4. Privilegios de Asistente VIP (VIP Benefits) */}
+            <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
+                <div className="absolute bottom-0 right-0 w-full h-full opacity-10 pointer-events-none">
+                    <img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/premium.jpg" className="w-full h-full object-cover" />
+                </div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                        <div>
+                            <h2 className="text-4xl md:text-5xl font-heading font-black mb-10 leading-tight">
+                                Privilegios de <br /><span className="text-mh-gold">Asistente VIP.</span>
+                            </h2>
+                            <div className="space-y-8">
+                                {[
+                                    { title: "Experiencia Completa", icon: <Wine />, desc: "Recepción exclusiva y networking élite con líderes del sector." },
+                                    { title: "Tarifas de Lanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $50,000 COP solo para asistentes." },
+                                    { title: "Prioridad Membresía", icon: <Trophy />, desc: "Primeros en la fila para las Membresías Premium con parking privado." },
+                                    { title: "Apoyo en Habilitación", icon: <ShieldCheck />, desc: "Asesoría inicial para el trámite ante la Secretaría de Salud." }
+                                ].map((item, i) => (
+                                    <div key={i} className="flex gap-6 items-start group">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-mh-gold group-hover:bg-mh-gold group-hover:text-mh-blue transition-all duration-300">
+                                            {item.icon}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-lg mb-1 group-hover:text-mh-gold transition-colors">{item.title}</h4>
+                                            <p className="text-sm text-slate-400 font-light">{item.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                                <WhatsAppButton text="Obtener mis beneficios VIP" light />
+                            </div>
+                        </div>
+                        <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 relative self-start">
+                            <div className="mb-8">
+                                <span className="text-mh-gold font-bold uppercase tracking-widest text-[10px] mb-2 block">Tour Guiado</span>
+                                <h3 className="text-3xl font-bold text-white mb-4">Ready-to-Operate</h3>
+                                <p className="text-slate-400 text-sm font-light">Conoce de cerca los consultorios habilitados bajo la Resolución 3100 de 2019.</p>
+                            </div>
+                            <div className="grid grid-cols-3 gap-3 mb-10">
+                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/basic.jpg" className="w-full h-full object-cover" /></div>
+                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/medium.jpg" className="w-full h-full object-cover" /></div>
+                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/premium.jpg" className="w-full h-full object-cover" /></div>
+                            </div>
+                            <div className="text-[10px] font-black uppercase tracking-[0.3em] text-mh-gold bg-mh-gold/10 px-4 py-2 rounded-full w-fit">
+                                Habilitados & Listos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. ¿Qué percibe tu paciente? (Percepción de Valor) */}
+            <section className="py-24 bg-white relative overflow-hidden border-y border-slate-100">
+                <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.05)_0%,transparent_60%)]"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div className="order-2 lg:order-1">
+                            <div className="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
+                                <h3 className="text-2xl font-bold text-mh-blue mb-6">¿Qué percibe tu paciente?</h3>
+                                <div className="space-y-6">
+                                    <div className="flex gap-4">
+                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 mb-1">Estatus por Asociación</h4>
+                                            <p className="text-sm text-slate-500">Apalanca el prestigio de una ubicación VIP en El Poblado.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 mb-1">Experiencia VIP</h4>
+                                            <p className="text-sm text-slate-500">Recepción profesional con hospitalidad premium.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 mb-1">Confianza y Posicionamiento</h4>
+                                            <p className="text-sm text-slate-500">Un entorno que justifica tarifas premium.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="order-1 lg:order-2">
+                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">La Percepción de Valor</span>
+                            <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 mb-6 leading-tight">
+                                Aumenta tus tarifas <span className="text-mh-blue">sin perder pacientes.</span>
+                            </h2>
+                            <p className="text-lg text-slate-500 leading-relaxed">
+                                Te mostraremos cómo el entorno MedHause permite que tus pacientes perciban un valor 5x mayor, facilitando el cierre de tratamientos de alto costo.
+                            </p>
+                            <WhatsAppButton text="Aumentar mi propuesta de valor" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. El Salto Cuántico (MedHause Matrix) */}
             <section className="py-32 bg-mh-blue text-white relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
                     <img src="/hero_colaboradores.png" className="w-full h-full object-cover" />
@@ -286,109 +339,12 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                         </div>
                     </div>
                     <div className="mt-16 flex justify-center">
-                        <WhatsAppButton light />
+                        <WhatsAppButton text="Descubrir el modelo MedHause" light />
                     </div>
                 </div>
             </section>
 
-            {/* 6. VIP Benefits (Privilegios) */}
-            <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
-                <div className="absolute bottom-0 right-0 w-full h-full opacity-10 pointer-events-none">
-                    <img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/premium.jpg" className="w-full h-full object-cover" />
-                </div>
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-heading font-black mb-10 leading-tight">
-                                Privilegios de <br /><span className="text-mh-gold">Asistente VIP.</span>
-                            </h2>
-                            <div className="space-y-8">
-                                {[
-                                    { title: "Experiencia Completa", icon: <Wine />, desc: "Recepción exclusiva y networking élite con líderes del sector." },
-                                    { title: "Tarifas de Lanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $50,000 COP solo para asistentes." },
-                                    { title: "Prioridad Membresía", icon: <Trophy />, desc: "Primeros en la fila para las Membresías Premium con parking privado." },
-                                    { title: "Apoyo en Habilitación", icon: <ShieldCheck />, desc: "Asesoría inicial para el trámite ante la Secretaría de Salud." }
-                                ].map((item, i) => (
-                                    <div key={i} className="flex gap-6 items-start group">
-                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-mh-gold group-hover:bg-mh-gold group-hover:text-mh-blue transition-all duration-300">
-                                            {item.icon}
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-lg mb-1 group-hover:text-mh-gold transition-colors">{item.title}</h4>
-                                            <p className="text-sm text-slate-400 font-light">{item.desc}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                                <WhatsAppButton light />
-                            </div>
-                        </div>
-                        <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 relative self-start">
-                            <div className="mb-8">
-                                <span className="text-mh-gold font-bold uppercase tracking-widest text-[10px] mb-2 block">Tour Guiado</span>
-                                <h3 className="text-3xl font-bold text-white mb-4">Ready-to-Operate</h3>
-                                <p className="text-slate-400 text-sm font-light">Conoce de cerca los consultorios habilitados bajo la Resolución 3100 de 2019.</p>
-                            </div>
-                            <div className="grid grid-cols-3 gap-3 mb-10">
-                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/basic.jpg" className="w-full h-full object-cover" /></div>
-                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/medium.jpg" className="w-full h-full object-cover" /></div>
-                                <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/premium.jpg" className="w-full h-full object-cover" /></div>
-                            </div>
-                            <div className="text-[10px] font-black uppercase tracking-[0.3em] text-mh-gold bg-mh-gold/10 px-4 py-2 rounded-full w-fit">
-                                Habilitados & Listos
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 7. Experiencia del Paciente (Percepción de Valor) */}
-            <section className="py-24 bg-white relative overflow-hidden border-y border-slate-100">
-                <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(212,175,55,0.05)_0%,transparent_60%)]"></div>
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 lg:order-1">
-                            <div className="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
-                                <h3 className="text-2xl font-bold text-mh-blue mb-6">¿Qué percibe tu paciente?</h3>
-                                <div className="space-y-6">
-                                    <div className="flex gap-4">
-                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 mb-1">Estatus por Asociación</h4>
-                                            <p className="text-sm text-slate-500">Apalanca el prestigio de una ubicación VIP en El Poblado.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4">
-                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 mb-1">Experiencia VIP</h4>
-                                            <p className="text-sm text-slate-500">Recepción profesional con hospitalidad premium.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4">
-                                        <CheckCircle size={24} className="text-mh-gold shrink-0" />
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 mb-1">Confianza y Posicionamiento</h4>
-                                            <p className="text-sm text-slate-500">Un entorno que justifica tarifas premium.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="order-1 lg:order-2">
-                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">La Percepción de Valor</span>
-                            <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 mb-6 leading-tight">
-                                Aumenta tus tarifas <span className="text-mh-blue">sin perder pacientes.</span>
-                            </h2>
-                            <p className="text-lg text-slate-500 leading-relaxed">
-                                Te mostraremos cómo el entorno MedHause permite que tus pacientes perciban un valor 5x mayor, facilitando el cierre de tratamientos de alto costo.
-                            </p>
-                            <WhatsAppButton />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 8. Networking */}
+            {/* 7. Networking de Alto Nivel */}
             <section className="py-24 bg-slate-50 overflow-hidden relative border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col md:flex-row items-center gap-12">
@@ -399,7 +355,7 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             <p className="text-lg text-slate-500 mb-8 leading-relaxed">
                                 Conecta con los líderes de la industria médica en un ambiente diseñado para generar alianzas estratégicas.
                             </p>
-                            <WhatsAppButton />
+                            <WhatsAppButton text="Conectar con líderes médicos" />
                         </div>
                         <div className="w-full md:w-1/2 rounded-[2.5rem] overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
                             <img src="/ASISTENTES.png" className="w-full object-cover" />
@@ -408,26 +364,42 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 </div>
             </section>
 
-            {/* 9. Final CTA */}
-            <section className="py-32 bg-white relative">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl md:text-6xl font-heading font-black text-slate-900 mb-8 leading-tight">
-                        Todo empieza con <br /><span className="text-mh-blue italic">asistir.</span>
-                    </h2>
-                    <p className="text-xl text-slate-500 mb-12 font-light max-w-2xl mx-auto">
-                        MedHause es la mejor decisión para tu futuro profesional. <strong className="text-slate-900">Cupos estrictamente limitados (60 asistentes).</strong>
-                    </p>
+            {/* 8. Final CTA + Location (Combined) */}
+            <section className="py-32 bg-slate-100 relative border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div className="text-center lg:text-left">
+                            <h2 className="text-4xl md:text-6xl font-heading font-black text-slate-900 mb-8 leading-tight">
+                                Todo empieza con <br /><span className="text-mh-blue italic">asistir.</span>
+                            </h2>
+                            <p className="text-xl text-slate-500 mb-12 font-light max-w-2xl mx-auto lg:mx-0">
+                                MedHause es la mejor decisión para tu futuro profesional. <strong className="text-slate-900">Cupos estrictamente limitados (60 asistentes).</strong>
+                            </p>
 
-                    <button
-                        onClick={() => window.open('https://chat.whatsapp.com/your-group-link', '_blank')}
-                        className="group bg-slate-950 text-white px-12 py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-mh-blue transition-all shadow-2xl hover:scale-105 duration-300 flex items-center justify-center gap-4 mx-auto"
-                    >
-                        Reserva tu entrada VIP <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                            <div className="flex flex-col gap-6 mb-12">
+                                <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 w-fit mx-auto lg:mx-0">
+                                    <Calendar className="text-mh-gold" size={24} />
+                                    <span className="text-lg font-bold text-slate-900">Miércoles 27 de Enero, 2026</span>
+                                </div>
+                                <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 w-fit mx-auto lg:mx-0">
+                                    <Clock className="text-mh-gold" size={24} />
+                                    <span className="text-lg font-bold text-slate-900">6:00 PM – 8:30 PM</span>
+                                </div>
+                            </div>
 
-                    <p className="mt-20 text-[10px] text-slate-400 font-black uppercase tracking-widest letter-spacing-[0.5em]">
-                        EL ÉXITO DE TU CONSULTA EN 2026 COMIENZA EN CROSS MEDICAL CENTER BY MEDHAUSE
-                    </p>
+                            <WhatsAppButton text="Reserva tu entrada VIP ahora" />
+
+                            <p className="mt-20 text-[10px] text-slate-400 font-black uppercase tracking-widest letter-spacing-[0.5em]">
+                                EL ÉXITO DE TU CONSULTA EN 2026 COMIENZA EN CROSS MEDICAL CENTER BY MEDHAUSE
+                            </p>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute -inset-4 bg-mh-gold/20 rounded-[3rem] blur-2xl z-0"></div>
+                            <div className="relative z-10">
+                                <LocationCard variant="light" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
