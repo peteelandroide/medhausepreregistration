@@ -18,7 +18,12 @@ const IMAGES = {
 };
 
 const SPACE_TYPES = [
-  { id: 'PREMIUM', name: 'Premium', basePrice: 75000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <Star size={20} />, img: IMAGES.medium }
+  { id: 'PREMIUM', name: 'Premium', basePrice: 100000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <Star size={20} />, img: IMAGES.medium }
+];
+
+const FUTURE_SPACES = [
+  { name: 'Basic', desc: 'Para consulta general y nutrición.', img: IMAGES.basic },
+  { name: 'Standard', desc: 'Equilibrio perfecto entre funcionalidad y diseño.', img: IMAGES.premium }
 ];
 
 // --------------------------------------------------------------------------
@@ -387,7 +392,7 @@ export default function App() {
   const [showBooking, setShowBooking] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [budget, setBudget] = useState(75000);
+  const [budget, setBudget] = useState(100000);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -667,13 +672,13 @@ export default function App() {
             <button onClick={() => setShowBooking(true)} className="text-mh-blue font-bold text-sm uppercase tracking-widest border-b-2 border-mh-blue pb-1 hover:text-mh-gold hover:border-mh-gold transition-colors">Ver disponibilidad real</button>
           </div>
 
-          <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {SPACE_TYPES.map((space) => (
-              <div key={space.id} className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2 max-w-sm w-full mx-auto">
+              <div key={space.id} className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2">
                 <div className="h-80 overflow-hidden relative">
                   <img src={space.img} alt={space.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
-                  <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-xs font-bold text-white uppercase tracking-wider">{space.name}</div>
+                  <div className="absolute top-6 left-6 bg-mh-gold text-mh-blue px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg">Disponible Ahora</div>
                   <div className="absolute bottom-6 left-6 text-white">
                     <div className="text-mh-gold mb-2">{space.icon}</div>
                     <h3 className="text-3xl font-heading font-bold">{space.name}</h3>
@@ -685,6 +690,24 @@ export default function App() {
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Desde</span>
                     <span className="text-xl font-bold text-mh-blue">{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(space.basePrice)}</span>
                   </div>
+                </div>
+              </div>
+            ))}
+
+            {FUTURE_SPACES.map((space, idx) => (
+              <div key={idx} className="group relative rounded-[2.5rem] overflow-hidden bg-slate-50 border border-slate-100 opacity-60 grayscale transition-all duration-500">
+                <div className="h-80 overflow-hidden relative">
+                  <img src={space.img} alt={space.name} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-slate-900/40"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-white/20 backdrop-blur-md border border-white/30 px-6 py-3 rounded-full text-xs font-bold text-white uppercase tracking-[0.2em]">Próximamente</div>
+                  </div>
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h3 className="text-2xl font-heading font-bold">{space.name}</h3>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <p className="text-slate-400 text-xs leading-relaxed">{space.desc}</p>
                 </div>
               </div>
             ))}
