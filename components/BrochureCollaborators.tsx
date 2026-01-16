@@ -7,6 +7,18 @@ interface BrochureProps {
     onBack: () => void;
 }
 
+const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Conversar con Mafe Sabat', light }) => (
+    <button
+        onClick={() => window.open('https://wa.me/573053412292', '_blank')}
+        className={`group mt-8 px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 duration-300 flex items-center justify-center gap-3 ${light
+            ? 'bg-white text-mh-blue hover:bg-mh-gold hover:text-mh-blue'
+            : 'bg-slate-950 text-white hover:bg-mh-blue'
+            }`}
+    >
+        {text} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+    </button>
+);
+
 export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
     const speakers = [
         { name: "Dr. Jan Frank Lio", role: "INVITADO ESPECIAL - ESTRATEGA EN NEUROVENTAS", desc: "Hackea la psicología del paciente para potenciar tu prestigio y cerrar valoraciones premium.", img: "/jan_lio.png", isFounder: false, isSpecial: true },
@@ -28,21 +40,21 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
             </nav>
 
             {/* Hero Section */}
-            <header className="relative pt-32 pb-20 bg-mh-blue overflow-hidden min-h-[80vh] flex items-center">
-                <div className="absolute inset-0 z-0 opacity-30 overflow-hidden">
-                    <img src="/hero_colaboradores.png" className="w-full h-full object-cover scale-110" />
+            <header className="relative pt-32 pb-20 bg-slate-950 overflow-hidden min-h-[85vh] flex items-center">
+                <div className="absolute inset-0 z-0 opacity-40">
+                    <img src="/hero_colaboradores.png" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-mh-blue/90 via-mh-blue to-white z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-10"></div>
 
                 <div className="max-w-7xl mx-auto px-6 relative z-20 text-center">
                     <div className="inline-flex items-center gap-2 bg-mh-gold/10 border border-mh-gold/20 text-mh-gold px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 animate-fade-in">
-                        Evento Exclusivo Aliados
+                        Alianza Estratégica
                     </div>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black text-white leading-tight mb-8 tracking-tight animate-fade-in-up">
-                        Una Experiencia de <br /><span className="text-mh-gold">Transformación Médica.</span>
+                        Construyamos Juntos el <br /><span className="text-mh-gold">Nuevo Estándar Médico.</span>
                     </h1>
                     <p className="text-lg md:text-xl text-slate-300 mb-12 font-light leading-relaxed max-w-3xl mx-auto animate-fade-in-up">
-                        MedHause presenta un evento diseñado para empoderar a más de 60 especialistas en su transición hacia la práctica independiente.
+                        Buscamos aliados visionarios para co-crear la experiencia de lanzamiento de MedHause. No buscamos patrocinadores, buscamos socios del ecosistema.
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] animate-fade-in-up">
@@ -57,9 +69,9 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                             <span className="text-xs text-slate-400 uppercase tracking-widest">Hora</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <MapPin className="text-mh-gold" size={24} />
-                            <span className="text-white font-bold text-center">Cross Business Center, Medellín</span>
-                            <span className="text-xs text-slate-400 uppercase tracking-widest">Lugar</span>
+                            <Users className="text-mh-gold" size={24} />
+                            <span className="text-white font-bold text-center">Solo 60 Especialistas</span>
+                            <span className="text-xs text-slate-400 uppercase tracking-widest">Audiencia</span>
                         </div>
                     </div>
                 </div>
@@ -110,9 +122,9 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         <div>
-                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">Valor Estratégico</span>
+                            <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs block mb-4">Valor del Ecosistema</span>
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-8 leading-tight">
-                                No es un stand, es <br /><span className="text-mh-blue">posicionamiento élite.</span>
+                                Más que visibilidad, <br /><span className="text-mh-blue">Sinergia Estratégica.</span>
                             </h2>
                             <div className="space-y-6">
                                 {[
@@ -160,8 +172,8 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
             < section className="py-24 bg-white" >
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-4">Opciones de Colaboración</h2>
-                        <p className="text-slate-500 max-w-2xl mx-auto font-light">Estructuras diseñadas para maximizar el retorno de su inversión y visibilidad.</p>
+                        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-4">Modalidades de Alianza</h2>
+                        <p className="text-slate-500 max-w-2xl mx-auto font-light">Buscamos partners que aporten valor real a la experiencia del médico.</p>
                     </div>
 
                     {/* Featured Image */}
@@ -252,7 +264,7 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                                         onClick={() => window.open('https://wa.me/573053412292', '_blank')}
                                         className="bg-white text-mh-blue px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-mh-gold hover:scale-105 transition-all shadow-xl flex items-center justify-center gap-3 w-full md:w-fit"
                                     >
-                                        <Phone size={18} /> Reservar mi Espacio
+                                        <Phone size={18} /> Conversar con Mafe
                                     </button>
                                 </div>
                             </div>
