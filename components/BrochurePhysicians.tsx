@@ -8,7 +8,7 @@ interface BrochureProps {
 }
 
 // Reusable WhatsApp Button Component with custom text
-const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Unirme al Grupo de Lanzamiento', light }) => (
+const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Recibir Link de Acceso (Vía WhatsApp)', light }) => (
     <button
         onClick={() => window.open('https://chat.whatsapp.com/E8VD7ivqgqXEjijFpNZL44', '_blank')}
         className={`group mt-8 px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 duration-300 flex items-center justify-center gap-3 ${light
@@ -50,13 +50,13 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 <div className="max-w-7xl mx-auto px-6 relative z-20">
                     <div className="max-w-4xl">
                         <div className="inline-flex items-center gap-3 bg-mh-gold/10 border border-mh-gold/20 text-mh-gold px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-10 shadow-lg animate-fade-in">
-                            <Sparkles size={14} /> Lanzamiento Exclusivo Medellín 2026
+                            <Sparkles size={14} /> Masterclass Virtual Exclusiva
                         </div>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white leading-[0.95] mb-8 tracking-tight animate-fade-in-up">
                             Médico, duplica tu rentabilidad <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-mh-gold via-yellow-200 to-white">Sin Costos Fijos.</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-slate-400 mb-12 font-light leading-relaxed max-w-2xl animate-fade-in-up">
-                            Asiste al lanzamiento de MedHause y aprende cómo lograr un consultorio rentable desde el momento 1, cupos limitados.
+                            Únete a nuestra Masterclass Virtual y aprende cómo lograr un consultorio rentable desde el momento 1. El link de acceso se enviará exclusivamente por WhatsApp.
                         </p>
 
                         {/* Event Quick Details Bar */}
@@ -78,10 +78,10 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             </div>
                             <div className="hidden md:block w-px h-8 bg-white/10"></div>
                             <div className="flex items-center gap-3">
-                                <Users className="text-mh-gold" size={20} />
+                                <Zap className="text-mh-gold" size={20} />
                                 <div className="text-left">
-                                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Cupos</p>
-                                    <p className="text-sm font-bold text-white">Solo 60 Cupos</p>
+                                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Acceso</p>
+                                    <p className="text-sm font-bold text-white">Link vía WhatsApp</p>
                                 </div>
                             </div>
                         </div>
@@ -192,14 +192,14 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
                         <div>
                             <h2 className="text-4xl md:text-5xl font-heading font-black mb-10 leading-tight">
-                                Privilegios de <br /><span className="text-mh-gold">Asistente VIP.</span>
+                                Beneficios de la <br /><span className="text-mh-gold">Masterclass.</span>
                             </h2>
                             <div className="space-y-8">
                                 {[
-                                    { title: "Experiencia Completa", icon: <Wine />, desc: "Recepción exclusiva y networking élite con líderes del sector." },
-                                    { title: "Tarifas de Lanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $100,000 COP solo para asistentes." },
-                                    { title: "Prioridad Membresía", icon: <Trophy />, desc: "Primeros en la fila para las Membresías Premium con parking privado." },
-                                    { title: "Apoyo en Habilitación", icon: <ShieldCheck />, desc: "Asesoría inicial para el trámite ante la Secretaría de Salud." }
+                                    { title: "Comunidad Exclusiva", icon: <Users />, desc: "Ingresa al ecosistema de networking élite con líderes del sector." },
+                                    { title: "Tarifas de Prelanzamiento", icon: <Zap />, desc: "Acceso exclusivo a reservas desde $100,000 COP solo para asistentes virtuales." },
+                                    { title: "Oportunidad Fundador", icon: <Trophy />, desc: "Prioridad para aplicar a las Membresías Premium con parking privado." },
+                                    { title: "Asesoría Normativa", icon: <ShieldCheck />, desc: "Guía inicial sobre la Resolución 3100 para tu nueva práctica." }
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-6 items-start group">
                                         <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-mh-gold group-hover:bg-mh-gold group-hover:text-mh-blue transition-all duration-300">
@@ -216,9 +216,9 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                         </div>
                         <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 relative self-start">
                             <div className="mb-8">
-                                <span className="text-mh-gold font-bold uppercase tracking-widest text-[10px] mb-2 block">Tour Guiado</span>
-                                <h3 className="text-3xl font-bold text-white mb-4">Ready-to-Operate</h3>
-                                <p className="text-slate-400 text-sm font-light">Conoce de cerca los consultorios habilitados bajo la Resolución 3100 de 2019.</p>
+                                <span className="text-mh-gold font-bold uppercase tracking-widest text-[10px] mb-2 block">MedHause Experience</span>
+                                <h3 className="text-3xl font-bold text-white mb-4">Coworking Médico</h3>
+                                <p className="text-slate-400 text-sm font-light">Descubre los consultorios que podrás reservar tras la Masterclass.</p>
                             </div>
                             <div className="grid grid-cols-3 gap-3 mb-10">
                                 <div className="h-20 rounded-2xl overflow-hidden border border-white/10"><img src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/basic.jpg" className="w-full h-full object-cover" /></div>
@@ -414,16 +414,24 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                                 </div>
                             </div>
 
-                            <WhatsAppButton text="Reserva tu entrada VIP ahora" />
+                            <WhatsAppButton text="Recibir mi acceso VIP ahora" />
 
                             <p className="mt-20 text-[10px] text-slate-400 font-black uppercase tracking-widest letter-spacing-[0.5em]">
-                                EL ÉXITO DE TU CONSULTA EN 2026 COMIENZA EN CROSS MEDICAL CENTER BY MEDHAUSE
+                                EL ÉXITO DE TU CONSULTA EN 2026 COMIENZA EN LA MASTERCLASS VIRTUAL DE MEDHAUSE
                             </p>
                         </div>
                         <div className="relative">
-                            <div className="absolute -inset-4 bg-mh-gold/20 rounded-[3rem] blur-2xl z-0"></div>
-                            <div className="relative z-10">
-                                <LocationCard variant="light" />
+                            <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 relative">
+                                <div className="text-center">
+                                    <div className="w-20 h-20 bg-mh-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <Zap className="text-mh-gold" size={40} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Evento Virtual</h3>
+                                    <p className="text-slate-400 text-sm font-light mb-8">No necesitas desplazarte. Únete desde donde estés a través del link privado enviado al grupo de WhatsApp.</p>
+                                    <div className="inline-flex items-center gap-2 bg-mh-gold/10 border border-mh-gold/20 text-mh-gold px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                        Acceso Digital Exclusivo
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
