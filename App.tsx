@@ -7,11 +7,12 @@ import { AdsLanding } from './components/AdsLanding';
 import { PendonBanner } from './components/PendonBanner';
 import { PitchDeck } from './components/PitchDeck';
 import { DoctorPitch } from './components/DoctorPitch';
+import { MafePitch } from './components/MafePitch';
 import { CheckCircle } from 'lucide-react';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function App() {
     if (v === 'pendon') setView('pendon');
     if (v === 'pitch') setView('pitch');
     if (v === 'doctor-pitch') setView('doctor-pitch');
+    if (v === 'mafe-pitch') setView('mafe-pitch');
   }, []);
 
   const handleBack = () => {
@@ -77,6 +79,10 @@ export default function App() {
 
   if (view === 'doctor-pitch') {
     return <DoctorPitch onBack={handleBack} />;
+  }
+
+  if (view === 'mafe-pitch') {
+    return <MafePitch onBack={handleBack} />;
   }
 
   return (
