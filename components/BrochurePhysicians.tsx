@@ -421,14 +421,17 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                             </p>
                         </div>
                         <div className="relative">
-                            <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 relative">
-                                <div className="text-center">
-                                    <div className="w-20 h-20 bg-mh-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <div className="bg-slate-900 rounded-[3rem] p-12 shadow-2xl relative overflow-hidden group border border-slate-800">
+                                {/* Decorative elements */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-mh-gold/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-mh-gold/20 transition-colors"></div>
+
+                                <div className="text-center relative z-10">
+                                    <div className="w-20 h-20 bg-mh-gold/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500">
                                         <Zap className="text-mh-gold" size={40} />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-white mb-4">Evento Virtual</h3>
-                                    <p className="text-slate-400 text-sm font-light mb-8">No necesitas desplazarte. Únete desde donde estés a través del link privado enviado al grupo de WhatsApp.</p>
-                                    <div className="inline-flex items-center gap-2 bg-mh-gold/10 border border-mh-gold/20 text-mh-gold px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                    <h3 className="text-3xl font-heading font-black text-white mb-4">Evento Virtual</h3>
+                                    <p className="text-slate-300 text-lg font-light mb-8 leading-relaxed">No necesitas desplazarte. Únete desde donde estés a través del link privado enviado al grupo de WhatsApp.</p>
+                                    <div className="inline-flex items-center gap-2 bg-mh-gold text-mh-blue px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
                                         Acceso Digital Exclusivo
                                     </div>
                                 </div>
