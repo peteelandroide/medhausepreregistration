@@ -6,10 +6,12 @@ import { LandingPage } from './components/LandingPage';
 import { AdsLanding } from './components/AdsLanding';
 import { PendonBanner } from './components/PendonBanner';
 import { PitchDeck } from './components/PitchDeck';
+import { DoctorPitch } from './components/DoctorPitch';
 import { CheckCircle } from 'lucide-react';
 
+
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -20,6 +22,7 @@ export default function App() {
     if (v === 'promo') setView('promo');
     if (v === 'pendon') setView('pendon');
     if (v === 'pitch') setView('pitch');
+    if (v === 'doctor-pitch') setView('doctor-pitch');
   }, []);
 
   const handleBack = () => {
@@ -70,6 +73,10 @@ export default function App() {
 
   if (view === 'pitch') {
     return <PitchDeck onBack={handleBack} />;
+  }
+
+  if (view === 'doctor-pitch') {
+    return <DoctorPitch onBack={handleBack} />;
   }
 
   return (
