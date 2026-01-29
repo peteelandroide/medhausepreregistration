@@ -16,15 +16,22 @@ export default function App() {
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const v = params.get('view');
-    if (v === 'medicos') setView('medicos');
-    if (v === 'colaboradores') setView('colaboradores');
-    if (v === 'promo') setView('promo');
-    if (v === 'pendon') setView('pendon');
-    if (v === 'pitch') setView('pitch');
-    if (v === 'doctor-pitch') setView('doctor-pitch');
-    if (v === 'mafe-pitch') setView('mafe-pitch');
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('view');
+      if (v === 'medicos') setView('medicos');
+      else if (v === 'colaboradores') setView('colaboradores');
+      else if (v === 'promo') setView('promo');
+      else if (v === 'pendon') setView('pendon');
+      else if (v === 'pitch') setView('pitch');
+      else if (v === 'doctor-pitch') setView('doctor-pitch');
+      else if (v === 'mafe-pitch') setView('mafe-pitch');
+      else setView('landing');
+    };
+
+    handleUrlChange();
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
   }, []);
 
   const handleBack = () => {
