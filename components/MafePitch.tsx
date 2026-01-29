@@ -60,7 +60,7 @@ export const MafePitch: React.FC<MafePitchProps> = ({ onBack }) => {
                 </div>
             )
         },
-        // Slide 1: Bio - Mafe Sabah
+        // Slide 1: Bio - Mafe Sabat
         {
             id: 'bio',
             render: () => (
@@ -76,7 +76,7 @@ export const MafePitch: React.FC<MafePitchProps> = ({ onBack }) => {
                                 <img
                                     src="/mafe_sabat.jpg"
                                     className="relative w-full h-full object-cover rounded-[3rem] border-4 border-white/10 shadow-2xl z-10 grayscale hover:grayscale-0 transition-all duration-700"
-                                    alt="Mafe Sabah"
+                                    alt="Mafe Sabat"
                                 />
                                 <div className="absolute -bottom-6 -right-6 z-20 bg-mh-gold text-slate-950 px-8 py-4 rounded-2xl shadow-xl font-heading font-black text-xl italic animate-bounce-slow">
                                     ESTRATEGA
@@ -90,7 +90,7 @@ export const MafePitch: React.FC<MafePitchProps> = ({ onBack }) => {
                             </div>
                             <h2 className="text-5xl md:text-7xl font-heading font-black leading-tight">
                                 MARÍA FERNANDA <br />
-                                <span className="text-mh-gold">SABAH.</span>
+                                <span className="text-mh-gold">SABAT.</span>
                             </h2>
                             <p className="text-slate-300 text-xl font-light leading-relaxed border-l-4 border-mh-blue pl-6">
                                 Diseñadora de Experiencias y Estratega de Negocios para el sector salud.
@@ -382,7 +382,7 @@ export const MafePitch: React.FC<MafePitchProps> = ({ onBack }) => {
                         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
                             <button className="group relative px-10 py-5 bg-mh-gold text-slate-900 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white transition-all shadow-[0_0_40px_rgba(255,215,0,0.3)] hover:scale-105 active:scale-95">
                                 <span className="flex items-center gap-3">
-                                    Agendar Asesoría con Mafe Sabah <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    Agendar Asesoría con Mafe Sabat <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </span>
                             </button>
                         </div>
