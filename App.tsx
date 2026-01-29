@@ -8,11 +8,12 @@ import { PendonBanner } from './components/PendonBanner';
 import { PitchDeck } from './components/PitchDeck';
 import { DoctorPitch } from './components/DoctorPitch';
 import { MafePitch } from './components/MafePitch';
+import { TVShowcase } from './components/TVShowcase';
 import { CheckCircle } from 'lucide-react';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'tv' | 'tv-showcase'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,8 @@ export default function App() {
       else if (v === 'pitch') setView('pitch');
       else if (v === 'doctor-pitch') setView('doctor-pitch');
       else if (v === 'mafe-pitch') setView('mafe-pitch');
+      else if (v === 'tv') setView('tv');
+      else if (v === 'tv-showcase') setView('tv-showcase');
       else setView('landing');
     };
 
@@ -90,6 +93,14 @@ export default function App() {
 
   if (view === 'mafe-pitch') {
     return <MafePitch onBack={handleBack} />;
+  }
+
+  if (view === 'tv') {
+    return <TVShowcase />;
+  }
+
+  if (view === 'tv-showcase') {
+    return <TVShowcase />;
   }
 
   return (
