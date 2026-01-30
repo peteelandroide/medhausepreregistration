@@ -5,21 +5,21 @@ import { Logo } from './Logo';
 export const TVShowcase: React.FC = () => {
     // Static Hero Slide simplified for slow TV processors
     const heroSlideContent = (
-        <div className="flex flex-col items-center justify-center h-full text-center px-12">
+        <div className="flex flex-col items-center justify-center h-full text-center px-24">
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1.2, opacity: 1 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
-                className="mb-16"
+                className="mb-12"
             >
-                <Logo variant="light" size="xl" />
+                <Logo variant="light" size="lg" />
             </motion.div>
 
             <motion.h1
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
-                className="text-7xl md:text-9xl font-heading font-black text-white italic leading-tight uppercase tracking-tighter"
+                className="text-5xl md:text-7xl font-heading font-black text-white italic leading-tight uppercase tracking-tighter"
             >
                 Tu Consultorio <br />
                 <span className="text-mh-gold not-italic">Premium por horas.</span>
@@ -29,9 +29,9 @@ export const TVShowcase: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2, duration: 1 }}
-                className="mt-12 bg-mh-gold/10 backdrop-blur-xl px-12 py-4 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
+                className="mt-10 bg-mh-gold/10 backdrop-blur-xl px-10 py-3 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
             >
-                <p className="text-3xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
+                <p className="text-xl md:text-2xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
             </motion.div>
         </div>
     );
@@ -42,10 +42,10 @@ export const TVShowcase: React.FC = () => {
                 className="relative overflow-hidden bg-slate-950 shadow-2xl"
                 style={{
                     // Width is 100vh and Height 100vw because it's a vertical box filling a horizontal signal
-                    // Scale 0.8 ensures visibility within the TV frame (overscan safety)
+                    // Scale 0.6 ensures visibility within the TV frame (more aggressive margins)
                     width: '100vh',
                     height: '100vw',
-                    transform: 'rotate(90deg) scale(0.8)',
+                    transform: 'rotate(90deg) scale(0.6)',
                     transformOrigin: 'center'
                 }}
             >
