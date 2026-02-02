@@ -106,7 +106,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
             msg += `👤 *Nombre:* ${userData.name}\n` +
                 `👨‍⚕️ *Profesión:* ${userData.profession}\n` +
                 `🔬 *Especialidad:* ${userData.specialty}\n` +
-                `🏠 *¿Primer Consultorio en Antioquia?:* ${userData.isFirstConsultation}\n\n`;
+                `🏠 *¿Este sería tu primer consultorio en Antioquia?:* ${userData.isFirstConsultation}\n\n`;
         }
 
         msg += `🔹 *Consultorio:* ${selectedRoom.name}\n` +
@@ -518,7 +518,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">¿Primer Consultorio en Antioquia?</label>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">¿Este sería tu primer consultorio en Antioquia?</label>
                                     <div className="flex bg-slate-50 rounded-xl p-1 border border-slate-100">
                                         {['Sí', 'No'].map((opt) => (
                                             <button
