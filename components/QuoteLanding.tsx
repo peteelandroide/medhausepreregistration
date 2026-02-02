@@ -57,7 +57,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
         name: '',
         profession: 'Médico',
         specialty: '',
-        isHabilitated: 'Sí'
+        isFirstConsultation: 'Sí'
     });
 
     // Scroll to top on step or selection change
@@ -106,7 +106,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
             msg += `👤 *Nombre:* ${userData.name}\n` +
                 `👨‍⚕️ *Profesión:* ${userData.profession}\n` +
                 `🔬 *Especialidad:* ${userData.specialty}\n` +
-                `✅ *Habilitado SSA:* ${userData.isHabilitated}\n\n`;
+                `🏠 *¿Primer Consultorio en Antioquia?:* ${userData.isFirstConsultation}\n\n`;
         }
 
         msg += `🔹 *Consultorio:* ${selectedRoom.name}\n` +
@@ -518,14 +518,14 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Habilitación SSA*</label>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">¿Primer Consultorio en Antioquia?</label>
                                     <div className="flex bg-slate-50 rounded-xl p-1 border border-slate-100">
                                         {['Sí', 'No'].map((opt) => (
                                             <button
                                                 key={opt}
                                                 type="button"
-                                                onClick={() => setLeadData({ ...leadData, isHabilitated: opt })}
-                                                className={`flex-1 py-2 text-xs font-black rounded-lg transition-all ${leadData.isHabilitated === opt ? 'bg-white text-mh-blue shadow-sm' : 'text-slate-400'}`}
+                                                onClick={() => setLeadData({ ...leadData, isFirstConsultation: opt })}
+                                                className={`flex-1 py-2 text-xs font-black rounded-lg transition-all ${leadData.isFirstConsultation === opt ? 'bg-white text-mh-blue shadow-sm' : 'text-slate-400'}`}
                                             >
                                                 {opt}
                                             </button>
@@ -550,8 +550,8 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                 <button type="submit" className="w-full bg-mh-blue text-white font-black py-4 rounded-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl flex items-center justify-center gap-3 group">
                                     Finalizar en WhatsApp <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
-                                <p className="text-[10px] text-slate-400 mt-4 text-center leading-relaxed">
-                                    *SSA: Secretaría de Salud de Antioquia. Al continuar, aceptas el inicio de tu proceso de vinculación.
+                                <p className="text-[10px] text-slate-400 mt-4 text-center leading-relaxed italic">
+                                    Al continuar, aceptas el inicio de tu proceso de vinculación y contacto comercial.
                                 </p>
                             </div>
                         </form>
