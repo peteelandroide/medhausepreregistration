@@ -51,6 +51,14 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [hours, setHours] = useState<number>(10);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [showLeadForm, setShowLeadForm] = useState(false);
+    const [pendingPlan, setPendingPlan] = useState<'member' | 'guest' | null>(null);
+    const [leadData, setLeadData] = useState({
+        name: '',
+        profession: 'Médico',
+        specialty: '',
+        isHabilitated: 'Sí'
+    });
 
     // Scroll to top on step or selection change
     useEffect(() => {
@@ -78,7 +86,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
         }
     };
 
-    const handleWhatsAppClick = (plan: 'member' | 'guest') => {
+    const handleWhatsAppClick = (plan: 'member' | 'guest', userData?: typeof leadData) => {
         if (!selectedRoom) return;
 
         const membershipHoursMap: Record<string, number> = { basico: 40, estandar: 27, premium: 20 };
@@ -92,8 +100,16 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
 
         const packageDetail = `${isBelowThreshold ? membershipHours : hours} Horas Mensuales`;
 
-        const msg = `Hola, quiero finalizar mi cotización en MedHause.\n\n` +
-            `🔹 *Consultorio:* ${selectedRoom.name}\n` +
+        let msg = `Hola, quiero finalizar mi cotización en MedHause.\n\n`;
+
+        if (userData) {
+            msg += `👤 *Nombre:* ${userData.name}\n` +
+                `👨‍⚕️ *Profesión:* ${userData.profession}\n` +
+                `🔬 *Especialidad:* ${userData.specialty}\n` +
+                `✅ *Habilitado SSA:* ${userData.isHabilitated}\n\n`;
+        }
+
+        msg += `🔹 *Consultorio:* ${selectedRoom.name}\n` +
             `🔹 *Paquete:* ${packageDetail}\n` +
             `🔹 *Validez:* ${plan === 'member' ? '3 meses' : '1 mes'}\n` +
             `🔹 *Modalidad:* ${plan === 'member' ? 'Socio MedHause (Membresía)' : 'Visitante (Sin Membresía)'}\n` +
@@ -101,6 +117,19 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
             `Me gustaría agendar una visita y confirmar disponibilidad.`;
 
         window.open(`https://wa.me/573206055134?text=${encodeURIComponent(msg)}`, '_blank');
+    };
+
+    const triggerLeadForm = (plan: 'member' | 'guest') => {
+        setPendingPlan(plan);
+        setShowLeadForm(true);
+    };
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (pendingPlan) {
+            handleWhatsAppClick(pendingPlan, leadData);
+            setShowLeadForm(false);
+        }
     };
 
     const formatPrice = (price: number) => {
@@ -425,13 +454,13 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                     <div className="grid grid-cols-3 md:grid-cols-4 bg-slate-50 border-t border-slate-100">
                                         <div className="hidden md:block"></div>
                                         <div className="p-4 md:p-8 border-x border-slate-100">
-                                            <button onClick={() => handleWhatsAppClick('guest')} className="w-full py-3 md:py-4 px-2 bg-white border-2 border-slate-200 text-slate-500 font-bold rounded-xl text-[10px] md:text-xs uppercase tracking-wider hover:bg-slate-50 transition-all">
+                                            <button onClick={() => triggerLeadForm('guest')} className="w-full py-3 md:py-4 px-2 bg-white border-2 border-slate-200 text-slate-500 font-bold rounded-xl text-[10px] md:text-xs uppercase tracking-wider hover:bg-slate-50 transition-all">
                                                 Cotizar Visitante
                                             </button>
                                         </div>
                                         <div className="col-span-2 md:col-span-2 p-4 md:p-8 bg-slate-900 relative">
                                             <div className="absolute inset-0 border-x-2 border-mh-gold pointer-events-none"></div>
-                                            <button onClick={() => handleWhatsAppClick('member')} className="w-full py-4 md:py-6 px-4 bg-mh-gold text-mh-blue font-black rounded-xl text-xs md:text-base uppercase tracking-widest hover:bg-white hover:scale-[1.02] transition-all shadow-[0_10px_30px_rgba(242,214,162,0.3)] flex items-center justify-center gap-3 relative z-10 group">
+                                            <button onClick={() => triggerLeadForm('member')} className="w-full py-4 md:py-6 px-4 bg-mh-gold text-mh-blue font-black rounded-xl text-xs md:text-base uppercase tracking-widest hover:bg-white hover:scale-[1.02] transition-all shadow-[0_10px_30px_rgba(242,214,162,0.3)] flex items-center justify-center gap-3 relative z-10 group">
                                                 <Zap size={20} className="fill-mh-blue group-hover:scale-125 transition-transform" />
                                                 <span>Aplicar Membresía</span>
                                             </button>
@@ -446,6 +475,90 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                     })()}
                 </div>
             </main>
+            {/* LEAD FORM MODAL */}
+            {showLeadForm && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden animate-fade-in-up">
+                        <div className="absolute top-0 inset-x-0 h-2 bg-mh-gold"></div>
+                        <button
+                            onClick={() => setShowLeadForm(false)}
+                            className="absolute top-6 right-6 text-slate-400 hover:text-mh-blue transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        <div className="mb-8">
+                            <h3 className="text-2xl font-heading font-black text-slate-900 mb-2">Preséntate con MedHause</h3>
+                            <p className="text-slate-500 text-sm">Queremos brindarte una asesoría personalizada según tu perfil profesional.</p>
+                        </div>
+
+                        <form onSubmit={handleFormSubmit} className="space-y-6">
+                            <div>
+                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Nombre Completo</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-mh-blue/20 transition-all"
+                                    placeholder="Ej: Dr. Juan Pérez"
+                                    value={leadData.name}
+                                    onChange={(e) => setLeadData({ ...leadData, name: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Profesión</label>
+                                    <select
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-mh-blue/20 transition-all appearance-none"
+                                        value={leadData.profession}
+                                        onChange={(e) => setLeadData({ ...leadData, profession: e.target.value })}
+                                    >
+                                        <option value="Médico">Médico</option>
+                                        <option value="Otro Profesional de Salud">Otro Profesional</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Habilitación SSA*</label>
+                                    <div className="flex bg-slate-50 rounded-xl p-1 border border-slate-100">
+                                        {['Sí', 'No'].map((opt) => (
+                                            <button
+                                                key={opt}
+                                                type="button"
+                                                onClick={() => setLeadData({ ...leadData, isHabilitated: opt })}
+                                                className={`flex-1 py-2 text-xs font-black rounded-lg transition-all ${leadData.isHabilitated === opt ? 'bg-white text-mh-blue shadow-sm' : 'text-slate-400'}`}
+                                            >
+                                                {opt}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Especialidad que Oferta</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-mh-blue/20 transition-all"
+                                    placeholder="Ej: Cardiología, Fisioterapia..."
+                                    value={leadData.specialty}
+                                    onChange={(e) => setLeadData({ ...leadData, specialty: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="pt-4">
+                                <button type="submit" className="w-full bg-mh-blue text-white font-black py-4 rounded-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl flex items-center justify-center gap-3 group">
+                                    Finalizar en WhatsApp <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </button>
+                                <p className="text-[10px] text-slate-400 mt-4 text-center leading-relaxed">
+                                    *SSA: Secretaría de Salud de Antioquia. Al continuar, aceptas el inicio de tu proceso de vinculación.
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             <Footer />
         </div>
     );
