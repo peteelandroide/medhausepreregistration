@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CheckCircle, ChevronRight, Clock, Star, Zap, ShieldCheck, Stethoscope, Layout, X, Check, Minus, Plus } from 'lucide-react';
 import { Logo } from './Logo';
 import { Footer } from './Footer';
@@ -52,12 +52,16 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
     const [hours, setHours] = useState<number>(10);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // Scroll to top on step or selection change
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, [step, selectedType]);
+
     const selectedRoom = ROOM_TYPES.find(r => r.id === selectedType);
 
     const handleTypeSelect = (id: string) => {
         setSelectedType(id);
         setStep(2);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleNextImage = (e: React.MouseEvent) => {
@@ -317,7 +321,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                         const TICKET_PRICE = 2000000;
 
                         return (
-                            <div className="max-w-4xl mx-auto animate-fade-in px-2 md:px-0">
+                            <div className="max-w-4xl mx-auto animate-fade-in px-2 md:px-0 pt-4 md:pt-0">
                                 <div className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
                                     {/* Table Header */}
                                     <div className="grid grid-cols-3 md:grid-cols-4 bg-slate-50 border-b border-slate-100">
@@ -327,13 +331,13 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                             <span className="text-lg md:text-2xl font-black text-slate-500">Visitante</span>
                                         </div>
                                         <div className="col-span-2 md:col-span-2 p-4 md:p-8 text-center bg-slate-900 relative">
-                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-mh-gold text-mh-blue text-[9px] md:text-[10px] font-black px-4 py-1 rounded-full shadow-lg z-20 whitespace-nowrap tracking-widest animate-bounce">
-                                                MEJOR COSTO-BENEFICIO
+                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-mh-gold text-mh-blue text-[8px] md:text-[10px] font-black px-4 py-1.5 rounded-full shadow-xl z-20 whitespace-nowrap tracking-widest border border-white/20">
+                                                ★ &nbsp; MEJOR COSTO-BENEFICIO
                                             </div>
                                             <div className="absolute top-0 inset-x-0 h-1.5 bg-mh-gold"></div>
                                             <span className="block text-[10px] md:text-xs font-black text-mh-gold/70 uppercase tracking-widest mb-1">Membresía All-Inclusive</span>
                                             <span className="text-xl md:text-3xl font-black text-white">Socio MedHause</span>
-                                            <Star className="absolute top-4 right-4 text-mh-gold fill-mh-gold hidden md:block animate-pulse" size={28} />
+                                            <Star className="absolute top-4 right-4 text-mh-gold fill-mh-gold hidden md:block opacity-50" size={24} />
                                         </div>
                                     </div>
 
