@@ -57,7 +57,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
         name: '',
         profession: 'Médico',
         specialty: '',
-        isFirstConsultation: 'Sí'
+        isFirstConsultation: 'Sí, necesito habilitarme'
     });
 
     // Scroll to top on step or selection change
@@ -519,15 +519,18 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                 </div>
                                 <div>
                                     <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">¿Este sería tu primer consultorio en Antioquia?</label>
-                                    <div className="flex bg-slate-50 rounded-xl p-1 border border-slate-100">
-                                        {['Sí', 'No'].map((opt) => (
+                                    <div className="flex flex-col sm:flex-row bg-slate-50 rounded-xl p-1 border border-slate-100 gap-1">
+                                        {[
+                                            { label: 'Sí, necesito habilitarme', value: 'Sí, necesito habilitarme' },
+                                            { label: 'No, ya estoy habilitado', value: 'No, ya estoy habilitado en Antioquia' }
+                                        ].map((opt) => (
                                             <button
-                                                key={opt}
+                                                key={opt.value}
                                                 type="button"
-                                                onClick={() => setLeadData({ ...leadData, isFirstConsultation: opt })}
-                                                className={`flex-1 py-2 text-xs font-black rounded-lg transition-all ${leadData.isFirstConsultation === opt ? 'bg-white text-mh-blue shadow-sm' : 'text-slate-400'}`}
+                                                onClick={() => setLeadData({ ...leadData, isFirstConsultation: opt.value })}
+                                                className={`flex-1 py-3 px-2 text-[10px] font-black rounded-lg transition-all leading-tight ${leadData.isFirstConsultation === opt.value ? 'bg-white text-mh-blue shadow-sm' : 'text-slate-400'}`}
                                             >
-                                                {opt}
+                                                {opt.label}
                                             </button>
                                         ))}
                                     </div>
