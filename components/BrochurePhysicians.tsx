@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Clock, MapPin, Star, CheckCircle, ChevronRight, Zap, ArrowLeft, Trophy, Sparkles, Wine, ShieldCheck, Users, X } from 'lucide-react';
 import { Logo } from './Logo';
+import { Footer } from './Footer';
 import { LocationCard } from './LocationCard';
 
 interface BrochureProps {
@@ -441,13 +442,8 @@ export const BrochurePhysicians: React.FC<BrochureProps> = ({ onBack }) => {
                 </div>
             </section>
 
-            {/* Footer Minimal */}
-            <footer className="py-12 bg-slate-50 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    <Logo variant="dark" size="md" />
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2026 MedHause™</p>
-                </div>
-            </footer>
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, CheckCircle, Clock, MapPin, Zap, X, Users, Navigation, ShieldCheck, Sparkles } from 'lucide-react';
+import { Footer } from './Footer';
 
 /**
  * PendonBanner - Página optimizada para impresión de pendón/banner
@@ -9,11 +10,11 @@ import { Star, CheckCircle, Clock, MapPin, Zap, X, Users, Navigation, ShieldChec
 export const PendonBanner: React.FC = () => {
     return (
         <div
-            className="font-sans text-white antialiased bg-slate-950 overflow-hidden relative"
+            className="font-sans text-white antialiased bg-slate-950 overflow-x-hidden relative"
             style={{
                 width: '100vw',
                 maxWidth: '500px',
-                aspectRatio: '1 / 2',
+                minHeight: '200vh',
                 margin: '0 auto',
                 display: 'flex',
                 flexDirection: 'column'
@@ -194,12 +195,14 @@ export const PendonBanner: React.FC = () => {
                         <div className="w-full">
                             <div className="bg-green-500/20 text-white rounded-xl py-1.5 flex flex-col items-center justify-center border border-green-500/30">
                                 <p className="text-[7px] font-heading font-black tracking-[0.10em] uppercase text-green-400">¡HABLEMOS!</p>
-                                <p className="text-[8px] font-mono font-black">+57 305 341 2292</p>
+                                <p className="text-[8px] font-mono font-black">+57 320 605 5134</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 };

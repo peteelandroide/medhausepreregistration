@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Heavy Assets
+/Fotos medhause/
+*.mp4
+*.MOV
+*.pdf

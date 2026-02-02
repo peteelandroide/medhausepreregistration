@@ -5,11 +5,11 @@ import { Footer } from './Footer';
 import { LocationCard } from './LocationCard';
 import { BookingView } from './BookingView';
 
-interface AdsLandingProps {
+interface ReservasLandingProps {
     onHomeClick: () => void;
 }
 
-export const AdsLanding: React.FC<AdsLandingProps> = ({ onHomeClick }) => {
+export const ReservasLanding: React.FC<ReservasLandingProps> = ({ onHomeClick }) => {
     // --- Booking Logic State ---
     const [showBooking, setShowBooking] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
@@ -56,7 +56,7 @@ export const AdsLanding: React.FC<AdsLandingProps> = ({ onHomeClick }) => {
             msg += `*Habilitado SSSA:* ${formData.habilitated ? 'SI' : 'NO'}\n`;
             msg += `*Hora contacto:* ${formData.callbackTime}`;
 
-            window.open(`https://wa.me/573053412292?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/573206055134?text=${encodeURIComponent(msg)}`, '_blank');
             setLoading(false);
             setShowRegister(false);
             setShowBooking(false);
@@ -419,7 +419,7 @@ export const AdsLanding: React.FC<AdsLandingProps> = ({ onHomeClick }) => {
                             >
                                 {loading ? <Loader2 className="animate-spin" /> : 'Enviar por WhatsApp'} <ChevronRight size={18} />
                             </button>
-                            <p className="text-center text-[10px] text-slate-400 mt-2">Serás redirigido a WhatsApp (+57 305 341 2292)</p>
+                            <p className="text-center text-[10px] text-slate-400 mt-2">Serás redirigido a WhatsApp (+57 320 605 5134)</p>
                         </form>
                     </div>
                 </div>

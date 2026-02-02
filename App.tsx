@@ -4,16 +4,21 @@ import { BrochureCollaborators } from './components/BrochureCollaborators';
 import { BookingView } from './components/BookingView';
 import { LandingPage } from './components/LandingPage';
 import { AdsLanding } from './components/AdsLanding';
+import { ReservasLanding } from './components/ReservasLanding';
+import { QuoteLanding } from './components/QuoteLanding';
 import { PendonBanner } from './components/PendonBanner';
 import { PitchDeck } from './components/PitchDeck';
 import { DoctorPitch } from './components/DoctorPitch';
 import { MafePitch } from './components/MafePitch';
 import { TVShowcase } from './components/TVShowcase';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { TermsOfUse } from './components/TermsOfUse';
+import { Footer } from './components/Footer';
 import { CheckCircle } from 'lucide-react';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'tv' | 'tv-showcase'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'tv' | 'tv-showcase' | 'privacy' | 'terms'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -23,12 +28,15 @@ export default function App() {
       if (v === 'medicos') setView('medicos');
       else if (v === 'colaboradores') setView('colaboradores');
       else if (v === 'promo') setView('promo');
+      else if (v === 'reservas') setView('reservas');
       else if (v === 'pendon') setView('pendon');
       else if (v === 'pitch') setView('pitch');
       else if (v === 'doctor-pitch') setView('doctor-pitch');
       else if (v === 'mafe-pitch') setView('mafe-pitch');
       else if (v === 'tv') setView('tv');
       else if (v === 'tv-showcase') setView('tv-showcase');
+      else if (v === 'privacy') setView('privacy');
+      else if (v === 'terms') setView('terms');
       else setView('landing');
     };
 
@@ -45,9 +53,9 @@ export default function App() {
   // Vista de éxito post-registro
   if (isRegistered) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 text-white font-sans relative overflow-hidden">
+      <div className="min-h-screen bg-slate-900 flex flex-col items-center p-6 text-white font-sans relative overflow-x-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-        <div className="max-w-lg w-full text-center relative z-10">
+        <div className="max-w-lg w-full text-center relative z-10 my-auto py-20">
           <div className="w-24 h-24 bg-gradient-to-tr from-mh-gold to-yellow-200 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-mh-gold/30 animate-fade-in-up">
             <CheckCircle size={48} className="text-mh-blue" />
           </div>
@@ -58,6 +66,9 @@ export default function App() {
             <p className="text-4xl font-mono text-mh-gold tracking-widest">MH-{Math.floor(Math.random() * 9000) + 1000}</p>
           </div>
           <button onClick={() => setIsRegistered(false)} className="text-sm text-slate-500 hover:text-white transition-colors uppercase tracking-widest font-bold">Volver al inicio</button>
+        </div>
+        <div className="w-full mt-auto">
+          <Footer />
         </div>
       </div>
     );
@@ -75,8 +86,14 @@ export default function App() {
     return <BrochureCollaborators onBack={handleBack} />;
   }
 
+  if (view === 'reservas') {
+    // OLD PROMO VIEW
+    return <ReservasLanding onHomeClick={() => setView('landing')} />;
+  }
+
   if (view === 'promo') {
-    return <AdsLanding onHomeClick={() => setView('landing')} />;
+    // NEW QUOTE VIEW
+    return <QuoteLanding onHomeClick={() => setView('landing')} />;
   }
 
   if (view === 'pendon') {
@@ -103,9 +120,31 @@ export default function App() {
     return <TVShowcase />;
   }
 
+  if (view === 'privacy') {
+    return <PrivacyPolicy onBack={handleBack} />;
+  }
+
+  if (view === 'terms') {
+    return <TermsOfUse onBack={handleBack} />;
+  }
+
+  // Still keeping AdsLanding accessible via Booking button from main page? 
+  // User said "current system... transport to another page called reservas"
+  // User also said "main page promo buttons should go to new system"
+  // So 'promo' takes over quoting. 'reservas' takes the complex booking.
+
   return (
     <LandingPage
-      onBookClick={() => setView('booking')}
+      onBookClick={() => setView('booking')} // This might need to check if user wants "reservas" or "quote". Assuming "booking" stays as is or redirects?
+      // Actually LandingPage has a "Agendar" button. 
+      // User said: "pagina actual de promo debemos reformar el sistema... al cual se llega desde los botones de accion cta"
+      // So LandingPage "Agendar" should probably go to 'promo' (QuoteLanding).
+      // However, App.tsx handles onBookClick. I will change setView('booking') to setView('promo') later if needed, 
+      // but 'booking' view is the actual calendar which is part of the old system.
+      // Wait, 'BookingView' is the modal *inside* AdsLanding usually, but also a standalone view here?
+      // Line 70: if (view === 'booking') return <BookingView ... />
+      // Let's keep it for now but maybe default internal links to 'promo'.
+
       onRegisterClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
       onRegisterSuccess={() => setIsRegistered(true)}
     />

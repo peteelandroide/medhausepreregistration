@@ -19,6 +19,7 @@ import {
     Network
 } from 'lucide-react';
 import { Logo } from './Logo';
+import { Footer } from './Footer';
 
 interface PitchDeckProps {
     onBack: () => void;
@@ -431,12 +432,8 @@ export const PitchDeck: React.FC<PitchDeckProps> = ({ onBack }) => {
                 </div>
             </section>
 
-            {/* Footer Confidential */}
-            <footer className="py-12 bg-slate-950 border-t border-white/5 text-center px-6">
-                <p className="text-[10px] text-white/30 font-bold uppercase tracking-[0.5em] leading-relaxed">
-                    CONFIDENCIAL — PROPIEDAD INTELECTUAL DE MEDHAUSE™ <br className="md:hidden" />© 2026 TODOS LOS DERECHOS RESERVADOS
-                </p>
-            </footer>
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

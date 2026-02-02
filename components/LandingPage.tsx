@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { ChevronRight, Calendar, Star, X, CheckCircle, Zap, ShieldCheck, Loader2 } from 'lucide-react';
 import { LocationCard } from './LocationCard';
+import { Footer } from './Footer';
 import { CalculatorInput } from './CalculatorInput';
 import { supabase } from '../supabaseClient';
 
@@ -13,13 +14,40 @@ const IMAGES = {
 };
 
 const SPACE_TYPES = [
-    { id: 'PREMIUM', name: 'Premium', basePrice: 100000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <Star size={20} />, img: IMAGES.medium }
+    {
+        id: 'PREMIUM',
+        name: 'Premium',
+        priceMember: 100000,
+        priceList: 120000,
+        desc: 'La máxima expresión de lujo para especialistas de alto nivel.',
+        icon: <Star size={20} />,
+        img: '/PREMIUM.jpg',
+        isAvailable: true
+    },
+    {
+        id: 'ESTANDAR',
+        name: 'Estándar',
+        priceMember: 75000,
+        priceList: 100000,
+        desc: 'Perfecto para especialidades médicas y estética básica.',
+        icon: <Zap size={20} />,
+        img: '/ESTANDAR_3_2.jpg',
+        isAvailable: false
+    },
+    {
+        id: 'BASICO',
+        name: 'Básico',
+        priceMember: 50000,
+        priceList: 65000,
+        desc: 'Funcionalidad pura para consulta general y psicología.',
+        icon: <ShieldCheck size={20} />,
+        img: '/BASICO_HORIZONTAL.jpg',
+        isAvailable: false
+    }
 ];
 
-const FUTURE_SPACES = [
-    { name: 'Basic', desc: 'Para consulta general y nutrición.', img: IMAGES.basic },
-    { name: 'Standard', desc: 'Equilibrio perfecto entre funcionalidad y diseño.', img: IMAGES.premium }
-];
+// Combine all in one list for consistent rendering if needed, 
+// or keep distinction. The user wants to see all prices.
 
 interface LandingPageProps {
     onBookClick: () => void;
@@ -272,40 +300,40 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {SPACE_TYPES.map((space) => (
-                            <div key={space.id} className="group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2">
+                            <div key={space.id} className={`group relative rounded-[2.5rem] overflow-hidden bg-white shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2 ${!space.isAvailable ? 'opacity-90' : ''}`}>
                                 <div className="h-80 overflow-hidden relative">
-                                    <img src={space.img} alt={space.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0" />
+                                    <img src={space.img} alt={space.name} className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${!space.isAvailable ? 'grayscale-[50%]' : ''}`} />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
-                                    <div className="absolute top-6 left-6 bg-mh-gold text-mh-blue px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg">Disponible Ahora</div>
+
+                                    {space.isAvailable ? (
+                                        <div className="absolute top-6 left-6 bg-mh-gold text-mh-blue px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg">Disponible Ahora</div>
+                                    ) : (
+                                        <div className="absolute top-6 left-6 bg-slate-800/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-white/20">Próximamente</div>
+                                    )}
+
                                     <div className="absolute bottom-6 left-6 text-white">
                                         <div className="text-mh-gold mb-2">{space.icon}</div>
                                         <h3 className="text-3xl font-heading font-bold">{space.name}</h3>
                                     </div>
                                 </div>
                                 <div className="p-8">
-                                    <p className="text-slate-500 mb-8 text-sm leading-relaxed">{space.desc}</p>
-                                    <div className="flex justify-between items-center pt-6 border-t border-slate-100">
-                                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Desde</span>
-                                        <span className="text-xl font-bold text-mh-blue">{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(space.basePrice)}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                                    <p className="text-slate-500 mb-8 text-sm leading-relaxed h-12 overflow-hidden">{space.desc}</p>
 
-                        {FUTURE_SPACES.map((space, idx) => (
-                            <div key={idx} className="group relative rounded-[2.5rem] overflow-hidden bg-slate-50 border border-slate-100 opacity-60 grayscale transition-all duration-500">
-                                <div className="h-80 overflow-hidden relative">
-                                    <img src={space.img} alt={space.name} className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-slate-900/40"></div>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="bg-white/20 backdrop-blur-md border border-white/30 px-6 py-3 rounded-full text-xs font-bold text-white uppercase tracking-[0.2em]">Próximamente</div>
+                                    <div className="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                                        <div className="flex justify-between items-end">
+                                            <span className="text-[10px] font-bold text-mh-blue uppercase tracking-widest">Socio MedHause</span>
+                                            <span className="text-2xl font-black text-slate-900">
+                                                {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(space.priceMember)}
+                                                <span className="text-xs font-normal text-slate-400">/h</span>
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center opacity-60">
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Visitante (Lista)</span>
+                                            <span className="text-sm font-bold text-slate-500 line-through">
+                                                {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(space.priceList)}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="absolute bottom-6 left-6 text-white">
-                                        <h3 className="text-2xl font-heading font-bold">{space.name}</h3>
-                                    </div>
-                                </div>
-                                <div className="p-8">
-                                    <p className="text-slate-400 text-xs leading-relaxed">{space.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -499,28 +527,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
                 </div>
             </section>
 
-            {/* Footer Minimal */}
-            <footer className="bg-white border-t border-slate-100 py-20">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-12">
-                    <div className="text-center md:text-left max-w-xs">
-                        <Logo variant="dark" size="sm" />
-                        <p className="text-xs text-slate-400 mt-6 font-medium leading-relaxed">Medical Workspaces on-demand diseñados para potenciar la marca personal del especialista moderno.</p>
-                        <p className="text-[10px] text-slate-300 mt-4 uppercase tracking-widest">© 2025 MedHause™</p>
-                    </div>
-                    <div className="flex flex-col md:flex-row gap-16">
-                        <div>
-                            <p className="font-bold text-slate-900 mb-4 uppercase text-xs tracking-widest">Contacto</p>
-                            <p className="text-sm text-slate-600 mb-2">+57 314 876 2907</p>
-                            <p className="text-sm text-slate-600">hola@medhause.co</p>
-                        </div>
-                        <div>
-                            <p className="font-bold text-slate-900 mb-4 uppercase text-xs tracking-widest">Legal</p>
-                            <a href="#" className="block text-sm text-slate-500 hover:text-mh-blue mb-2 transition-colors">Política de Datos</a>
-                            <a href="#" className="block text-sm text-slate-500 hover:text-mh-blue transition-colors">Términos de Uso</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

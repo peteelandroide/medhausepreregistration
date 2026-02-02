@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Star, Clock, ArrowLeft, ChevronRight, Zap, Info, Calendar, FileText, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Footer } from './Footer';
 
 // Reusing constants or defining them if they were local. 
 // Assuming IMAGES and SPACE_TYPES are needed here or passed as props. 
@@ -297,6 +298,7 @@ export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?:
                                 El protocolo de desinfección (15 min) se aplica automáticamente al finalizar tu bloque reservado.
                             </p>
                         </div>
+                        <Footer />
                     </section>
                 </div>
 
@@ -393,7 +395,7 @@ export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?:
                                     onBook(bookingDetails);
                                 } else {
                                     const msg = `MedHause! Quiero pre-reservar el espacio ${selectedSpace.name} el ${selectedDate.toDateString()} desde las ${formatHour(startHour!)} hasta las ${formatHour(lastHourInSelection! + 1)}. Inversión estimada: ${formatPrice(selectionMetrics.total)}`;
-                                    window.open(`https://wa.me/573148762907?text=${encodeURIComponent(msg)}`, '_blank');
+                                    window.open(`https://wa.me/573206055134?text=${encodeURIComponent(msg)}`, '_blank');
                                 }
                             }}
                             className="w-full bg-mh-blue text-white font-bold py-5 rounded-2xl shadow-xl hover:shadow-2xl hover:bg-mh-gold hover:text-mh-blue transition-all duration-300 disabled:opacity-50 disabled:shadow-none flex items-center justify-center gap-3 text-sm tracking-wide uppercase"

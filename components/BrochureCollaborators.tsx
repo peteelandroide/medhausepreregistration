@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Clock, MapPin, Star, CheckCircle, ChevronRight, Zap, ArrowLeft, Trophy, Sparkles, Wine, ShieldCheck, Users, X, Target, BarChart, Handshake } from 'lucide-react';
 import { Logo } from './Logo';
+import { Footer } from './Footer';
 import { LocationCard } from './LocationCard';
 
 interface BrochureProps {
@@ -10,7 +11,7 @@ interface BrochureProps {
 // Reusable WhatsApp Button Component with custom text for Collaborators (Mafe Sabat)
 const WhatsAppButton: React.FC<{ text?: string; light?: boolean }> = ({ text = 'Conversar con Mafe Sabat', light }) => (
     <button
-        onClick={() => window.open('https://wa.me/573053412292', '_blank')}
+        onClick={() => window.open('https://wa.me/573206055134', '_blank')}
         className={`group mt-8 px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-xl hover:scale-105 duration-300 flex items-center justify-center gap-3 ${light
             ? 'bg-white text-mh-blue hover:bg-mh-gold hover:text-mh-blue'
             : 'bg-slate-950 text-white hover:bg-mh-blue'
@@ -431,13 +432,8 @@ export const BrochureCollaborators: React.FC<BrochureProps> = ({ onBack }) => {
                 </div>
             </section>
 
-            {/* Footer Minimal */}
-            <footer className="py-12 bg-slate-50 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    <Logo variant="dark" size="md" />
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2026 MedHause™</p>
-                </div>
-            </footer>
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

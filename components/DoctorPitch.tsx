@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     ChevronRight,
     ChevronLeft,
@@ -22,6 +23,7 @@ import {
     MoreVertical
 } from 'lucide-react';
 import { Logo } from './Logo';
+import { Footer } from './Footer';
 
 interface DoctorPitchProps {
     onBack: () => void;
@@ -529,9 +531,9 @@ export const DoctorPitch: React.FC<DoctorPitchProps> = ({ onBack }) => {
     }, [currentSlide]);
 
     return (
-        <div className="fixed inset-0 z-50 bg-slate-950 font-sans h-screen w-screen overflow-hidden">
+        <div className="relative min-h-screen bg-slate-950 font-sans overflow-x-hidden">
             {/* Top Navigation / Controls */}
-            <div className="absolute top-0 left-0 w-full z-50 p-6 flex justify-between items-center pointer-events-none">
+            <div className="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center pointer-events-none">
                 <button
                     onClick={onBack}
                     className="pointer-events-auto flex items-center gap-2 text-white/50 hover:text-white transition-colors text-[10px] uppercase font-bold tracking-widest bg-black/20 backdrop-blur-md px-4 py-2 rounded-full"
@@ -547,12 +549,23 @@ export const DoctorPitch: React.FC<DoctorPitchProps> = ({ onBack }) => {
             </div>
 
             {/* Main Content Area */}
-            <div className="h-full w-full">
-                {slides[currentSlide].render()}
+            <div className="flex-grow w-full relative h-screen">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentSlide}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="h-full w-full"
+                    >
+                        {slides[currentSlide].render()}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Bottom Navigation Controls */}
-            <div className="absolute bottom-8 right-8 z-50 flex gap-4">
+            {/* Bottom Navigation Controls - Fixed relative to viewport if we want, or relative to container */}
+            <div className="fixed bottom-8 right-8 z-50 flex gap-4">
                 <button
                     onClick={prevSlide}
                     disabled={currentSlide === 0}
@@ -570,12 +583,14 @@ export const DoctorPitch: React.FC<DoctorPitchProps> = ({ onBack }) => {
             </div>
 
             {/* Progress Bar */}
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+            <div className="fixed bottom-0 left-0 w-full h-1 bg-white/5 z-[60]">
                 <div
                     className="h-full bg-mh-gold transition-all duration-500 ease-out"
                     style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
                 ></div>
             </div>
+
+            <Footer />
         </div>
     );
 };
