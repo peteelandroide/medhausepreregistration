@@ -11,7 +11,7 @@ declare global {
 // TODO: Replace with actual Pixel ID from user or environment variable
 const PIXEL_ID = '844985545161151'; // Updated with real ID
 const SUPABASE_FUNCTION_URL = 'https://pxpptalixswgbajiyubz.supabase.co/functions/v1/meta-capi'; // Replace with your project details if different
-const TEST_EVENT_CODE = ''; // Optional: Add code from "Test Events" tab in Meta (e.g., 'TEST12345')
+const TEST_EVENT_CODE = 'TEST50217'; // Temporarily added for testing
 
 // Helper to get cookie value
 const getCookie = (name: string) => {
