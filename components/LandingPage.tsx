@@ -5,6 +5,7 @@ import { LocationCard } from './LocationCard';
 import { Footer } from './Footer';
 import { CalculatorInput } from './CalculatorInput';
 import { supabase } from '../supabaseClient';
+import { trackEvent } from './MetaPixel';
 
 const IMAGES = {
     hero: "https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/hero.jpg",
@@ -79,6 +80,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
             }]);
 
             if (error) throw error;
+
+            // Track Lead event
+            trackEvent('Lead', {
+                value: 0.00,
+                currency: 'COP',
+                content_name: 'Pre-Registration',
+                status: 'success'
+            }, {
+                email: formData.email,
+                phone: `57${formData.phone}`,
+                firstName: formData.name.split(' ')[0],
+                lastName: formData.name.split(' ').slice(1).join(' '),
+                city: formData.city,
+                country: 'co'
+            });
+
             onRegisterSuccess();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
@@ -102,11 +119,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
                     </div>
                     <div className="flex items-center gap-4">
                         {/* Botón Agendar Horas */}
-                        <button onClick={onBookClick} className="hidden md:flex text-xs font-bold text-mh-blue border border-slate-200 bg-slate-50 hover:bg-white hover:border-mh-blue hover:shadow-lg px-6 py-3 rounded-full transition-all items-center gap-2 group tracking-wide">
+                        <button onClick={() => {
+                            trackEvent('ButtonClick', { button_name: 'Navbar Agendar' });
+                            onBookClick();
+                        }} className="hidden md:flex text-xs font-bold text-mh-blue border border-slate-200 bg-slate-50 hover:bg-white hover:border-mh-blue hover:shadow-lg px-6 py-3 rounded-full transition-all items-center gap-2 group tracking-wide">
                             <Calendar size={16} className="text-slate-400 group-hover:text-mh-blue transition-colors" /> AGENDAR VISITA
                         </button>
                         {/* Botón Preregistro */}
-                        <button onClick={scrollToRegistration} className="bg-mh-blue text-white px-8 py-3 rounded-full text-xs font-black hover:bg-mh-gold hover:text-mh-blue transition-all shadow-xl shadow-mh-blue/20 tracking-widest uppercase">
+                        <button onClick={() => {
+                            trackEvent('ButtonClick', { button_name: 'Navbar Preregistro' });
+                            scrollToRegistration();
+                        }} className="bg-mh-blue text-white px-8 py-3 rounded-full text-xs font-black hover:bg-mh-gold hover:text-mh-blue transition-all shadow-xl shadow-mh-blue/20 tracking-widest uppercase">
                             PREREGISTRO
                         </button>
                     </div>
@@ -133,10 +156,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
                             MedHause™ es el primer Medical Workspace premium de Colombia. Independencia, prestigio y flexibilidad total para especialistas de alto nivel.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-5 mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                            <button onClick={scrollToRegistration} className="bg-mh-gold text-mh-blue px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-[0_20px_40px_-10px_rgba(242,214,162,0.4)] hover:scale-105 transform duration-300 flex items-center justify-center gap-2 group">
+                            <button onClick={() => {
+                                trackEvent('ButtonClick', { button_name: 'Hero Unirse Lista' });
+                                scrollToRegistration();
+                            }} className="bg-mh-gold text-mh-blue px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-[0_20px_40px_-10px_rgba(242,214,162,0.4)] hover:scale-105 transform duration-300 flex items-center justify-center gap-2 group">
                                 Unirse a la Lista <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </button>
-                            <button onClick={onBookClick} className="bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 group">
+                            <button onClick={() => {
+                                trackEvent('ButtonClick', { button_name: 'Hero Agendar Espacio' });
+                                onBookClick();
+                            }} className="bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 group">
                                 <Calendar size={18} className="text-mh-gold" /> Agendar Espacio
                             </button>
                         </div>
@@ -280,7 +309,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
 
                     {/* CTA */}
                     <div className="text-center mt-16">
-                        <button onClick={scrollToRegistration} className="bg-mh-gold text-mh-blue px-12 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-2xl hover:scale-105 transform duration-300">
+                        <button onClick={() => {
+                            trackEvent('ButtonClick', { button_name: 'CTA Ventaja Competitiva' });
+                            scrollToRegistration();
+                        }} className="bg-mh-gold text-mh-blue px-12 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-2xl hover:scale-105 transform duration-300">
                             Quiero esta ventaja competitiva
                         </button>
                     </div>
@@ -295,7 +327,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
                             <span className="text-mh-gold font-black uppercase tracking-[0.2em] text-xs mb-4 block">Espacios MedHause™</span>
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900">Infraestructura de clase mundial.</h2>
                         </div>
-                        <button onClick={onBookClick} className="text-mh-blue font-bold text-sm uppercase tracking-widest border-b-2 border-mh-blue pb-1 hover:text-mh-gold hover:border-mh-gold transition-colors">Ver disponibilidad real</button>
+                        <button onClick={() => {
+                            trackEvent('ButtonClick', { button_name: 'Ver Disponibilidad Spaces' });
+                            onBookClick();
+                        }} className="text-mh-blue font-bold text-sm uppercase tracking-widest border-b-2 border-mh-blue pb-1 hover:text-mh-gold hover:border-mh-gold transition-colors">Ver disponibilidad real</button>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

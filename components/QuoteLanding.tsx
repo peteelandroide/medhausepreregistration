@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CheckCircle, ChevronRight, Clock, Star, Zap, ShieldCheck, Stethoscope, Layout, X, Check, Minus, Plus } from 'lucide-react';
 import { Logo } from './Logo';
 import { Footer } from './Footer';
+import { trackEvent } from './MetaPixel';
 
 interface QuoteLandingProps {
     onHomeClick: () => void;
@@ -68,6 +69,14 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
     const selectedRoom = ROOM_TYPES.find(r => r.id === selectedType);
 
     const handleTypeSelect = (id: string) => {
+        const room = ROOM_TYPES.find(r => r.id === id);
+        trackEvent('SelectContent', {
+            content_type: 'product',
+            content_id: id,
+            content_name: room?.name,
+            currency: 'COP',
+            value: room?.priceMember
+        });
         setSelectedType(id);
         setStep(2);
     };
@@ -117,9 +126,32 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
             `Me gustaría agendar una visita y confirmar disponibilidad.`;
 
         window.open(`https://wa.me/573206055134?text=${encodeURIComponent(msg)}`, '_blank');
+
+        // Track Conversion
+        trackEvent('Lead', {
+            content_name: 'Quote WhatsApp',
+            content_category: plan === 'member' ? 'Membership' : 'Guest',
+            value: total,
+            currency: 'COP',
+            room_type: selectedRoom.name,
+            hours: hours
+        }, leadData ? {
+            firstName: leadData.name.split(' ')[0],
+            lastName: leadData.name.split(' ').slice(1).join(' '),
+            city: 'Medellín', // Assumed from context of local business
+            country: 'co'
+        } : undefined);
     };
 
     const triggerLeadForm = (plan: 'member' | 'guest') => {
+        trackEvent('InitiateCheckout', {
+            content_name: plan === 'member' ? 'Membership Application' : 'Guest Quote',
+            room_type: selectedRoom?.name,
+            hours: hours
+        }, leadData ? {
+            firstName: leadData.name.split(' ')[0],
+            lastName: leadData.name.split(' ').slice(1).join(' ')
+        } : undefined);
         setPendingPlan(plan);
         setShowLeadForm(true);
     };
@@ -327,7 +359,10 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
 
                                 <div className="space-y-4">
                                     <button
-                                        onClick={() => setStep(3)}
+                                        onClick={() => {
+                                            trackEvent('CustomizeProduct', { hours: hours, room_type: selectedRoom?.name });
+                                            setStep(3);
+                                        }}
                                         className="w-full bg-mh-gold hover:bg-white text-slate-900 font-black py-5 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 text-sm uppercase tracking-widest"
                                     >
                                         Ver Comparativo <ChevronRight size={20} />

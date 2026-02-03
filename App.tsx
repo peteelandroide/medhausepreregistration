@@ -3,7 +3,6 @@ import { BrochurePhysicians } from './components/BrochurePhysicians';
 import { BrochureCollaborators } from './components/BrochureCollaborators';
 import { BookingView } from './components/BookingView';
 import { LandingPage } from './components/LandingPage';
-import { AdsLanding } from './components/AdsLanding';
 import { ReservasLanding } from './components/ReservasLanding';
 import { QuoteLanding } from './components/QuoteLanding';
 import { PendonBanner } from './components/PendonBanner';
@@ -15,6 +14,7 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
 import { Footer } from './components/Footer';
 import { CheckCircle } from 'lucide-react';
+import { MetaPixel, trackPageView } from './components/MetaPixel';
 
 
 export default function App() {
@@ -38,6 +38,9 @@ export default function App() {
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
       else setView('landing');
+
+      // Track PageView whenever view changes matching URL
+      trackPageView();
     };
 
     handleUrlChange();
@@ -50,103 +53,96 @@ export default function App() {
     window.history.pushState({}, '', window.location.pathname);
   };
 
-  // Vista de éxito post-registro
-  if (isRegistered) {
+  const renderContent = () => {
+    // Vista de éxito post-registro
+    if (isRegistered) {
+      return (
+        <div className="min-h-screen bg-slate-900 flex flex-col items-center p-6 text-white font-sans relative overflow-x-hidden">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+          <div className="max-w-lg w-full text-center relative z-10 my-auto py-20">
+            <div className="w-24 h-24 bg-gradient-to-tr from-mh-gold to-yellow-200 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-mh-gold/30 animate-fade-in-up">
+              <CheckCircle size={48} className="text-mh-blue" />
+            </div>
+            <h2 className="text-5xl font-heading font-black mb-6 tracking-tight">¡Estás dentro!</h2>
+            <p className="text-lg text-slate-300 mb-10 font-light leading-relaxed">Tu lugar en el prelanzamiento de <span className="text-white font-bold">MedHause™</span> está asegurado. Te contactaremos pronto.</p>
+            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">Código de Acceso Fundador</p>
+              <p className="text-4xl font-mono text-mh-gold tracking-widest">MH-{Math.floor(Math.random() * 9000) + 1000}</p>
+            </div>
+            <button onClick={() => setIsRegistered(false)} className="text-sm text-slate-500 hover:text-white transition-colors uppercase tracking-widest font-bold">Volver al inicio</button>
+          </div>
+          <div className="w-full mt-auto">
+            <Footer />
+          </div>
+        </div>
+      );
+    }
+
+    if (view === 'booking') {
+      return <BookingView onClose={() => setView('landing')} />;
+    }
+
+    if (view === 'medicos') {
+      return <BrochurePhysicians onBack={handleBack} />;
+    }
+
+    if (view === 'colaboradores') {
+      return <BrochureCollaborators onBack={handleBack} />;
+    }
+
+    if (view === 'reservas') {
+      return <ReservasLanding onHomeClick={() => setView('landing')} />;
+    }
+
+    if (view === 'promo') {
+      return <QuoteLanding onHomeClick={() => setView('landing')} />;
+    }
+
+    if (view === 'pendon') {
+      return <PendonBanner />;
+    }
+
+    if (view === 'pitch') {
+      return <PitchDeck onBack={handleBack} />;
+    }
+
+    if (view === 'doctor-pitch') {
+      return <DoctorPitch onBack={handleBack} />;
+    }
+
+    if (view === 'mafe-pitch') {
+      return <MafePitch onBack={handleBack} />;
+    }
+
+    if (view === 'tv') {
+      return <TVShowcase />;
+    }
+
+    if (view === 'tv-showcase') {
+      return <TVShowcase />;
+    }
+
+    if (view === 'privacy') {
+      return <PrivacyPolicy onBack={handleBack} />;
+    }
+
+    if (view === 'terms') {
+      return <TermsOfUse onBack={handleBack} />;
+    }
+
     return (
-      <div className="min-h-screen bg-slate-900 flex flex-col items-center p-6 text-white font-sans relative overflow-x-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-        <div className="max-w-lg w-full text-center relative z-10 my-auto py-20">
-          <div className="w-24 h-24 bg-gradient-to-tr from-mh-gold to-yellow-200 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-mh-gold/30 animate-fade-in-up">
-            <CheckCircle size={48} className="text-mh-blue" />
-          </div>
-          <h2 className="text-5xl font-heading font-black mb-6 tracking-tight">¡Estás dentro!</h2>
-          <p className="text-lg text-slate-300 mb-10 font-light leading-relaxed">Tu lugar en el prelanzamiento de <span className="text-white font-bold">MedHause™</span> está asegurado. Te contactaremos pronto.</p>
-          <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/10">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">Código de Acceso Fundador</p>
-            <p className="text-4xl font-mono text-mh-gold tracking-widest">MH-{Math.floor(Math.random() * 9000) + 1000}</p>
-          </div>
-          <button onClick={() => setIsRegistered(false)} className="text-sm text-slate-500 hover:text-white transition-colors uppercase tracking-widest font-bold">Volver al inicio</button>
-        </div>
-        <div className="w-full mt-auto">
-          <Footer />
-        </div>
-      </div>
+      <LandingPage
+        onBookClick={() => setView('booking')}
+        onRegisterClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
+        onRegisterSuccess={() => setIsRegistered(true)}
+      />
     );
-  }
-
-  if (view === 'booking') {
-    return <BookingView onClose={() => setView('landing')} />;
-  }
-
-  if (view === 'medicos') {
-    return <BrochurePhysicians onBack={handleBack} />;
-  }
-
-  if (view === 'colaboradores') {
-    return <BrochureCollaborators onBack={handleBack} />;
-  }
-
-  if (view === 'reservas') {
-    // OLD PROMO VIEW
-    return <ReservasLanding onHomeClick={() => setView('landing')} />;
-  }
-
-  if (view === 'promo') {
-    // NEW QUOTE VIEW
-    return <QuoteLanding onHomeClick={() => setView('landing')} />;
-  }
-
-  if (view === 'pendon') {
-    return <PendonBanner />;
-  }
-
-  if (view === 'pitch') {
-    return <PitchDeck onBack={handleBack} />;
-  }
-
-  if (view === 'doctor-pitch') {
-    return <DoctorPitch onBack={handleBack} />;
-  }
-
-  if (view === 'mafe-pitch') {
-    return <MafePitch onBack={handleBack} />;
-  }
-
-  if (view === 'tv') {
-    return <TVShowcase />;
-  }
-
-  if (view === 'tv-showcase') {
-    return <TVShowcase />;
-  }
-
-  if (view === 'privacy') {
-    return <PrivacyPolicy onBack={handleBack} />;
-  }
-
-  if (view === 'terms') {
-    return <TermsOfUse onBack={handleBack} />;
-  }
-
-  // Still keeping AdsLanding accessible via Booking button from main page? 
-  // User said "current system... transport to another page called reservas"
-  // User also said "main page promo buttons should go to new system"
-  // So 'promo' takes over quoting. 'reservas' takes the complex booking.
+  };
 
   return (
-    <LandingPage
-      onBookClick={() => setView('booking')} // This might need to check if user wants "reservas" or "quote". Assuming "booking" stays as is or redirects?
-      // Actually LandingPage has a "Agendar" button. 
-      // User said: "pagina actual de promo debemos reformar el sistema... al cual se llega desde los botones de accion cta"
-      // So LandingPage "Agendar" should probably go to 'promo' (QuoteLanding).
-      // However, App.tsx handles onBookClick. I will change setView('booking') to setView('promo') later if needed, 
-      // but 'booking' view is the actual calendar which is part of the old system.
-      // Wait, 'BookingView' is the modal *inside* AdsLanding usually, but also a standalone view here?
-      // Line 70: if (view === 'booking') return <BookingView ... />
-      // Let's keep it for now but maybe default internal links to 'promo'.
-
-      onRegisterClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
-      onRegisterSuccess={() => setIsRegistered(true)}
-    />
+    <>
+      <MetaPixel />
+      {renderContent()}
+    </>
   );
 }
