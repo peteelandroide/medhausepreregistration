@@ -184,13 +184,22 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                 <div className="max-w-7xl mx-auto">
                     {/* Progress Steps */}
                     <div className="flex justify-center mb-10 md:mb-16">
-                        <div className="flex items-center gap-2">
-                            {[1, 2, 3].map((s) => (
-                                <React.Fragment key={s}>
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${step >= s ? 'bg-mh-blue text-white shadow-lg' : 'bg-slate-200 text-slate-400'}`}>
-                                        {s}
+                        <div className="flex items-center gap-4 md:gap-8">
+                            {[
+                                { n: 1, label: 'Consultorio' },
+                                { n: 2, label: 'Horas' },
+                                { n: 3, label: 'Membresía' }
+                            ].map((s, idx, arr) => (
+                                <React.Fragment key={s.n}>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-black transition-all ${step >= s.n ? 'bg-mh-blue text-white shadow-xl scale-110' : 'bg-slate-200 text-slate-400'}`}>
+                                            {s.n}
+                                        </div>
+                                        <span className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest ${step >= s.n ? 'text-mh-blue' : 'text-slate-300'}`}>
+                                            {s.label}
+                                        </span>
                                     </div>
-                                    {s < 3 && <div className={`w-12 h-1 rounded-full ${step > s ? 'bg-mh-blue' : 'bg-slate-200'}`} />}
+                                    {idx < arr.length - 1 && <div className={`w-8 md:w-16 h-1 rounded-full -mt-6 ${step > s.n ? 'bg-mh-blue' : 'bg-slate-200'}`} />}
                                 </React.Fragment>
                             ))}
                         </div>
@@ -199,12 +208,12 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                     {/* Header: Responsive Typography */}
                     <div className="text-center mb-8 md:mb-16 animate-fade-in-up px-4 md:px-0">
                         <h1 className="text-2xl md:text-5xl font-heading font-black text-slate-900 mb-3 md:mb-4 tracking-tight leading-tight">
-                            {step === 1 && 'Elige tu Espacio'}
-                            {step === 2 && 'Personaliza tu Paquete'}
-                            {step === 3 && 'Adquiere tu Membresía'}
+                            {step === 1 && 'Paso 1: Selecciona tu Consultorio'}
+                            {step === 2 && 'Paso 2: Personaliza tu Paquete'}
+                            {step === 3 && 'Paso 3: Adquiere tu Membresía'}
                         </h1>
                         <p className="text-sm md:text-lg text-slate-500 font-light">
-                            {step === 1 && 'Selecciona el consultorio que mejor se adapte a tu práctica.'}
+                            {step === 1 && 'Toca el consultorio que prefieras para ver precios y detalles.'}
                             {step === 2 && 'Define cuántas horas mensuales necesitas.'}
                             {step === 3 && 'Compara y elige la mejor opción para ti.'}
                         </p>
@@ -230,13 +239,7 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
 
                                         <div className="h-64 rounded-[2rem] overflow-hidden mb-8 relative shadow-inner shrink-0 group-hover:shadow-lg transition-all">
                                             <img src={room.images[0]} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" />
-                                            {isPremium && <div className="absolute inset-0 bg-slate-900/20 mix-blend-multiply pointer-events-none"></div>}
-
-                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                                                <span className="bg-white text-slate-900 px-6 py-3 rounded-full text-xs font-black uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform shadow-xl">
-                                                    Seleccionar
-                                                </span>
-                                            </div>
+                                            {isPremium && <div className="absolute inset-0 bg-slate-900/10 mix-blend-multiply pointer-events-none"></div>}
                                         </div>
 
                                         <div className="mb-6 px-2">
@@ -246,14 +249,23 @@ export const QuoteLanding: React.FC<QuoteLandingProps> = ({ onHomeClick }) => {
                                         </div>
 
                                         <div className={`mt-auto p-5 rounded-2xl ${isPremium ? 'bg-white/10 border border-white/10' : 'bg-slate-50 border border-slate-100'}`}>
-                                            <div className="flex justify-between items-end mb-2">
-                                                <span className={`text-[10px] font-bold uppercase tracking-wider ${isPremium ? 'text-mh-gold' : 'text-mh-blue'}`}>Membresía</span>
-                                                <span className={`text-2xl font-black ${isPremium ? 'text-white' : 'text-slate-900'}`}>{formatPrice(room.priceMember)}<span className={`text-xs font-normal ${isPremium ? 'text-slate-300' : 'text-slate-400'}`}>/h</span></span>
+                                            <div className="flex justify-between items-end mb-4">
+                                                <div className="flex flex-col">
+                                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isPremium ? 'text-mh-gold' : 'text-mh-blue'}`}>Desde</span>
+                                                    <span className={`text-2xl font-black ${isPremium ? 'text-white' : 'text-slate-900'}`}>{formatPrice(room.priceMember)}<span className={`text-xs font-normal ${isPremium ? 'text-slate-300' : 'text-slate-400'}`}>/h</span></span>
+                                                </div>
+                                                <div className="text-right">
+                                                    <span className={`block text-[10px] uppercase tracking-wider ${isPremium ? 'text-slate-400' : 'text-slate-400'}`}>Precio Lista</span>
+                                                    <span className={`text-xs font-medium line-through ${isPremium ? 'text-slate-500' : 'text-slate-400'}`}>{formatPrice(room.priceList)}</span>
+                                                </div>
                                             </div>
-                                            <div className="flex justify-between items-center">
-                                                <span className={`text-[10px] uppercase tracking-wider ${isPremium ? 'text-slate-400' : 'text-slate-400'}`}>Precio Lista</span>
-                                                <span className={`text-xs font-medium line-through ${isPremium ? 'text-slate-500' : 'text-slate-400'}`}>{formatPrice(room.priceList)}</span>
-                                            </div>
+
+                                            <button className={`w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2 animate-pulse-subtle ${isPremium
+                                                ? 'bg-mh-gold text-slate-900 hover:bg-white'
+                                                : 'bg-mh-blue text-white hover:bg-slate-800'
+                                                }`}>
+                                                Seleccionar <ChevronRight size={16} />
+                                            </button>
                                         </div>
                                     </div>
                                 );

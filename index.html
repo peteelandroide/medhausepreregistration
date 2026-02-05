@@ -27,10 +27,6 @@
             sans: ['Inter', 'sans-serif'],
             heading: ['Montserrat', 'sans-serif'],
           },
-          animation: {
-            'fade-in': 'fadeIn 0.5s ease-out',
-            'fade-in-up': 'fadeInUp 0.5s ease-out',
-          },
           keyframes: {
             fadeIn: {
               '0%': { opacity: '0' },
@@ -39,7 +35,16 @@
             fadeInUp: {
               '0%': { opacity: '0', transform: 'translateY(20px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.9' },
             }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out',
+            'fade-in-up': 'fadeInUp 0.5s ease-out',
+            'pulse-subtle': 'pulseSubtle 2s infinite ease-in-out',
           },
         }
       }
