@@ -70,7 +70,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
         const procedureText = funnelData.procedure === 'Otro' ? funnelData.otherProcedure : funnelData.procedure;
         const message = `Hola Dra. Caro Potes, me gustaría agendar una cita confidencial.\n\n*Mis Datos:*\n- Nombre: ${funnelData.name}\n- Edad: ${funnelData.age}\n- Vive en Medellín: ${funnelData.location}\n\n*Me interesa:*\n- Procedimiento: ${procedureText}\n- Tiempo planeado: ${funnelData.timeline}\n- Presupuesto estimado: ${funnelData.budget}\n- Preferencia de cita: *${funnelData.preference}*\n\n¡Quedo a la espera de sus indicaciones!`;
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/573103455187?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/573206055134?text=${encodedMessage}`;
 
         // Redirect after a short delay for tracking to fire
         setTimeout(() => {
