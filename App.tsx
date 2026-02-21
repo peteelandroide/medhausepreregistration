@@ -9,16 +9,18 @@ import { PendonBanner } from './components/PendonBanner';
 import { PitchDeck } from './components/PitchDeck';
 import { DoctorPitch } from './components/DoctorPitch';
 import { MafePitch } from './components/MafePitch';
+import { DoctorLandingCaro } from './components/DoctorLandingCaro';
 import { TVShowcase } from './components/TVShowcase';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
+import { ProposalGenerator } from './components/ProposalGenerator';
+import { ProposalTemplate } from './components/ProposalTemplate';
 import { Footer } from './components/Footer';
 import { CheckCircle } from 'lucide-react';
 import { MetaPixel, trackPageView } from './components/MetaPixel';
 
-
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'tv' | 'tv-showcase' | 'privacy' | 'terms'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'tv' | 'tv-showcase' | 'privacy' | 'terms' | 'generate' | 'proposal-preview'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -33,10 +35,13 @@ export default function App() {
       else if (v === 'pitch') setView('pitch');
       else if (v === 'doctor-pitch') setView('doctor-pitch');
       else if (v === 'mafe-pitch') setView('mafe-pitch');
+      else if (v === 'doctor-caro') setView('doctor-caro');
       else if (v === 'tv') setView('tv');
       else if (v === 'tv-showcase') setView('tv-showcase');
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
+      else if (v === 'generate') setView('generate');
+      else if (v === 'proposal-preview') setView('proposal-preview');
       else setView('landing');
 
       // Track PageView whenever view changes matching URL
@@ -114,6 +119,10 @@ export default function App() {
       return <MafePitch onBack={handleBack} />;
     }
 
+    if (view === 'doctor-caro') {
+      return <DoctorLandingCaro onBack={handleBack} />;
+    }
+
     if (view === 'tv') {
       return <TVShowcase />;
     }
@@ -128,6 +137,20 @@ export default function App() {
 
     if (view === 'terms') {
       return <TermsOfUse onBack={handleBack} />;
+    }
+
+    if (view === 'generate') {
+      return <ProposalGenerator />;
+    }
+
+    if (view === 'proposal-preview') {
+      const proposalData = window.history.state;
+      return <ProposalTemplate data={proposalData} onBack={() => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('view', 'generate');
+        window.history.pushState(proposalData, '', url.toString());
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      }} />;
     }
 
     return (

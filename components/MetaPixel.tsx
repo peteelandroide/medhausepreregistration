@@ -8,9 +8,9 @@ declare global {
     }
 }
 
-// TODO: Replace with actual Pixel ID from user or environment variable
-const PIXEL_ID = '844985545161151'; // Updated with real ID
-const SUPABASE_FUNCTION_URL = 'https://pxpptalixswgbajiyubz.supabase.co/functions/v1/meta-capi'; // Replace with your project details if different
+// Default Pixel ID for MedHause
+export const DEFAULT_PIXEL_ID = '844985545161151';
+const SUPABASE_FUNCTION_URL = 'https://pxpptalixswgbajiyubz.supabase.co/functions/v1/meta-capi';
 const TEST_EVENT_CODE = ''; // Set to empty for production
 
 // Helper to get cookie value
@@ -26,38 +26,42 @@ const generateEventId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
-export const MetaPixel = () => {
+interface MetaPixelProps {
+    pixelId?: string;
+}
+
+export const MetaPixel = ({ pixelId = DEFAULT_PIXEL_ID }: MetaPixelProps) => {
     useEffect(() => {
-        // Check if Pixel is already initialized to avoid duplicate scripts
-        if (window.fbq) return;
+        // We only initialize if it's the first one or a different one
+        // Note: multiple fbq('init') calls are supported by Meta to track to different pixels
 
-        let n;
-        n = window.fbq = function () {
-            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!window._fbq) window._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
+        if (!window.fbq) {
+            let n;
+            n = window.fbq = function () {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!window._fbq) window._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
 
-        // Create script element
-        const t = document.createElement('script');
-        t.async = !0;
-        t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+            const t = document.createElement('script');
+            t.async = !0;
+            t.src = 'https://connect.facebook.net/en_US/fbevents.js';
 
-        // Insert script
-        const s = document.getElementsByTagName('script')[0];
-        if (s && s.parentNode) {
-            s.parentNode.insertBefore(t, s);
+            const s = document.getElementsByTagName('script')[0];
+            if (s && s.parentNode) {
+                s.parentNode.insertBefore(t, s);
+            }
         }
 
-        // Init Pixel
-        window.fbq('init', PIXEL_ID);
+        // Init the specific Pixel
+        window.fbq('init', pixelId);
 
-        // Track initial page view
-        window.fbq('track', 'PageView');
-    }, []);
+        // Track initial page view specifically for this pixel to avoid global double-counting
+        window.fbq('trackSingle', pixelId, 'PageView', {}, { eventID: generateEventId() });
+    }, [pixelId]);
 
     return (
         <noscript>
@@ -65,7 +69,7 @@ export const MetaPixel = () => {
                 height="1"
                 width="1"
                 style={{ display: 'none' }}
-                src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
+                src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
                 alt="Meta Pixel"
             />
         </noscript>
@@ -73,19 +77,25 @@ export const MetaPixel = () => {
 };
 
 // Helper to track page views manually (call this on route/view changes)
-export const trackPageView = () => {
+export const trackPageView = (pixelId: string = DEFAULT_PIXEL_ID) => {
     if (typeof window !== 'undefined' && window.fbq) {
-        window.fbq('track', 'PageView');
+        window.fbq('trackSingle', pixelId, 'PageView');
     }
 };
 
 // Track custom events manually
-export const trackEvent = async (eventName: string, data: Record<string, any> = {}, userData: Record<string, any> = {}) => {
+export const trackEvent = async (
+    eventName: string,
+    data: Record<string, any> = {},
+    userData: Record<string, any> = {},
+    pixelId: string = DEFAULT_PIXEL_ID
+) => {
     if (typeof window !== 'undefined' && window.fbq) {
         const eventId = generateEventId();
 
         // 1. Browser Tracking (Pixel)
-        window.fbq('track', eventName, data, { eventID: eventId });
+        // trackSingle specific pixel to avoid cross-firing if multiple are present
+        window.fbq('trackSingle', pixelId, eventName, data, { eventID: eventId });
 
         // 2. Server-Side Tracking (CAPI)
         try {
@@ -98,7 +108,7 @@ export const trackEvent = async (eventName: string, data: Record<string, any> = 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    pixelId: PIXEL_ID,
+                    pixelId: pixelId,
                     eventName,
                     eventData: data,
                     eventId,
@@ -118,7 +128,7 @@ export const trackEvent = async (eventName: string, data: Record<string, any> = 
                     }
                 })
             });
-            console.log(`[Meta CAPI] Sent ${eventName} to server.`);
+            console.log(`[Meta CAPI] Sent ${eventName} to server for pixel ${pixelId}.`);
         } catch (error) {
             console.error('[Meta CAPI] Validation failed:', error);
         }

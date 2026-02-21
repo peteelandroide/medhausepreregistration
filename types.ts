@@ -60,3 +60,16 @@ export const DEFAULT_PRICES: Prices = {
   avgUpsellOps: 300000, // Average value of operational upsells
   avgUpsellGrowth: 400000, // Average value of marketing upsells
 };
+
+export interface ProposalData {
+  doctorName: string;
+  specialty: string;
+  currentSituation: string;
+  goals: string;
+  recommendedPlan: 'Membership' | 'Visitante';
+  hoursPerMonth: number;
+  priceEstimate: string;
+  keyBenefits: string[];
+  nextSteps: string;
+  customNotes?: string;
+}
