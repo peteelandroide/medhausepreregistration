@@ -23,10 +23,16 @@ serve(async (req) => {
 
     try {
         const { pixelId, eventName, eventData, eventId, eventSourceUrl, userData, testEventCode } = await req.json()
-        const accessToken = Deno.env.get('META_ACCESS_TOKEN')
+
+        let accessToken = Deno.env.get('META_ACCESS_TOKEN')
+
+        // Dra. Caro Potes specific CAPI Token mapping
+        if (pixelId === '908119245544966') {
+            accessToken = Deno.env.get('DRA_CARO_META_ACCESS_TOKEN') || 'EAAWymMcFEaQBQ9hQpDkfA1ZCFTfBjhvKFN6H9KZBCa0tF9wZCSHZCiqr7H52ZAcgITZAivoeQXWFJ2qtVfnhnH7ZA9MqMXnLUxjavC4TjNwoGvKGgDdW3YxLRtkwO8hndUbOxobQcLZApXtljBPlQptSEsvyCH5LsPrAQQB0nPdae9VWdTUgr1Uukk2D8ZAn4w63BugZDZD';
+        }
 
         if (!accessToken) {
-            throw new Error('Missing META_ACCESS_TOKEN')
+            throw new Error(`Missing META_ACCESS_TOKEN for pixel ${pixelId}`);
         }
 
         // Get Client IP
