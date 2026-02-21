@@ -74,6 +74,10 @@ serve(async (req) => {
                         country: hashedCountry ? [hashedCountry] : undefined
                     },
                     custom_data: eventData,
+                    original_event_data: {
+                        event_name: eventName,
+                        event_time: currentTimestamp
+                    }
                 },
             ]
         }

@@ -52,8 +52,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Track Lead Event in Meta
-        await trackEvent('Lead_Qualified', {
+        // Track Lead Event in Meta (Standard Event: Lead)
+        const [firstName, ...lastNameParts] = funnelData.name.trim().split(/\s+/);
+        const lastName = lastNameParts.join(' ');
+
+        await trackEvent('Lead', {
             content_name: 'Lead Cita Confidencial Dra Caro',
             content_category: 'Medical High Ticket',
             value: 0,
@@ -63,7 +66,8 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
             budget: funnelData.budget,
             preference: funnelData.preference
         }, {
-            firstName: funnelData.name,
+            firstName: firstName,
+            lastName: lastName || undefined,
         }, DRA_POTES_PIXEL_ID);
 
         // Construct comprehensive WhatsApp message
