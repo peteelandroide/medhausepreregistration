@@ -8,7 +8,7 @@ import {
 import { analyzeTranscript } from '../utils/gemini';
 
 export const ProposalGenerator: React.FC = () => {
-    const [apiKey, setApiKey] = useState('AIzaSyA4xV8F8LenGUcWEfnK1wMi00-zK3fEgQg');
+    const [apiKey, setApiKey] = useState((import.meta as any).env.VITE_GEMINI_API_KEY || '');
     const [transcript, setTranscript] = useState('');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState('');
