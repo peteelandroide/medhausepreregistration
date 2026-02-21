@@ -15,7 +15,8 @@ import {
     MessageCircle,
     Building2,
     Lock,
-    ChevronLeft
+    ChevronLeft,
+    ChevronRight
 } from 'lucide-react';
 import { MetaPixel, trackEvent } from './MetaPixel';
 import { Footer } from './Footer';
@@ -141,8 +142,9 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                         </p>
 
                         <div className="pt-8 flex flex-col items-center gap-12">
-                            <a href="#leads-form" className="group relative inline-flex items-center gap-3 px-10 py-5 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-950 hover:text-white transition-all shadow-[0_20px_40px_-15px_rgba(212,175,55,0.3)] active:scale-95">
-                                Hablemos de tu caso <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            <a href="#leads-form" className="group relative inline-flex items-center gap-3 px-10 py-5 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-950 hover:text-white transition-all shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] active:scale-95 overflow-hidden">
+                                <div className="absolute inset-0 bg-white/20 w-1/2 -skew-x-12 -translate-x-full animate-[shimmer_3s_infinite_ease-in-out]"></div>
+                                <span className="relative z-10 flex items-center gap-3">Hablemos de tu caso <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></span>
                             </a>
 
                             {/* Scroll Indicator */}
@@ -524,15 +526,18 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] border border-slate-100 max-w-xl mx-auto text-left relative overflow-hidden flex flex-col min-h-[500px]">
+                            <div className="bg-white/80 backdrop-blur-2xl rounded-[3rem] p-8 md:p-12 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white max-w-xl mx-auto text-left relative overflow-hidden flex flex-col min-h-[500px]">
+                                {/* Animated Gradient Top Border */}
+                                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-mh-blue via-mh-gold to-mh-turquoise bg-[length:200%_auto] animate-[gradient_3s_ease_infinite]"></div>
+
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
                                     <MessageCircle size={100} />
                                 </div>
 
-                                {/* Progress Bar */}
-                                <div className="w-full bg-slate-100 h-1.5 rounded-full mb-8 overflow-hidden">
+                                {/* Elevated Progress Bar */}
+                                <div className="w-full bg-slate-100/50 h-2 rounded-full mb-8 overflow-hidden shadow-inner border border-slate-200/50">
                                     <motion.div
-                                        className="h-full bg-mh-gold"
+                                        className="h-full bg-gradient-to-r from-mh-gold to-yellow-500 shadow-[0_0_15px_rgba(212,175,55,0.6)]"
                                         initial={{ width: '0%' }}
                                         animate={{ width: `${(funnelStep / 5) * 100}%` }}
                                         transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -551,26 +556,36 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 className="space-y-6"
                                             >
                                                 <h3 className="text-2xl font-black uppercase text-slate-900 mb-6 tracking-tighter">¿Qué procedimiento te interesa?</h3>
-                                                <div className="space-y-3">
+                                                <div className="space-y-4">
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Rinoplastia' }); setShowOtherProcedures(false); setTimeout(() => setFunnelStep(2), 300); }}
-                                                        className={`w-full p-5 rounded-2xl border text-left flex items-center justify-between group transition-all ${funnelData.procedure === 'Rinoplastia' ? 'border-mh-gold bg-mh-gold/5 shadow-md' : 'border-slate-200 hover:border-mh-blue/30'}`}
+                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Rinoplastia' }); setShowOtherProcedures(false); setTimeout(() => setFunnelStep(2), 400); }}
+                                                        className={`w-full p-6 rounded-2xl border text-left flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${funnelData.procedure === 'Rinoplastia' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                     >
                                                         <div className="flex flex-col">
-                                                            <span className="font-bold text-slate-800">Rinoplastia (Nariz)</span>
-                                                            <span className="text-[7px] uppercase tracking-widest text-mh-gold font-black mt-0.5 opacity-60 group-hover:opacity-100 transition-opacity">Seleccionar y continuar</span>
+                                                            <span className="font-bold text-slate-800 text-lg">Rinoplastia (Nariz)</span>
+                                                            <span className="text-[9px] uppercase tracking-widest text-mh-gold font-black mt-1 opacity-60 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                                                Seleccionar y continuar
+                                                            </span>
                                                         </div>
-                                                        <ArrowRight size={18} className={`transition-transform flex-shrink-0 ${funnelData.procedure === 'Rinoplastia' ? 'text-mh-gold translate-x-1' : 'text-slate-300 group-hover:text-mh-blue group-hover:translate-x-1'}`} />
+                                                        {funnelData.procedure === 'Rinoplastia' ? (
+                                                            <div className="w-8 h-8 rounded-full bg-mh-gold text-white flex items-center justify-center animate-bounce-in">
+                                                                <CheckCircle2 size={18} />
+                                                            </div>
+                                                        ) : (
+                                                            <ArrowRight size={20} className="text-slate-300 group-hover:text-mh-gold group-hover:translate-x-2 transition-all" />
+                                                        )}
                                                     </button>
                                                     <button
                                                         onClick={() => setShowOtherProcedures(!showOtherProcedures)}
-                                                        className={`w-full p-5 rounded-2xl border text-left flex items-center justify-between group transition-all ${funnelData.procedure === 'Otro' ? 'border-mh-gold bg-mh-gold/5 shadow-md' : 'border-slate-200 hover:border-mh-blue/30'}`}
+                                                        className={`w-full p-6 rounded-2xl border text-left flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${funnelData.procedure === 'Otro' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                     >
                                                         <div className="flex flex-col">
-                                                            <span className="font-bold text-slate-800">Otro Procedimiento Facial</span>
-                                                            <span className="text-[7px] uppercase tracking-widest text-slate-400 font-black mt-0.5">Ver más opciones</span>
+                                                            <span className="font-bold text-slate-800 text-lg">Otro Procedimiento Facial</span>
+                                                            <span className="text-[9px] uppercase tracking-widest text-slate-400 font-black mt-1">Ver catálogo de opciones</span>
                                                         </div>
-                                                        <div className="flex-shrink-0 text-slate-300 transition-transform group-hover:translate-y-0.5">▼</div>
+                                                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 transition-transform group-hover:bg-mh-gold/10 group-hover:text-mh-gold">
+                                                            <ChevronRight size={18} className={`transition-transform duration-300 ${showOtherProcedures ? 'rotate-90' : ''}`} />
+                                                        </div>
                                                     </button>
 
                                                     <AnimatePresence>
@@ -584,10 +599,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                                 {['Blefaroplastia (Párpados)', 'Cervicoplastia (Cuello)', 'Bichectomía', 'Facelift (Rejuvenecimiento)'].map((proc) => (
                                                                     <button
                                                                         key={proc}
-                                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Otro', otherProcedure: proc }); setTimeout(() => setFunnelStep(2), 300); }}
-                                                                        className={`w-full p-3 rounded-xl text-left text-sm transition-all ${funnelData.otherProcedure === proc ? 'bg-mh-blue text-white shadow-md' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}
+                                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Otro', otherProcedure: proc }); setTimeout(() => setFunnelStep(2), 400); }}
+                                                                        className={`w-full p-4 rounded-xl text-left font-medium transition-all flex justify-between items-center group ${funnelData.otherProcedure === proc ? 'bg-mh-gold text-slate-900 shadow-lg scale-[1.02]' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:scale-[1.01]'}`}
                                                                     >
-                                                                        {proc}
+                                                                        <span>{proc}</span>
+                                                                        {funnelData.otherProcedure === proc && <CheckCircle2 size={16} className="text-slate-900" />}
                                                                     </button>
                                                                 ))}
                                                             </motion.div>
@@ -607,15 +623,26 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 className="space-y-6"
                                             >
                                                 <h3 className="text-2xl font-black uppercase text-slate-900 mb-6 tracking-tighter">¿En cuánto tiempo planeas operarte?</h3>
-                                                <div className="grid grid-cols-1 gap-3">
+                                                <div className="grid grid-cols-1 gap-4">
                                                     {['En este mes', 'De 1 a 2 meses', 'De 3 a 6 meses', 'De 6 meses a un año'].map((time) => (
                                                         <button
                                                             key={time}
-                                                            onClick={() => { setFunnelData({ ...funnelData, timeline: time }); setTimeout(() => setFunnelStep(3), 300); }}
-                                                            className={`p-5 rounded-2xl border flex flex-col items-center justify-center gap-1 transition-all group ${funnelData.timeline === time ? 'border-mh-gold bg-mh-gold/5 shadow-md text-mh-gold' : 'border-slate-200 text-slate-600 hover:border-mh-blue/30 hover:bg-slate-50'}`}
+                                                            onClick={() => { setFunnelData({ ...funnelData, timeline: time }); setTimeout(() => setFunnelStep(3), 400); }}
+                                                            className={`p-6 rounded-2xl border flex items-center justify-between transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg ${funnelData.timeline === time ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                         >
-                                                            <span className="font-bold">{time}</span>
-                                                            <span className="text-[7px] uppercase tracking-widest font-black opacity-40 group-hover:opacity-100 transition-opacity">Seleccionar</span>
+                                                            <div className="flex flex-col items-start text-left">
+                                                                <span className="font-bold text-slate-800 text-lg">{time}</span>
+                                                                <span className="text-[9px] uppercase tracking-widest font-black mt-1 opacity-40 group-hover:opacity-100 transition-opacity text-slate-400 group-hover:text-mh-gold">Seleccionar</span>
+                                                            </div>
+                                                            {funnelData.timeline === time ? (
+                                                                <div className="w-8 h-8 rounded-full bg-mh-gold text-white flex items-center justify-center animate-bounce-in">
+                                                                    <CheckCircle2 size={18} />
+                                                                </div>
+                                                            ) : (
+                                                                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold transition-all">
+                                                                    <ChevronRight size={18} />
+                                                                </div>
+                                                            )}
                                                         </button>
                                                     ))}
                                                 </div>
@@ -636,15 +663,26 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                             >
                                                 <h3 className="text-2xl font-black uppercase text-slate-900 mb-2 tracking-tighter">¿Cuál es tu presupuesto estimado?</h3>
                                                 <p className="text-xs text-slate-500 font-light mb-6">Esto nos ayuda a orientarte sobre las opciones de financiación y viabilidad.</p>
-                                                <div className="grid grid-cols-1 gap-3">
+                                                <div className="grid grid-cols-1 gap-4">
                                                     {['Menos de 10 millones de COP', 'De 10 a 15 millones de COP', 'De 15 a 20 millones de COP', 'Más de 20 millones de COP'].map((budget) => (
                                                         <button
                                                             key={budget}
-                                                            onClick={() => { setFunnelData({ ...funnelData, budget: budget }); setTimeout(() => setFunnelStep(4), 300); }}
-                                                            className={`p-5 rounded-2xl border flex flex-col items-center justify-center gap-1 transition-all group ${funnelData.budget === budget ? 'border-mh-gold bg-mh-gold/5 shadow-md text-mh-gold' : 'border-slate-200 text-slate-600 hover:border-mh-blue/30 hover:bg-slate-50'}`}
+                                                            onClick={() => { setFunnelData({ ...funnelData, budget: budget }); setTimeout(() => setFunnelStep(4), 400); }}
+                                                            className={`p-6 rounded-2xl border flex items-center justify-between transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg ${funnelData.budget === budget ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                         >
-                                                            <span className="font-bold">{budget}</span>
-                                                            <span className="text-[7px] uppercase tracking-widest font-black opacity-40 group-hover:opacity-100 transition-opacity">Seleccionar</span>
+                                                            <div className="flex flex-col items-start text-left">
+                                                                <span className="font-bold text-slate-800 text-lg">{budget}</span>
+                                                                <span className="text-[9px] uppercase tracking-widest font-black mt-1 opacity-40 group-hover:opacity-100 transition-opacity text-slate-400 group-hover:text-mh-gold">Seleccionar</span>
+                                                            </div>
+                                                            {funnelData.budget === budget ? (
+                                                                <div className="w-8 h-8 rounded-full bg-mh-gold text-white flex items-center justify-center animate-bounce-in">
+                                                                    <CheckCircle2 size={18} />
+                                                                </div>
+                                                            ) : (
+                                                                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold transition-all">
+                                                                    <ChevronRight size={18} />
+                                                                </div>
+                                                            )}
                                                         </button>
                                                     ))}
                                                 </div>
@@ -671,20 +709,28 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 </div>
                                                 <div className="grid grid-cols-1 gap-4">
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Pre-Consulta Virtual' }); setTimeout(() => setFunnelStep(5), 300); }}
-                                                        className={`p-6 rounded-2xl border-2 flex flex-col items-center gap-1 transition-all group ${funnelData.preference === 'Pre-Consulta Virtual' ? 'border-mh-gold bg-mh-gold/5 shadow-md' : 'border-slate-200 hover:border-mh-gold/50'}`}
+                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Pre-Consulta Virtual' }); setTimeout(() => setFunnelStep(5), 400); }}
+                                                        className={`p-6 md:p-8 rounded-3xl border flex flex-col items-center justify-center gap-4 transition-all duration-300 group hover:-translate-y-2 hover:shadow-xl ${funnelData.preference === 'Pre-Consulta Virtual' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_15px_40px_-10px_rgba(212,175,55,0.4)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-md'}`}
                                                     >
-                                                        <Smartphone size={24} className={funnelData.preference === 'Pre-Consulta Virtual' ? 'text-mh-gold' : 'text-slate-400'} />
-                                                        <span className="font-black uppercase tracking-tight text-slate-900">Pre-Consulta Virtual</span>
-                                                        <span className="text-[7px] uppercase tracking-widest text-mh-gold font-black opacity-40 group-hover:opacity-100 transition-opacity">Toca para seleccionar</span>
+                                                        <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${funnelData.preference === 'Pre-Consulta Virtual' ? 'bg-mh-gold text-white' : 'bg-slate-50 text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold'}`}>
+                                                            <Smartphone size={32} strokeWidth={1.5} />
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <span className="font-black text-slate-800 block text-lg mb-1">Pre-Consulta Virtual</span>
+                                                            <span className="text-[9px] uppercase tracking-widest text-[#DBB353] font-black opacity-60 group-hover:opacity-100 transition-opacity">Toca para seleccionar</span>
+                                                        </div>
                                                     </button>
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Visita Presencial' }); setTimeout(() => setFunnelStep(5), 300); }}
-                                                        className={`p-6 rounded-2xl border-2 flex flex-col items-center gap-1 transition-all group ${funnelData.preference === 'Visita Presencial' ? 'border-mh-blue bg-mh-blue/5 shadow-md' : 'border-slate-200 hover:border-mh-blue/50'}`}
+                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Visita Presencial' }); setTimeout(() => setFunnelStep(5), 400); }}
+                                                        className={`p-6 md:p-8 rounded-3xl border flex flex-col items-center justify-center gap-4 transition-all duration-300 group hover:-translate-y-2 hover:shadow-xl ${funnelData.preference === 'Visita Presencial' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_15px_40px_-10px_rgba(212,175,55,0.4)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-md'}`}
                                                     >
-                                                        <MapPin size={24} className={funnelData.preference === 'Visita Presencial' ? 'text-mh-blue' : 'text-slate-400'} />
-                                                        <span className="font-black uppercase tracking-tight text-slate-900">Visita Presencial</span>
-                                                        <span className="text-[7px] uppercase tracking-widest text-mh-blue font-black opacity-40 group-hover:opacity-100 transition-opacity">Toca para seleccionar</span>
+                                                        <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${funnelData.preference === 'Visita Presencial' ? 'bg-mh-gold text-white' : 'bg-slate-50 text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold'}`}>
+                                                            <MapPin size={32} strokeWidth={1.5} />
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <span className="font-black text-slate-800 block text-lg mb-1">Visita Presencial</span>
+                                                            <span className="text-[9px] uppercase tracking-widest text-[#4A8B95] font-black opacity-60 group-hover:opacity-100 transition-opacity">Toca para seleccionar</span>
+                                                        </div>
                                                     </button>
                                                 </div>
                                                 <button onClick={() => setFunnelStep(3)} className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mt-6 flex items-center gap-1 hover:text-mh-gold">
@@ -705,53 +751,60 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 <h3 className="text-2xl font-black uppercase text-slate-900 mb-2 tracking-tighter">Último paso...</h3>
                                                 <p className="text-sm text-slate-500 font-light mb-6">Completa estos datos extra y te redirigiremos a WhatsApp con nuestra Concierge para coordinar los detalles.</p>
 
-                                                <form onSubmit={handleSubmit} className="space-y-6">
-                                                    <div>
-                                                        <label className="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Tu Nombre</label>
+                                                <form onSubmit={handleSubmit} className="space-y-5">
+                                                    <div className="relative group">
                                                         <input
                                                             required
                                                             type="text"
                                                             value={funnelData.name}
                                                             onChange={(e) => setFunnelData({ ...funnelData, name: e.target.value })}
-                                                            className="w-full bg-slate-50 border-b border-mh-gold/20 px-0 py-3 focus:outline-none focus:border-mh-gold transition-colors text-lg font-light placeholder:text-slate-300"
-                                                            placeholder="Ej. María Pérez"
+                                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-800 font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all placeholder:text-slate-400 group-hover:border-slate-300"
+                                                            placeholder="¿Cuál es tu nombre completo?"
                                                         />
                                                     </div>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div>
-                                                            <label className="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">Tu Edad</label>
-                                                            <input
-                                                                required
-                                                                type="number"
-                                                                min="18"
-                                                                max="99"
-                                                                value={funnelData.age}
-                                                                onChange={(e) => setFunnelData({ ...funnelData, age: e.target.value })}
-                                                                className="w-full bg-slate-50 border-b border-mh-gold/20 px-0 py-3 focus:outline-none focus:border-mh-gold transition-colors text-lg font-light placeholder:text-slate-300"
-                                                                placeholder="Años"
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <label className="block text-[10px] uppercase font-black tracking-widest text-slate-400 mb-3">¿Vives en Medellín?</label>
-                                                            <select
-                                                                required
-                                                                value={funnelData.location}
-                                                                onChange={(e) => setFunnelData({ ...funnelData, location: e.target.value })}
-                                                                className="w-full bg-slate-50 border-b border-mh-gold/20 px-0 py-3 focus:outline-none focus:border-mh-gold transition-colors text-lg font-light text-slate-700"
-                                                            >
-                                                                <option value="" disabled>Selecciona...</option>
-                                                                <option value="Sí">Sí</option>
-                                                                <option value="No">No</option>
-                                                            </select>
-                                                        </div>
+                                                    <div className="relative group">
+                                                        <input
+                                                            required
+                                                            type="number"
+                                                            min="18"
+                                                            max="99"
+                                                            value={funnelData.age}
+                                                            onChange={(e) => setFunnelData({ ...funnelData, age: e.target.value })}
+                                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 text-slate-800 font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all placeholder:text-slate-400 group-hover:border-slate-300"
+                                                            placeholder="¿Qué edad tienes?"
+                                                        />
+                                                    </div>
+                                                    <div className="relative group">
+                                                        <select
+                                                            required
+                                                            value={funnelData.location}
+                                                            onChange={(e) => setFunnelData({ ...funnelData, location: e.target.value })}
+                                                            className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all group-hover:border-slate-300 ${!funnelData.location ? 'text-slate-400' : 'text-slate-800'}`}
+                                                        >
+                                                            <option value="" disabled>¿Vives en Medellín o alrededores?</option>
+                                                            <option value="Sí">Sí</option>
+                                                            <option value="No">No</option>
+                                                        </select>
                                                     </div>
 
                                                     <button
                                                         type="submit"
                                                         disabled={isSubmitting || !funnelData.name || !funnelData.age || !funnelData.location}
-                                                        className="w-full mt-4 bg-slate-950 text-white font-black uppercase tracking-widest text-[10px] py-6 rounded-2xl hover:bg-mh-gold hover:text-slate-950 transition-all shadow-xl active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 group"
+                                                        className="w-full group relative inline-flex justify-center items-center gap-3 px-8 py-5 mt-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-xs disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-800 transition-all overflow-hidden"
                                                     >
-                                                        {isSubmitting ? 'Conectando aseguradamente...' : 'Ir a WhatsApp para agendar'} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-mh-gold/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                                                        <span className="relative z-10 flex items-center gap-3">
+                                                            {isSubmitting ? (
+                                                                <>
+                                                                    <div className="w-4 h-4 border-2 border-slate-500 border-t-white rounded-full animate-spin"></div>
+                                                                    Procesando...
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    Enviar y Hablar con la Dra. <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-mh-gold" />
+                                                                </>
+                                                            )}
+                                                        </span>
                                                     </button>
                                                 </form>
 
