@@ -28,7 +28,7 @@ serve(async (req) => {
 
         // Dra. Caro Potes specific CAPI Token mapping
         if (pixelId === '908119245544966') {
-            accessToken = Deno.env.get('DRA_CARO_META_ACCESS_TOKEN') || 'EAAWymMcFEaQBQ9hQpDkfA1ZCFTfBjhvKFN6H9KZBCa0tF9wZCSHZCiqr7H52ZAcgITZAivoeQXWFJ2qtVfnhnH7ZA9MqMXnLUxjavC4TjNwoGvKGgDdW3YxLRtkwO8hndUbOxobQcLZApXtljBPlQptSEsvyCH5LsPrAQQB0nPdae9VWdTUgr1Uukk2D8ZAn4w63BugZDZD';
+            accessToken = Deno.env.get('DRA_CARO_META_ACCESS_TOKEN') || 'EAAWymMcFEaQBQwU5gfYUQa2glGS7Ny0SPMNNAqCOSYZBOMx2ZBoSgIZC2Wd5ZA3XJADXO5Fpi1soOwMcDrv8SLlRW2k3dR7k78ayitd4mRYZAspMST15IsjwW98sPMOqzfmteY3hgdNEj9T5zIPZCpJV8ZAeIoks6xHvqsabCQPcJk0SQ6PHZAvgkbIW1YSLe3D4MAZDZD';
         }
 
         if (!accessToken) {
