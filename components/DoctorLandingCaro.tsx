@@ -234,7 +234,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                     <p className="text-xl text-slate-900 font-light leading-relaxed mb-8">
                                         Te entiendo. Tomar esta decisión no es fácil, pero quiero darte una tranquilidad: <span className="text-mh-gold font-bold">la verdadera elegancia en la cirugía facial es que no se note.</span> Y tu función respiratoria es algo que, en mis manos, jamás se va a negociar.
                                     </p>
-                                    <a href="#leads-form" className="inline-flex items-center gap-2 px-8 py-4 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 hover:text-white transition-all shadow-lg active:scale-95 group">
+                                    <a
+                                        href="#leads-form"
+                                        onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Empathy_Section' }, {}, DRA_POTES_PIXEL_ID)}
+                                        className="inline-flex items-center gap-2 px-8 py-4 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 hover:text-white transition-all shadow-lg active:scale-95 group"
+                                    >
                                         Hablemos de tu caso <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                                     </a>
                                 </div>
@@ -282,7 +286,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                             ))}
                         </div>
 
-                        <a href="#leads-form" className="inline-flex items-center gap-2 px-8 py-4 bg-mh-blue text-white rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 transition-all shadow-lg active:scale-95 group">
+                        <a
+                            href="#leads-form"
+                            onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Solution_Section' }, {}, DRA_POTES_PIXEL_ID)}
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-mh-blue text-white rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 transition-all shadow-lg active:scale-95 group"
+                        >
                             Quiero elevar mi belleza <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </a>
                     </motion.div>
@@ -364,7 +372,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                     </div>
 
                     <div className="mt-16 text-center">
-                        <a href="#leads-form" className="inline-flex items-center gap-2 text-mh-gold font-black uppercase tracking-widest text-xs border-b-2 border-mh-gold/30 pb-1 hover:border-mh-gold transition-all">
+                        <a
+                            href="#leads-form"
+                            onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Authority_Section' }, {}, DRA_POTES_PIXEL_ID)}
+                            className="inline-flex items-center gap-2 text-mh-gold font-black uppercase tracking-widest text-xs border-b-2 border-mh-gold/30 pb-1 hover:border-mh-gold transition-all"
+                        >
                             Quiero que evalúes mi rostro <ArrowRight size={14} />
                         </a>
                     </div>
@@ -393,7 +405,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                     <Building2 size={32} />
                                     <span className="text-[10px] uppercase font-black tracking-widest leading-none">Arquitectura Médica de Vanguardia</span>
                                 </div>
-                                <a href="#leads-form" className="inline-flex items-center gap-2 px-6 py-3 border border-mh-gold text-mh-gold rounded-full font-black uppercase tracking-widest text-[9px] hover:bg-mh-gold hover:text-slate-950 transition-all active:scale-95 group">
+                                <a
+                                    href="#leads-form"
+                                    onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Experience_Section' }, {}, DRA_POTES_PIXEL_ID)}
+                                    className="inline-flex items-center gap-2 px-6 py-3 border border-mh-gold text-mh-gold rounded-full font-black uppercase tracking-widest text-[9px] hover:bg-mh-gold hover:text-slate-950 transition-all active:scale-95 group"
+                                >
                                     Visítame en Medellín <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                                 </a>
                             </div>
@@ -423,7 +439,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                         <div className="aspect-square rounded-[2rem] overflow-hidden shadow-xl">
                             <img src="/dra-caro/consultation-2.jpg" className="w-full h-full object-cover" />
                         </div>
-                        <a href="#leads-form" className="aspect-square rounded-[2rem] overflow-hidden shadow-xl flex flex-col items-center justify-center bg-mh-gold/10 p-8 text-center group hover:bg-mh-gold hover:text-slate-950 transition-all active:scale-95 space-y-4 border border-mh-gold/20">
+                        <a
+                            href="#leads-form"
+                            onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Gallery_Section' }, {}, DRA_POTES_PIXEL_ID)}
+                            className="aspect-square rounded-[2rem] overflow-hidden shadow-xl flex flex-col items-center justify-center bg-mh-gold/10 p-8 text-center group hover:bg-mh-gold hover:text-slate-950 transition-all active:scale-95 space-y-4 border border-mh-gold/20"
+                        >
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-mh-gold group-hover:text-slate-950">Hospitalidad Médica Boutique</p>
                             <div className="flex flex-col items-center gap-1">
                                 <span className="text-xs font-black uppercase">Consúltame</span>
@@ -491,7 +511,13 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
 
                     <div className="mt-16 text-center">
                         <p className="text-xs text-slate-400 font-medium uppercase tracking-[0.2em] mb-4 text-center">¿Tienes otra duda?</p>
-                        <a href="#leads-form" className="inline-flex items-center gap-2 text-mh-blue font-black uppercase tracking-widest text-[10px] border-b border-mh-blue/30 pb-1 hover:border-mh-blue transition-all">
+                        <a
+                            href="https://wa.me/573206055134?text=Hola Dra. Caro Potes, tengo una duda antes de agendar..."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackEvent('Contact', { content_name: 'FAQ_WhatsApp_Contact' }, {}, DRA_POTES_PIXEL_ID)}
+                            className="inline-flex items-center gap-2 text-mh-blue font-black uppercase tracking-widest text-[10px] border-b border-mh-blue/30 pb-1 hover:border-mh-blue transition-all"
+                        >
                             Pregúntale a nuestra Concierge <ArrowRight size={12} />
                         </a>
                     </div>
@@ -562,7 +588,12 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 <h3 className="text-2xl font-black uppercase text-slate-900 mb-6 tracking-tighter">¿Qué procedimiento te interesa?</h3>
                                                 <div className="space-y-4">
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Rinoplastia' }); setShowOtherProcedures(false); setTimeout(() => setFunnelStep(2), 400); }}
+                                                        onClick={() => {
+                                                            trackEvent('AddToCart', { content_name: 'Selected_Rhinoplasty' }, {}, DRA_POTES_PIXEL_ID);
+                                                            setFunnelData({ ...funnelData, procedure: 'Rinoplastia' });
+                                                            setShowOtherProcedures(false);
+                                                            setTimeout(() => setFunnelStep(2), 400);
+                                                        }}
                                                         className={`w-full p-6 rounded-2xl border text-left flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${funnelData.procedure === 'Rinoplastia' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                     >
                                                         <div className="flex flex-col">
@@ -580,7 +611,10 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                         )}
                                                     </button>
                                                     <button
-                                                        onClick={() => setShowOtherProcedures(!showOtherProcedures)}
+                                                        onClick={() => {
+                                                            trackEvent('ViewContent', { content_name: 'Viewed_Other_Procedures' }, {}, DRA_POTES_PIXEL_ID);
+                                                            setShowOtherProcedures(!showOtherProcedures);
+                                                        }}
                                                         className={`w-full p-6 rounded-2xl border text-left flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${funnelData.procedure === 'Otro' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                     >
                                                         <div className="flex flex-col">
@@ -603,8 +637,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                                 {['Blefaroplastia (Párpados)', 'Cervicoplastia (Cuello)', 'Bichectomía', 'Facelift (Rejuvenecimiento)'].map((proc) => (
                                                                     <button
                                                                         key={proc}
-                                                                        onClick={() => { setFunnelData({ ...funnelData, procedure: 'Otro', otherProcedure: proc }); setTimeout(() => setFunnelStep(2), 400); }}
-                                                                        className={`w-full p-4 rounded-xl text-left font-medium transition-all flex justify-between items-center group ${funnelData.otherProcedure === proc ? 'bg-mh-gold text-slate-900 shadow-lg scale-[1.02]' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:scale-[1.01]'}`}
+                                                                        onClick={() => {
+                                                                            trackEvent('AddToCart', { content_name: 'Selected_Other_Procedure', procedure: proc }, {}, DRA_POTES_PIXEL_ID);
+                                                                            setFunnelData({ ...funnelData, procedure: 'Otro', otherProcedure: proc });
+                                                                            setTimeout(() => setFunnelStep(2), 400);
+                                                                        }} className={`w-full p-4 rounded-xl text-left font-medium transition-all flex justify-between items-center group ${funnelData.otherProcedure === proc ? 'bg-mh-gold text-slate-900 shadow-lg scale-[1.02]' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:scale-[1.01]'}`}
                                                                     >
                                                                         <span>{proc}</span>
                                                                         {funnelData.otherProcedure === proc && <CheckCircle2 size={16} className="text-slate-900" />}
@@ -631,7 +668,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                     {['En este mes', 'De 1 a 2 meses', 'De 3 a 6 meses', 'De 6 meses a un año'].map((time) => (
                                                         <button
                                                             key={time}
-                                                            onClick={() => { setFunnelData({ ...funnelData, timeline: time }); setTimeout(() => setFunnelStep(3), 400); }}
+                                                            onClick={() => {
+                                                                trackEvent('AddToCart', { content_name: 'Selected_Timeline', timeline: time }, {}, DRA_POTES_PIXEL_ID);
+                                                                setFunnelData({ ...funnelData, timeline: time });
+                                                                setTimeout(() => setFunnelStep(3), 400);
+                                                            }}
                                                             className={`p-6 rounded-2xl border flex items-center justify-between transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg ${funnelData.timeline === time ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                         >
                                                             <div className="flex flex-col items-start text-left">
@@ -671,7 +712,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                     {['Menos de 10 millones de COP', 'De 10 a 15 millones de COP', 'De 15 a 20 millones de COP', 'Más de 20 millones de COP'].map((budget) => (
                                                         <button
                                                             key={budget}
-                                                            onClick={() => { setFunnelData({ ...funnelData, budget: budget }); setTimeout(() => setFunnelStep(4), 400); }}
+                                                            onClick={() => {
+                                                                trackEvent('AddToCart', { content_name: 'Selected_Budget', budget: budget }, {}, DRA_POTES_PIXEL_ID);
+                                                                setFunnelData({ ...funnelData, budget: budget });
+                                                                setTimeout(() => setFunnelStep(4), 400);
+                                                            }}
                                                             className={`p-6 rounded-2xl border flex items-center justify-between transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg ${funnelData.budget === budget ? 'border-mh-gold bg-mh-gold/10 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-sm'}`}
                                                         >
                                                             <div className="flex flex-col items-start text-left">
@@ -713,7 +758,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                 </div>
                                                 <div className="grid grid-cols-1 gap-4">
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Pre-Consulta Virtual' }); setTimeout(() => setFunnelStep(5), 400); }}
+                                                        onClick={() => {
+                                                            trackEvent('Schedule', { content_name: 'Selected_Consultation', preference: 'Pre-Consulta Virtual' }, {}, DRA_POTES_PIXEL_ID);
+                                                            setFunnelData({ ...funnelData, preference: 'Pre-Consulta Virtual' });
+                                                            setTimeout(() => setFunnelStep(5), 400);
+                                                        }}
                                                         className={`p-6 md:p-8 rounded-3xl border flex flex-col items-center justify-center gap-4 transition-all duration-300 group hover:-translate-y-2 hover:shadow-xl ${funnelData.preference === 'Pre-Consulta Virtual' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_15px_40px_-10px_rgba(212,175,55,0.4)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-md'}`}
                                                     >
                                                         <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${funnelData.preference === 'Pre-Consulta Virtual' ? 'bg-mh-gold text-white' : 'bg-slate-50 text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold'}`}>
@@ -725,7 +774,11 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                                         </div>
                                                     </button>
                                                     <button
-                                                        onClick={() => { setFunnelData({ ...funnelData, preference: 'Visita Presencial' }); setTimeout(() => setFunnelStep(5), 400); }}
+                                                        onClick={() => {
+                                                            trackEvent('Schedule', { content_name: 'Selected_Consultation', preference: 'Visita Presencial' }, {}, DRA_POTES_PIXEL_ID);
+                                                            setFunnelData({ ...funnelData, preference: 'Visita Presencial' });
+                                                            setTimeout(() => setFunnelStep(5), 400);
+                                                        }}
                                                         className={`p-6 md:p-8 rounded-3xl border flex flex-col items-center justify-center gap-4 transition-all duration-300 group hover:-translate-y-2 hover:shadow-xl ${funnelData.preference === 'Visita Presencial' ? 'border-mh-gold bg-mh-gold/10 shadow-[0_15px_40px_-10px_rgba(212,175,55,0.4)] ring-2 ring-mh-gold ring-offset-2' : 'border-slate-100 bg-white hover:border-mh-gold/30 shadow-md'}`}
                                                     >
                                                         <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${funnelData.preference === 'Visita Presencial' ? 'bg-mh-gold text-white' : 'bg-slate-50 text-slate-300 group-hover:bg-mh-gold/10 group-hover:text-mh-gold'}`}>
