@@ -72,9 +72,9 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
 
         // Construct comprehensive WhatsApp message
         const procedureText = funnelData.procedure === 'Otro' ? funnelData.otherProcedure : funnelData.procedure;
-        const message = `Hola Dra. Caro Potes, me gustaría agendar una cita confidencial.\n\n*Mis Datos:*\n- Nombre: ${funnelData.name}\n- Edad: ${funnelData.age}\n- Vive en Medellín: ${funnelData.location}\n\n*Me interesa:*\n- Procedimiento: ${procedureText}\n- Tiempo planeado: ${funnelData.timeline}\n- Presupuesto estimado: ${funnelData.budget}\n- Preferencia de cita: *${funnelData.preference}*\n\n¡Quedo a la espera de sus indicaciones!`;
+        const message = `Hola Dra. Caro Potes, me gustaría agendar una pre-consulta virtual para despejar dudas.\n\n*Mis Datos:*\n- Nombre: ${funnelData.name}\n- Edad: ${funnelData.age}\n- Vive en Medellín: ${funnelData.location}\n\n*Me interesa:*\n- Procedimiento: ${procedureText}\n- Tiempo planeado: ${funnelData.timeline}\n- Presupuesto estimado: ${funnelData.budget}\n- Preferencia de cita: *${funnelData.preference}*\n\n¡Quedo a la espera de sus indicaciones para la pre-consulta!`;
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/573206055134?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/573122104560?text=${encodedMessage}`;
 
         // Redirect after a short delay for tracking to fire
         setTimeout(() => {
@@ -138,17 +138,17 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                             Hospitalidad Médica Boutique | Medellín
                         </div>
                         <h1 className="text-5xl md:text-7xl font-heading font-black leading-[0.9] tracking-tighter text-slate-950 uppercase">
-                            Armoniza tu rostro <br />
-                            <span className="text-mh-gold italic">sin dejar de ser tú.</span>
+                            Despeja tus dudas <br />
+                            <span className="text-mh-gold italic">con una cita virtual.</span>
                         </h1>
                         <p className="max-w-xl mx-auto text-lg text-slate-600 font-light leading-relaxed">
-                            Hola, soy la <span className="text-slate-900 font-bold italic">Dra. Caro Potes</span>. Te ayudo a lograr tu mejor versión con resultados tan naturales que serán tu secreto, cuidando siempre lo más vital: <span className="text-mh-blue font-bold">tu salud y tu respiración.</span>
+                            Hola, soy la <span className="text-slate-900 font-bold italic">Dra. Caro Potes</span>. Agendemos una <span className="text-mh-blue font-bold">Pre-Consulta Virtual</span> para evaluar tu caso, resolver tus miedos y planear tu mejor versión con resultados naturales y funcionales.
                         </p>
 
                         <div className="pt-8 flex flex-col items-center gap-12">
                             <a href="#leads-form" className="group relative inline-flex items-center gap-3 px-10 py-5 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-950 hover:text-white transition-all shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] active:scale-95 overflow-hidden">
                                 <div className="absolute inset-0 bg-white/20 w-1/2 -skew-x-12 -translate-x-full animate-[shimmer_3s_infinite_ease-in-out]"></div>
-                                <span className="relative z-10 flex items-center gap-3">Hablemos de tu caso <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></span>
+                                <span className="relative z-10 flex items-center gap-3">Agendar Pre-Consulta <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></span>
                             </a>
 
                             {/* Scroll Indicator */}
@@ -239,7 +239,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                         onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Empathy_Section' }, {}, DRA_POTES_PIXEL_ID)}
                                         className="inline-flex items-center gap-2 px-8 py-4 bg-mh-gold text-slate-950 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 hover:text-white transition-all shadow-lg active:scale-95 group"
                                     >
-                                        Hablemos de tu caso <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                        Agendar Cita Virtual <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                                     </a>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                             onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Solution_Section' }, {}, DRA_POTES_PIXEL_ID)}
                             className="inline-flex items-center gap-2 px-8 py-4 bg-mh-blue text-white rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-slate-950 transition-all shadow-lg active:scale-95 group"
                         >
-                            Quiero elevar mi belleza <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                            Quiero mi Pre-Consulta <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </a>
                     </motion.div>
 
@@ -377,7 +377,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                             onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Authority_Section' }, {}, DRA_POTES_PIXEL_ID)}
                             className="inline-flex items-center gap-2 text-mh-gold font-black uppercase tracking-widest text-xs border-b-2 border-mh-gold/30 pb-1 hover:border-mh-gold transition-all"
                         >
-                            Quiero que evalúes mi rostro <ArrowRight size={14} />
+                            Agendar Pre-Consulta Virtual <ArrowRight size={14} />
                         </a>
                     </div>
                 </div>
@@ -410,7 +410,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                                     onClick={() => trackEvent('InitiateCheckout', { content_name: 'CTA_Experience_Section' }, {}, DRA_POTES_PIXEL_ID)}
                                     className="inline-flex items-center gap-2 px-6 py-3 border border-mh-gold text-mh-gold rounded-full font-black uppercase tracking-widest text-[9px] hover:bg-mh-gold hover:text-slate-950 transition-all active:scale-95 group"
                                 >
-                                    Visítame en Medellín <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                                    Agendar Valoración Virtual <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                                 </a>
                             </div>
                         </motion.div>
@@ -446,7 +446,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                         >
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-mh-gold group-hover:text-slate-950">Hospitalidad Médica Boutique</p>
                             <div className="flex flex-col items-center gap-1">
-                                <span className="text-xs font-black uppercase">Consúltame</span>
+                                <span className="text-xs font-black uppercase">Click para Pre-Consulta</span>
                                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
@@ -512,7 +512,7 @@ export const DoctorLandingCaro: React.FC<DoctorLandingCaroProps> = ({ onBack }) 
                     <div className="mt-16 text-center">
                         <p className="text-xs text-slate-400 font-medium uppercase tracking-[0.2em] mb-4 text-center">¿Tienes otra duda?</p>
                         <a
-                            href="https://wa.me/573206055134?text=Hola Dra. Caro Potes, tengo una duda antes de agendar..."
+                            href="https://wa.me/573122104560?text=Hola Dra. Caro Potes, tengo una duda sobre la Pre-Consulta Virtual..."
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackEvent('Contact', { content_name: 'FAQ_WhatsApp_Contact' }, {}, DRA_POTES_PIXEL_ID)}
