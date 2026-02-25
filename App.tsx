@@ -10,6 +10,8 @@ import { PitchDeck } from './components/PitchDeck';
 import { DoctorPitch } from './components/DoctorPitch';
 import { MafePitch } from './components/MafePitch';
 import { DoctorLandingCaro } from './components/DoctorLandingCaro';
+import { DoctorLandingAfro } from './components/DoctorLandingAfro';
+import { DoctorLandingAfroEn } from './components/DoctorLandingAfroEn';
 import { TVShowcase } from './components/TVShowcase';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
@@ -20,7 +22,7 @@ import { CheckCircle } from 'lucide-react';
 import { MetaPixel, trackPageView } from './components/MetaPixel';
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'tv' | 'tv-showcase' | 'privacy' | 'terms' | 'generate' | 'proposal-preview'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'privacy' | 'terms' | 'generate' | 'proposal-preview'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -36,6 +38,8 @@ export default function App() {
       else if (v === 'doctor-pitch') setView('doctor-pitch');
       else if (v === 'mafe-pitch') setView('mafe-pitch');
       else if (v === 'doctor-caro') setView('doctor-caro');
+      else if (v === 'doctor-afro') setView('doctor-afro');
+      else if (v === 'doctor-afro-en') setView('doctor-afro-en');
       else if (v === 'tv') setView('tv');
       else if (v === 'tv-showcase') setView('tv-showcase');
       else if (v === 'privacy') setView('privacy');
@@ -121,6 +125,14 @@ export default function App() {
 
     if (view === 'doctor-caro') {
       return <DoctorLandingCaro onBack={handleBack} />;
+    }
+
+    if (view === 'doctor-afro') {
+      return <DoctorLandingAfro onBack={handleBack} />;
+    }
+
+    if (view === 'doctor-afro-en') {
+      return <DoctorLandingAfroEn onBack={handleBack} />;
     }
 
     if (view === 'tv') {
