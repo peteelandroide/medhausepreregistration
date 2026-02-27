@@ -65,36 +65,31 @@ export const KoluConsulting: React.FC<KoluConsultingProps> = ({ onBack }) => {
         {
             id: 'overview',
             render: () => (
-                <div className="h-full flex items-center justify-center bg-[#FDFCFB] px-6">
-                    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="relative group">
-                            <img
-                                src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/mafe.jpg"
-                                alt="María Fernanda Ríos"
-                                className="w-full h-[650px] object-cover rounded-[4rem] shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 border-4 border-white"
-                            />
-                            <div className="absolute -bottom-8 -left-8 bg-[#1A1A1A] text-white p-10 rounded-[2.5rem] shadow-2xl">
-                                <Award size={32} className="text-[#E3D3C4] mb-4" />
-                                <h4 className="text-2xl font-bold font-heading leading-tight italic">"Diseñamos modelos de crecimiento, no solo marcas."</h4>
-                            </div>
-                        </div>
-                        <div className="space-y-10">
-                            <h2 className="text-xs font-bold uppercase tracking-[0.4em] text-[#8B735B]">Propósito del Proyecto</h2>
-                            <h3 className="text-5xl md:text-6xl font-heading font-black text-[#1A1A1A] leading-tight tracking-tighter">
-                                Una Visión <br /><span className="text-[#8B735B]">Empresarial Clara.</span>
-                            </h3>
-                            <p className="text-2xl text-[#6B5E4C] font-light leading-relaxed">
+                <div className="h-full flex flex-col justify-center items-center bg-[#FDFCFB] px-6 text-center relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E3D3C4]/10 rounded-full blur-[100px] opacity-70"></div>
+
+                    <div className="max-w-4xl w-full relative z-10">
+                        <h2 className="text-xs font-bold uppercase tracking-[0.4em] text-[#8B735B] mb-8">Propósito del Proyecto</h2>
+                        <h3 className="text-5xl md:text-7xl font-heading font-black text-[#1A1A1A] leading-[1.1] tracking-tighter mb-10">
+                            Una Visión <br /><span className="text-[#8B735B]">Empresarial Clara.</span>
+                        </h3>
+
+                        <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl shadow-[#8B735B]/5 border border-[#E3D3C4]/30 mb-12">
+                            <p className="text-2xl md:text-3xl text-[#6B5E4C] font-light leading-relaxed">
                                 Acompañamiento estratégico para consolidar un <strong>posicionamiento diferencial</strong> y fortalecer la presencia en el mercado objetivo.
                             </p>
-                            <div className="grid grid-cols-2 gap-6 pt-6">
-                                <div className="p-6 bg-white rounded-3xl border border-[#E3D3C4]/30">
-                                    <h5 className="font-bold text-[#1A1A1A] mb-2 uppercase text-xs tracking-widest">Foco</h5>
-                                    <p className="text-sm text-[#8B735B]">Crecimiento Comercial</p>
-                                </div>
-                                <div className="p-6 bg-white rounded-3xl border border-[#E3D3C4]/30">
-                                    <h5 className="font-bold text-[#1A1A1A] mb-2 uppercase text-xs tracking-widest">Alcance</h5>
-                                    <p className="text-sm text-[#8B735B]">Estrategia 360°</p>
-                                </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                            <div className="p-8 bg-[#1A1A1A] text-white rounded-[2rem] shadow-lg flex flex-col items-center justify-center group hover:-translate-y-2 transition-transform">
+                                <Award size={32} className="text-[#E3D3C4] mb-4 group-hover:scale-110 transition-transform" />
+                                <h5 className="font-bold text-[#E3D3C4] mb-2 uppercase text-xs tracking-widest">Foco Principal</h5>
+                                <p className="text-lg">Crecimiento Comercial</p>
+                            </div>
+                            <div className="p-8 bg-white rounded-[2rem] border border-[#E3D3C4]/50 flex flex-col items-center justify-center group hover:-translate-y-2 transition-transform">
+                                <Target size={32} className="text-[#8B735B] mb-4 group-hover:scale-110 transition-transform" />
+                                <h5 className="font-bold text-[#1A1A1A] mb-2 uppercase text-xs tracking-widest">Alcance de Acción</h5>
+                                <p className="text-lg text-[#6B5E4C]">Estrategia 360°</p>
                             </div>
                         </div>
                     </div>
@@ -284,12 +279,9 @@ export const KoluConsulting: React.FC<KoluConsultingProps> = ({ onBack }) => {
             render: () => (
                 <div className="h-full bg-[#1A1A1A] text-white flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
                     <div className="absolute inset-0 z-0">
-                        <img
-                            src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/mafe.jpg"
-                            className="w-full h-full object-cover opacity-10 grayscale"
-                            alt="BG"
-                        />
-                        <div className="absolute inset-0 bg-black/60"></div>
+                        <div className="absolute top-[-20%] right-[-20%] w-[800px] h-[800px] bg-[#E3D3C4]/5 rounded-full blur-[150px]"></div>
+                        <div className="absolute bottom-[-20%] left-[-20%] w-[800px] h-[800px] bg-[#8B735B]/5 rounded-full blur-[150px]"></div>
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
                     </div>
 
                     <motion.div
