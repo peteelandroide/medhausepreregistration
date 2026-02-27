@@ -20,9 +20,10 @@ import { ProposalTemplate } from './components/ProposalTemplate';
 import { Footer } from './components/Footer';
 import { CheckCircle } from 'lucide-react';
 import { MetaPixel, trackPageView } from './components/MetaPixel';
+import { KoluConsulting } from './components/KoluConsulting';
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'privacy' | 'terms' | 'generate' | 'proposal-preview'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function App() {
       else if (v === 'terms') setView('terms');
       else if (v === 'generate') setView('generate');
       else if (v === 'proposal-preview') setView('proposal-preview');
+      else if (v === 'kolu') setView('kolu');
       else setView('landing');
 
       // Track PageView whenever view changes matching URL
@@ -163,6 +165,10 @@ export default function App() {
         window.history.pushState(proposalData, '', url.toString());
         window.dispatchEvent(new PopStateEvent('popstate'));
       }} />;
+    }
+
+    if (view === 'kolu') {
+      return <KoluConsulting onBack={handleBack} />;
     }
 
     return (
