@@ -69,7 +69,7 @@ export const KoluConsulting: React.FC<KoluConsultingProps> = ({ onBack }) => {
                     <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div className="relative group">
                             <img
-                                src="/Sesion-RetratoMariaFernandaby@MaflaPhoto0034.JPG"
+                                src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/mafe.jpg"
                                 alt="María Fernanda Ríos"
                                 className="w-full h-[650px] object-cover rounded-[4rem] shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 border-4 border-white"
                             />
@@ -285,7 +285,7 @@ export const KoluConsulting: React.FC<KoluConsultingProps> = ({ onBack }) => {
                 <div className="h-full bg-[#1A1A1A] text-white flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
                     <div className="absolute inset-0 z-0">
                         <img
-                            src="/Sesion-RetratoMariaFernandaby@MaflaPhoto0034.JPG"
+                            src="https://pxpptalixswgbajiyubz.supabase.co/storage/v1/object/public/medhause-assets/mafe.jpg"
                             className="w-full h-full object-cover opacity-10 grayscale"
                             alt="BG"
                         />
