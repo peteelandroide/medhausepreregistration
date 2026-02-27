@@ -3,14 +3,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
 
 export const TVShowcase: React.FC = () => {
+    // Get zoom from URL params, default to 60 if not provided
+    const [zoom, setZoom] = React.useState(60);
+
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const zoomParam = params.get('zoom');
+        if (zoomParam) {
+            const parsedZoom = parseInt(zoomParam);
+            if (!isNaN(parsedZoom)) setZoom(parsedZoom);
+        }
+    }, []);
+
+    const zoomScale = zoom / 100;
+
     // Static Hero Slide simplified for slow TV processors
     const heroSlideContent = (
-        <div className="flex flex-col items-center justify-center h-full text-center px-24 py-4">
+        <div className="flex flex-col items-center justify-center h-full text-center px-8 py-4">
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="mb-2"
+                className="mb-4"
             >
                 <Logo variant="light" size="lg" />
             </motion.div>
@@ -19,12 +33,12 @@ export const TVShowcase: React.FC = () => {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 1 }}
-                className="mb-4"
+                className="mb-6"
             >
-                <h1 className="text-3xl font-heading font-black text-white leading-tight uppercase tracking-tighter italic">
-                    <span className="text-mh-gold not-italic">La casa de los especialistas</span>
+                <h1 className="text-4xl font-heading font-black text-white leading-tight uppercase tracking-tighter italic">
+                    <span className="text-mh-gold not-italic">La casa de los especiales</span>
                 </h1>
-                <p className="text-lg text-slate-400 font-bold uppercase tracking-[0.3em] mt-1">
+                <p className="text-xl text-slate-400 font-bold uppercase tracking-[0.3em] mt-1">
                     COWORKING MÉDICO PREMIUM EN MEDELLÍN
                 </p>
             </motion.div>
@@ -34,17 +48,17 @@ export const TVShowcase: React.FC = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="relative w-full max-w-2xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[3rem] p-8 flex items-center gap-8 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-3 shrink-0">
-                    <div className="w-40 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-4 shrink-0">
+                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img
                             src="/dra-caro/dr-caro-1.jpg"
                             alt="Dra. Caro Potes 1"
                             className="w-full h-full object-cover scale-110"
                         />
                     </div>
-                    <div className="w-40 h-24 rounded-[1.5rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                    <div className="w-48 h-32 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img
                             src="/dra-caro/dr-caro-3.jpg"
                             alt="Dra. Caro Potes 2"
@@ -53,16 +67,16 @@ export const TVShowcase: React.FC = () => {
                     </div>
                 </div>
                 <div>
-                    <span className="inline-block bg-mh-gold/20 text-mh-gold px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-3">
+                    <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4">
                         Especialista Destacada
                     </span>
-                    <h2 className="text-4xl font-heading font-black text-white uppercase italic leading-none mb-1">
+                    <h2 className="text-5xl font-heading font-black text-white uppercase italic leading-none mb-2">
                         Dra. Caro Potes
                     </h2>
-                    <p className="text-lg text-mh-gold font-bold uppercase tracking-widest mb-3">
+                    <p className="text-2xl text-mh-gold font-bold uppercase tracking-widest mb-4">
                         Otorrino & Cirugía Facial
                     </p>
-                    <p className="text-base text-slate-300 font-light leading-relaxed italic border-l-4 border-mh-gold/50 pl-4">
+                    <p className="text-xl text-slate-300 font-light leading-relaxed italic border-l-4 border-mh-gold/50 pl-6">
                         "Resultados naturales y funcionales para planear tu mejor versión."
                     </p>
                 </div>
@@ -72,9 +86,9 @@ export const TVShowcase: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="mt-4 bg-mh-gold/10 backdrop-blur-xl px-10 py-3 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
+                className="mt-10 bg-mh-gold/10 backdrop-blur-xl px-12 py-4 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
             >
-                <p className="text-xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
+                <p className="text-3xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
             </motion.div>
         </div>
     );
@@ -82,13 +96,13 @@ export const TVShowcase: React.FC = () => {
     return (
         <div className="fixed inset-0 bg-slate-950 overflow-hidden font-sans flex items-center justify-center">
             <div
-                className="relative overflow-hidden bg-slate-950 shadow-2xl"
+                className="relative overflow-hidden bg-slate-950 shadow-2xl flex items-center justify-center"
                 style={{
                     // Width is 100vh and Height 100vw because it's a vertical box filling a horizontal signal
                     // Scale 0.6 ensures visibility within the TV frame (more aggressive margins)
                     width: '100vh',
                     height: '100vw',
-                    transform: 'rotate(90deg) scale(0.6)',
+                    transform: `rotate(90deg) scale(${zoomScale})`,
                     transformOrigin: 'center'
                 }}
             >
@@ -112,7 +126,7 @@ export const TVShowcase: React.FC = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1.5, ease: "easeInOut" }}
-                        className="relative z-10 h-full w-full"
+                        className="relative z-10 h-full w-full flex items-center justify-center"
                     >
                         {heroSlideContent}
                     </motion.div>
