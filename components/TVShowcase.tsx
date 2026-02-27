@@ -5,33 +5,77 @@ import { Logo } from './Logo';
 export const TVShowcase: React.FC = () => {
     // Static Hero Slide simplified for slow TV processors
     const heroSlideContent = (
-        <div className="flex flex-col items-center justify-center h-full text-center px-24">
+        <div className="flex flex-col items-center justify-center h-full text-center px-24 py-12">
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1.2, opacity: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="mb-12"
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="mb-8"
             >
                 <Logo variant="light" size="lg" />
             </motion.div>
 
-            <motion.h1
-                initial={{ y: 50, opacity: 0 }}
+            <motion.div
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="text-5xl md:text-7xl font-heading font-black text-white italic leading-tight uppercase tracking-tighter"
+                transition={{ delay: 0.3, duration: 1 }}
+                className="mb-12"
             >
-                Tu Consultorio <br />
-                <span className="text-mh-gold not-italic">Premium por horas.</span>
-            </motion.h1>
+                <h1 className="text-4xl font-heading font-black text-white leading-tight uppercase tracking-tighter italic">
+                    MEDHAUSE <br />
+                    <span className="text-mh-gold not-italic">La casa de los especialistas</span>
+                </h1>
+                <p className="text-xl text-slate-400 font-bold uppercase tracking-[0.3em] mt-2">
+                    COWORKING MÉDICO PREMIUM EN MEDELLÍN
+                </p>
+            </motion.div>
+
+            {/* Feature Section: Dra. Caro Potes */}
+            <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.8, duration: 1 }}
+                className="relative w-full max-w-2xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+            >
+                <div className="flex flex-col gap-4 shrink-0">
+                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                        <img
+                            src="/dra-caro/dr-caro-1.jpg"
+                            alt="Dra. Caro Potes 1"
+                            className="w-full h-full object-cover scale-110"
+                        />
+                    </div>
+                    <div className="w-48 h-32 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                        <img
+                            src="/dra-caro/dr-caro-3.jpg"
+                            alt="Dra. Caro Potes 2"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
+                        Especialista Destacada
+                    </span>
+                    <h2 className="text-5xl font-heading font-black text-white uppercase italic leading-none mb-2">
+                        Dra. Caro Potes
+                    </h2>
+                    <p className="text-xl text-mh-gold font-bold uppercase tracking-widest mb-4">
+                        Otorrino & Cirugía Facial
+                    </p>
+                    <p className="text-lg text-slate-300 font-light leading-relaxed italic border-l-4 border-mh-gold/50 pl-6">
+                        "Resultados naturales y funcionales para planear tu mejor versión."
+                    </p>
+                </div>
+            </motion.div>
 
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 1 }}
-                className="mt-10 bg-mh-gold/10 backdrop-blur-xl px-10 py-3 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
+                transition={{ delay: 1.5, duration: 1 }}
+                className="mt-16 bg-mh-gold/10 backdrop-blur-xl px-12 py-4 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
             >
-                <p className="text-xl md:text-2xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
+                <p className="text-2xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
             </motion.div>
         </div>
     );
