@@ -81,15 +81,6 @@ export const TVShowcase: React.FC = () => {
                     </p>
                 </div>
             </motion.div>
-
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="mt-10 bg-mh-gold/10 backdrop-blur-xl px-12 py-4 rounded-full border-2 border-mh-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]"
-            >
-                <p className="text-3xl text-mh-gold font-black uppercase tracking-[0.4em]">Cross Medical Center • El Poblado</p>
-            </motion.div>
         </div>
     );
 
