@@ -22,7 +22,6 @@ export const TVShowcase: React.FC = () => {
                 className="mb-12"
             >
                 <h1 className="text-4xl font-heading font-black text-white leading-tight uppercase tracking-tighter italic">
-                    MEDHAUSE <br />
                     <span className="text-mh-gold not-italic">La casa de los especialistas</span>
                 </h1>
                 <p className="text-xl text-slate-400 font-bold uppercase tracking-[0.3em] mt-2">
