@@ -55,14 +55,14 @@ export const TVShowcaseOmar: React.FC = () => {
                         <img
                             src="/dr-omar/dr-omar-1.jpg"
                             alt="Dr. Omar Delgado 1"
-                            className="w-full h-full object-cover scale-110"
+                            className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
                     <div className="w-48 h-32 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img
                             src="/dr-omar/dr-omar-2.jpg"
                             alt="Dr. Omar Delgado 2"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover object-top"
                         />
                     </div>
                 </div>
