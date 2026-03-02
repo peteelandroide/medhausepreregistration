@@ -57,15 +57,19 @@ export const ProposalTemplate: React.FC<ProposalTemplateProps> = ({ data, onBack
                         <div className="space-y-2 text-sm">
                             <p className="flex justify-between">
                                 <span className="text-slate-400 font-bold uppercase text-[10px]">Titular:</span>
-                                <span className="text-mh-blue font-bold">Maria Fernanda</span>
+                                <span className="text-mh-blue font-bold">Maria Fernanda Sabat</span>
                             </p>
                             <p className="flex justify-between">
                                 <span className="text-slate-400 font-bold uppercase text-[10px]">Banco:</span>
-                                <span className="text-mh-blue font-bold">Nequi / Bancolombia</span>
+                                <span className="text-mh-blue font-bold">Bancolombia</span>
+                            </p>
+                            <p className="flex justify-between">
+                                <span className="text-slate-400 font-bold uppercase text-[10px]">Tipo:</span>
+                                <span className="text-mh-blue font-bold">Cuenta de Ahorros</span>
                             </p>
                             <p className="flex justify-between">
                                 <span className="text-slate-400 font-bold uppercase text-[10px]">Número:</span>
-                                <span className="text-mh-blue font-bold">300-XXXX-XXX</span>
+                                <span className="text-mh-blue font-bold">862 - 000003 - 74</span>
                             </p>
                         </div>
                     </div>

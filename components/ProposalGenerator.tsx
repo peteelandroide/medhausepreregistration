@@ -31,6 +31,9 @@ export const ProposalGenerator: React.FC = () => {
         paymentTerms: ''
     });
 
+    const [generatorMode, setGeneratorMode] = useState<'ai' | 'manual'>('ai');
+    const [activeStep, setActiveStep] = useState(1);
+
     useEffect(() => {
         const stateData = window.history.state as ProposalData;
         if (stateData && stateData.doctorName) {
@@ -96,166 +99,69 @@ export const ProposalGenerator: React.FC = () => {
         window.dispatchEvent(new PopStateEvent('popstate'));
     };
 
-    return (
-        <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-mh-gold selection:text-mh-blue">
-            {/* Background Decor */}
-            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-mh-blue/5 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-mh-gold/5 rounded-full blur-[120px]"></div>
-            </div>
-
-            <div className="relative z-10 max-w-5xl mx-auto px-4 py-12 md:py-20">
-                {/* Header Section */}
-                <header className="mb-12 text-center animate-fade-in">
-                    <div className="inline-flex items-center gap-2 text-mh-blue border border-mh-blue/10 px-4 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-6 bg-white/50 backdrop-blur-sm shadow-sm">
-                        <Zap size={14} className="text-mh-gold" /> Sales Intelligence Tool
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-heading font-black text-mh-blue leading-none mb-4 tracking-tighter">
-                        PROPOSAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-mh-gold to-yellow-600">GENERATOR</span>
-                    </h1>
-                    <p className="text-slate-500 text-lg md:text-xl font-light max-w-2xl mx-auto italic">
-                        "Donde la estrategia médica se encuentra con la excelencia comercial."
-                    </p>
-                </header>
-
-                {/* AI Analysis Block */}
-                <section className="mb-8 bg-slate-900 text-white rounded-[2.5rem] shadow-2xl shadow-mh-blue/20 overflow-hidden relative group border border-white/5">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                    <div className="absolute top-0 right-0 p-40 bg-mh-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-
-                    <div className="relative z-10 p-8 md:p-12">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-                            <div>
-                                <h2 className="text-2xl font-heading font-black flex items-center gap-3 uppercase tracking-wider">
-                                    <Brain className="text-mh-gold" size={28} />
-                                    Análisis Inteligente
-                                </h2>
-                                <p className="text-slate-400 text-sm mt-1">Sincroniza el transcript de la sesión para autocompletar la propuesta.</p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-6">
-                            <div className="relative">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-mh-gold mb-2 block ml-1">Gemini API Key</label>
-                                <input
-                                    type="password"
-                                    value={apiKey}
-                                    onChange={(e) => setApiKey(e.target.value)}
-                                    placeholder="Google Gemini Key (Pre-configurada)"
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all placeholder:text-slate-600 hover:bg-white/10"
-                                />
-                            </div>
-
-                            <div className="relative">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-mh-gold mb-2 block ml-1">Transcripción de la Reunión</label>
-                                <textarea
-                                    value={transcript}
-                                    onChange={(e) => setTranscript(e.target.value)}
-                                    placeholder="Pega aquí el texto de la conversación con el doctor..."
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 placeholder:text-slate-600 custom-scrollbar hover:bg-white/10"
-                                />
-                            </div>
-
-                            {error && (
-                                <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 p-4 rounded-xl border border-red-400/20">
-                                    <AlertCircle size={16} />
-                                    {error}
-                                </div>
-                            )}
-
-                            <button
-                                onClick={handleAnalyze}
-                                disabled={isAnalyzing}
-                                className={`w-full relative py-5 rounded-2xl font-black uppercase tracking-widest text-sm transition-all overflow-hidden flex items-center justify-center gap-3 active:scale-[0.98] ${isAnalyzing
-                                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-mh-gold to-yellow-600 text-mh-blue shadow-[0_0_30px_rgba(242,214,162,0.2)] hover:shadow-[0_0_40px_rgba(242,214,162,0.4)] hover:brightness-110'
-                                    }`}
-                            >
-                                {isAnalyzing ? (
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-5 h-5 border-2 border-slate-500 border-t-white rounded-full animate-spin"></div>
-                                        Procesando con Red Neuronal...
-                                    </div>
-                                ) : (
-                                    <>
-                                        <Sparkles size={20} />
-                                        Generar Inteligencia de Venta
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Main Form */}
-                <form onSubmit={handleSubmit} className="space-y-8 animate-fade-in-up">
-                    <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-mh-gold/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-
-                        <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
-                            <User size={20} className="text-mh-gold" />
-                            Perfil del Especialista
-                        </h3>
-
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nombre Completo</label>
-                                <div className="relative group">
-                                    <input type="text" name="doctorName" value={formData.doctorName} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
-                                    <User className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-mh-gold transition-colors" size={18} />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Especialidad Principal</label>
-                                <div className="relative group">
-                                    <input type="text" name="specialty" value={formData.specialty} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
-                                    <Stethoscope className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-mh-gold transition-colors" size={18} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 grid md:grid-cols-2 gap-8">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Diagnóstico (Situación Actual)</label>
-                                <textarea name="currentSituation" value={formData.currentSituation} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 leading-relaxed" placeholder="Describe los retos actuales..." required />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Metas a Corto Plazo (6 meses)</label>
-                                <textarea name="goals" value={formData.goals} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 leading-relaxed" placeholder="Qué desea lograr en MedHause..." required />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Social Proof Section (Meeting Notes) */}
-                    <div className="bg-mh-blue rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 translate-x-1/2"></div>
-
-                        <h3 className="text-xl font-heading font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <Target size={20} className="text-mh-gold" />
-                            Diferencial Personalizado
-                        </h3>
-                        <p className="text-slate-300 text-sm mb-6 max-w-xl font-light">
-                            Este texto aparecerá como una cita directa en la propuesta para demostrar que escuchamos sus necesidades específicas.
-                        </p>
-
-                        <textarea
-                            name="meetingNotes"
-                            value={formData.meetingNotes}
-                            onChange={handleInputChange}
-                            className="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-5 text-slate-100 text-lg italic focus:ring-2 focus:ring-mh-gold outline-none transition-all h-40 leading-relaxed placeholder:text-slate-500 shadow-inner"
-                            placeholder="Ej: 'Pedro, me interesa mucho el espacio premium porque mis pacientes son de alto perfil...'"
-                        />
-                    </div>
-
-                    {/* Solution & Financials */}
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="md:col-span-2 bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100">
-                            <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
-                                <Zap size={18} className="text-mh-gold" />
-                                Configuración de Solución
+    const renderManualStep = () => {
+        switch (activeStep) {
+            case 1:
+                return (
+                    <div className="space-y-8 animate-fade-in">
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden">
+                            <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <User size={20} className="text-mh-gold" />
+                                Paso 1: Perfil del Especialista
                             </h3>
-
-                            <div className="grid md:grid-cols-2 gap-6 mb-8 text-sm">
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nombre Completo</label>
+                                    <div className="relative group">
+                                        <input type="text" name="doctorName" value={formData.doctorName} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
+                                        <User className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-mh-gold transition-colors" size={18} />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Especialidad Principal</label>
+                                    <div className="relative group">
+                                        <input type="text" name="specialty" value={formData.specialty} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-medium focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
+                                        <Stethoscope className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-mh-gold transition-colors" size={18} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            case 2:
+                return (
+                    <div className="space-y-8 animate-fade-in">
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden">
+                            <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <Target size={20} className="text-mh-gold" />
+                                Paso 2: Análisis de Situación
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Diagnóstico (Situación Actual)</label>
+                                    <textarea name="currentSituation" value={formData.currentSituation} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 leading-relaxed" placeholder="Describe los retos actuales..." required />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Metas a Corto Plazo</label>
+                                    <textarea name="goals" value={formData.goals} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 leading-relaxed" placeholder="Qué desea lograr..." required />
+                                </div>
+                            </div>
+                            <div className="mt-8">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Cita Directa de la Sesión</label>
+                                <textarea name="meetingNotes" value={formData.meetingNotes} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-24 leading-relaxed italic" placeholder="Ej: 'Me interesa el espacio porque mis pacientes...'" />
+                            </div>
+                        </div>
+                    </div>
+                );
+            case 3:
+                return (
+                    <div className="space-y-8 animate-fade-in">
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden">
+                            <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <Zap size={20} className="text-mh-gold" />
+                                Paso 3: Configuración de la Solución
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-8 mb-8 text-sm">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Modelo de Membrecía</label>
                                     <select name="recommendedPlan" value={formData.recommendedPlan} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-bold focus:ring-2 focus:ring-mh-gold outline-none appearance-none cursor-pointer">
@@ -268,7 +174,6 @@ export const ProposalGenerator: React.FC = () => {
                                     <input type="number" name="hoursPerMonth" value={formData.hoursPerMonth} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-mh-blue font-bold focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
                                 </div>
                             </div>
-
                             <div className="space-y-4">
                                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Propuesta de Valor (Bullets)</label>
                                 <div className="space-y-3">
@@ -277,142 +182,244 @@ export const ProposalGenerator: React.FC = () => {
                                             <div className="w-8 h-8 rounded-full bg-mh-gold/10 flex items-center justify-center shrink-0">
                                                 <span className="text-mh-gold text-xs font-black">{index + 1}</span>
                                             </div>
-                                            <input
-                                                type="text"
-                                                value={benefit}
-                                                onChange={(e) => handleBenefitChange(index, e.target.value)}
-                                                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all"
-                                                placeholder="Escribe un beneficio clave..."
-                                            />
+                                            <input type="text" value={benefit} onChange={(e) => handleBenefitChange(index, e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all" placeholder="Beneficio clave..." />
                                             <button type="button" onClick={() => removeBenefit(index)} className="w-8 h-8 rounded-full hover:bg-red-50 text-slate-300 hover:text-red-500 transition-colors flex items-center justify-center font-bold">×</button>
                                         </div>
                                     ))}
                                 </div>
-                                <button type="button" onClick={addBenefit} className="text-[10px] font-black uppercase tracking-[0.2em] text-mh-gold hover:text-yellow-600 transition-colors flex items-center gap-1 mt-4">
-                                    + Agregar Beneficio Personalizado
-                                </button>
+                                <button type="button" onClick={addBenefit} className="text-[10px] font-black uppercase tracking-[0.2em] text-mh-gold hover:text-yellow-600 transition-colors">+ Agregar Beneficio</button>
                             </div>
                         </div>
-
-                        <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100 flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
-                                    <DollarSign size={18} className="text-mh-gold" />
-                                    Inversión
-                                </h3>
-
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className="space-y-8 animate-fade-in">
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden">
+                            <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <DollarSign size={20} className="text-mh-gold" />
+                                Paso 4: Inversión y Cierre
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-8">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Estimado Mensual</label>
                                         <input type="text" name="priceEstimate" value={formData.priceEstimate} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-2xl font-black text-mh-blue focus:ring-2 focus:ring-mh-gold outline-none transition-all" required />
                                     </div>
-
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Bonificación Especial</label>
+                                        <input type="text" name="discountApplied" value={formData.discountApplied} onChange={handleInputChange} className="w-full bg-purple-50/50 border border-purple-100 rounded-2xl px-5 py-4 text-purple-900 font-medium focus:ring-2 focus:ring-purple-400 outline-none transition-all" placeholder="Ej: 50% dscto en matrícula..." />
+                                    </div>
+                                </div>
+                                <div className="space-y-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Siguientes Pasos</label>
-                                        <textarea name="nextSteps" value={formData.nextSteps} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-24" placeholder="Ej: Agendar visita..." required />
+                                        <textarea name="nextSteps" value={formData.nextSteps} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-20" placeholder="Ej: Agendar visita..." required />
                                     </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Términos de Pago</label>
+                                        <input type="text" name="paymentTerms" value={formData.paymentTerms} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all" placeholder="Ej: Mensualidad anticipada..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-12">
+                                <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-6 flex items-center gap-3">
+                                    <CreditCard size={18} className="text-mh-gold" />
+                                    Canal de Recaudo
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {[
+                                        { id: 'MedHause', label: 'Cuenta Corporativa', sub: 'MedHause SAS' },
+                                        { id: 'Pedro', label: 'Dr. Pedro Vergara', sub: 'CEO / Estrategia' },
+                                        { id: 'Mafe', label: 'Ing. María Fernanda', sub: 'Admin / Operaciones' }
+                                    ].map((option) => (
+                                        <label key={option.id} className={`relative flex flex-col p-6 rounded-3xl border-2 transition-all cursor-pointer group hover:scale-[1.02] ${formData.paymentReceiver === option.id ? 'border-mh-gold bg-mh-gold/5 shadow-lg shadow-mh-gold/5' : 'border-slate-100 bg-slate-50 hover:border-slate-200'}`}>
+                                            <input type="radio" name="paymentReceiver" value={option.id} checked={formData.paymentReceiver === option.id} onChange={handleInputChange} className="absolute top-4 right-4 w-5 h-5 text-mh-gold focus:ring-mh-gold border-slate-300" />
+                                            <span className="text-sm font-black text-mh-blue uppercase mb-1">{option.label}</span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{option.sub}</span>
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
+                );
+            default:
+                return null;
+        }
+    };
 
-                    {/* Mafe's Section - Admin Style */}
-                    <div className="bg-[#FAF5FF] border border-purple-100 rounded-[2.5rem] p-8 md:p-12 shadow-inner relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-12 bg-purple-600/5 rounded-full blur-2xl"></div>
+    return (
+        <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-mh-gold selection:text-mh-blue">
+            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-mh-blue/5 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-mh-gold/5 rounded-full blur-[120px]"></div>
+            </div>
 
-                        <h3 className="text-xl font-heading font-black text-purple-900 uppercase tracking-widest mb-8 flex items-center gap-3">
-                            <List size={22} className="text-purple-600" />
-                            Administrative Intelligence
-                            <span className="text-[10px] font-medium lowercase bg-purple-600 text-white px-2 py-0.5 rounded-full opacity-50 ml-2">Internal Panel</span>
-                        </h3>
-
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Promoción / Bonificación Especial</label>
-                                <input
-                                    type="text"
-                                    name="discountApplied"
-                                    value={formData.discountApplied}
-                                    onChange={handleInputChange}
-                                    className="w-full bg-white border border-purple-200 rounded-2xl px-5 py-4 text-purple-900 font-medium focus:ring-2 focus:ring-purple-400 outline-none shadow-sm transition-all"
-                                    placeholder="Ej: 50% dscto en matrícula..."
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Términos de Liquidación</label>
-                                <input
-                                    type="text"
-                                    name="paymentTerms"
-                                    value={formData.paymentTerms}
-                                    onChange={handleInputChange}
-                                    className="w-full bg-white border border-purple-200 rounded-2xl px-5 py-4 text-purple-900 font-medium focus:ring-2 focus:ring-purple-400 outline-none shadow-sm transition-all"
-                                    placeholder="Ej: Mensualidad anticipada..."
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Observaciones Estratégicas</label>
-                            <textarea
-                                name="mafeNotes"
-                                value={formData.mafeNotes}
-                                onChange={handleInputChange}
-                                className="w-full bg-white border border-purple-200 rounded-2xl px-6 py-5 text-purple-900 text-sm focus:ring-2 focus:ring-purple-400 outline-none transition-all h-28 italic shadow-sm"
-                                placeholder="Notas clave para Mafe o Pedro sobre este cierre..."
-                            />
-                        </div>
-                    </div>
-
-                    {/* Payment Account Selection */}
-                    <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100">
-                        <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
-                            <CreditCard size={18} className="text-mh-gold" />
-                            Canal de Recaudo
-                        </h3>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {[
-                                { id: 'MedHause', label: 'Cuenta Corporativa', sub: 'MedHause SAS', detail: 'Principal' },
-                                { id: 'Pedro', label: 'Dr. Pedro Vergara', sub: 'CEO / Estrategia', detail: 'Personal' },
-                                { id: 'Mafe', label: 'Ing. María Fernanda', sub: 'Admin / Operaciones', detail: 'Personal' }
-                            ].map((option) => (
-                                <label key={option.id} className={`relative flex flex-col p-6 rounded-3xl border-2 transition-all cursor-pointer group hover:scale-[1.02] ${formData.paymentReceiver === option.id ? 'border-mh-gold bg-mh-gold/5 shadow-lg shadow-mh-gold/5' : 'border-slate-100 bg-slate-50 hover:border-slate-200'}`}>
-                                    <input
-                                        type="radio"
-                                        name="paymentReceiver"
-                                        value={option.id}
-                                        checked={formData.paymentReceiver === option.id}
-                                        onChange={handleInputChange}
-                                        className="absolute top-4 right-4 w-5 h-5 text-mh-gold focus:ring-mh-gold border-slate-300"
-                                    />
-                                    <span className="text-sm font-black text-mh-blue uppercase mb-1">{option.label}</span>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">{option.sub}</span>
-                                    <div className="mt-auto inline-flex items-center gap-1 text-[10px] font-black text-mh-gold uppercase tracking-tighter">
-                                        <Zap size={10} /> {option.detail}
-                                    </div>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Bottom CTA Area */}
-                    <div className="pt-12 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-slate-200">
-                        <div className="text-center md:text-left">
-                            <p className="text-mh-blue font-heading font-black text-lg uppercase tracking-tight">¿Todo listo para el cierre?</p>
-                            <p className="text-slate-400 text-sm">Revisa bien los beneficios personalizados antes de imprimir.</p>
-                        </div>
-                        <button type="submit" className="group relative bg-mh-blue text-white px-12 py-5 rounded-full font-black uppercase tracking-[0.2em] text-sm shadow-2xl shadow-mh-blue/30 hover:shadow-mh-blue/50 hover:scale-105 active:scale-95 transition-all overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-mh-gold/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                            <span className="flex items-center gap-3 relative z-10">
-                                Construir Propuesta <ChevronRight size={18} className="text-mh-gold" />
-                            </span>
+            <div className="relative z-10 max-w-5xl mx-auto px-4 py-12 md:py-20">
+                <header className="mb-12 text-center animate-fade-in">
+                    <div className="flex justify-center gap-4 mb-8">
+                        <button
+                            onClick={() => setGeneratorMode('ai')}
+                            className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${generatorMode === 'ai' ? 'bg-slate-900 text-mh-gold shadow-lg ring-2 ring-mh-gold/20' : 'bg-white text-slate-400 hover:text-mh-blue'}`}
+                        >
+                            <Brain size={14} className="inline mr-2" /> Análisis IA
+                        </button>
+                        <button
+                            onClick={() => setGeneratorMode('manual')}
+                            className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${generatorMode === 'manual' ? 'bg-slate-900 text-mh-gold shadow-lg ring-2 ring-mh-gold/20' : 'bg-white text-slate-400 hover:text-mh-blue'}`}
+                        >
+                            <User size={14} className="inline mr-2" /> Modo Presencial
                         </button>
                     </div>
-                </form>
+
+                    <h1 className="text-4xl md:text-6xl font-heading font-black text-mh-blue leading-none mb-4 tracking-tighter">
+                        PROPOSAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-mh-gold to-yellow-600">GENERATOR</span>
+                    </h1>
+                    <p className="text-slate-500 text-lg md:text-xl font-light max-w-2xl mx-auto italic">
+                        {generatorMode === 'ai' ? '"Estrategia guiada por datos y transcripciones."' : '"Construcción personalizada paso a paso."'}
+                    </p>
+                </header>
+
+                {generatorMode === 'ai' ? (
+                    <div className="space-y-8">
+                        {/* AI Analysis Block */}
+                        <section className="bg-slate-900 text-white rounded-[2.5rem] shadow-2xl shadow-mh-blue/20 overflow-hidden relative border border-white/5">
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                            <div className="relative z-10 p-8 md:p-12">
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                                    <h2 className="text-2xl font-heading font-black flex items-center gap-3 uppercase tracking-wider">
+                                        <Brain className="text-mh-gold" size={28} /> Inteligencia de Ventas
+                                    </h2>
+                                </div>
+                                <div className="space-y-6">
+                                    <div className="relative">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-mh-gold mb-2 block ml-1">Gemini API Key</label>
+                                        <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all placeholder:text-slate-600" />
+                                    </div>
+                                    <div className="relative">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-mh-gold mb-2 block ml-1">Transcripción de la Reunión</label>
+                                        <textarea value={transcript} onChange={(e) => setTranscript(e.target.value)} placeholder="Pega aquí el texto..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-mh-gold outline-none transition-all h-32 placeholder:text-slate-600" />
+                                    </div>
+                                    {error && <div className="text-red-400 text-sm bg-red-400/10 p-4 rounded-xl border border-red-400/20">{error}</div>}
+                                    <button onClick={handleAnalyze} disabled={isAnalyzing} className="w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm transition-all bg-gradient-to-r from-mh-gold to-yellow-600 text-mh-blue shadow-lg">
+                                        {isAnalyzing ? 'Procesando...' : 'Generar Inteligencia de Venta'}
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100">
+                                <h3 className="text-xl font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3"><User size={20} className="text-mh-gold" /> Perfil del Especialista</h3>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <input type="text" name="doctorName" value={formData.doctorName} onChange={handleInputChange} placeholder="Nombre" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4" required />
+                                    <input type="text" name="specialty" value={formData.specialty} onChange={handleInputChange} placeholder="Especialidad" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4" required />
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                                    <textarea name="currentSituation" value={formData.currentSituation} onChange={handleInputChange} placeholder="Situación actual..." className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 h-32" required />
+                                    <textarea name="goals" value={formData.goals} onChange={handleInputChange} placeholder="Metas..." className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 h-32" required />
+                                </div>
+                            </div>
+
+                            <div className="bg-mh-blue rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative">
+                                <h3 className="text-xl font-heading font-black text-white uppercase tracking-widest mb-6"><Target size={20} className="inline text-mh-gold mr-3" /> Diferencial Personalizado</h3>
+                                <textarea name="meetingNotes" value={formData.meetingNotes} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-5 text-white text-lg italic h-32" />
+                            </div>
+
+                            <div className="grid md:grid-cols-3 gap-8">
+                                <div className="md:col-span-2 bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl">
+                                    <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8"><Zap size={18} className="inline text-mh-gold mr-3" /> Configuración</h3>
+                                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                                        <select name="recommendedPlan" value={formData.recommendedPlan} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4">
+                                            <option value="Membership">Membresía</option>
+                                            <option value="Visitante">Visitante</option>
+                                        </select>
+                                        <input type="number" name="hoursPerMonth" value={formData.hoursPerMonth} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4" />
+                                    </div>
+                                    <div className="space-y-3">
+                                        {formData.keyBenefits.map((b, i) => (
+                                            <div key={i} className="flex gap-2">
+                                                <input type="text" value={b} onChange={(e) => handleBenefitChange(i, e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2" />
+                                                <button type="button" onClick={() => removeBenefit(i)}>×</button>
+                                            </div>
+                                        ))}
+                                        <button type="button" onClick={addBenefit} className="text-xs text-mh-gold font-bold">+ Agregar Beneficio</button>
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl">
+                                    <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8">Inversión</h3>
+                                    <input type="text" name="priceEstimate" value={formData.priceEstimate} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-xl font-black mb-4" />
+                                    <textarea name="nextSteps" value={formData.nextSteps} onChange={handleInputChange} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 h-24" />
+                                </div>
+                            </div>
+
+                            <div className="pt-12 flex justify-end">
+                                <button type="submit" className="bg-mh-blue text-white px-12 py-5 rounded-full font-black uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95">
+                                    Construir Propuesta <ChevronRight size={18} className="inline ml-2 text-mh-gold" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                ) : (
+                    <div className="space-y-12">
+                        {/* Manual Steps Indicator */}
+                        <div className="flex justify-center mb-16">
+                            <div className="flex items-center gap-4 md:gap-8">
+                                {[1, 2, 3, 4].map((s) => (
+                                    <React.Fragment key={s}>
+                                        <div className="flex flex-col items-center gap-2">
+                                            <button
+                                                onClick={() => setActiveStep(s)}
+                                                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-all ${activeStep >= s ? 'bg-mh-blue text-white shadow-xl scale-110' : 'bg-slate-200 text-slate-400'}`}
+                                            >
+                                                {s}
+                                            </button>
+                                        </div>
+                                        {s < 4 && <div className={`w-8 md:w-16 h-1 rounded-full ${activeStep > s ? 'bg-mh-blue' : 'bg-slate-200'}`} />}
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleSubmit}>
+                            {renderManualStep()}
+
+                            <div className="mt-12 flex items-center justify-between border-t border-slate-200 pt-8">
+                                <button
+                                    type="button"
+                                    onClick={() => setActiveStep(Math.max(1, activeStep - 1))}
+                                    disabled={activeStep === 1}
+                                    className="text-slate-400 hover:text-mh-blue font-black uppercase tracking-widest text-xs disabled:opacity-30"
+                                >
+                                    Anterior
+                                </button>
+
+                                {activeStep < 4 ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveStep(activeStep + 1)}
+                                        className="bg-slate-900 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all"
+                                    >
+                                        Siguiente Paso
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        className="bg-mh-blue text-white px-12 py-5 rounded-full font-black uppercase tracking-widest shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3"
+                                    >
+                                        Construir Propuesta <ChevronRight size={18} className="text-mh-gold" />
+                                    </button>
+                                )}
+                            </div>
+                        </form>
+                    </div>
+                )}
             </div>
 
             <footer className="py-12 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">
-                MedHause Prestige System • MD Management Dashboard v2.0
+                MedHause Prestige System • MD Management Dashboard v2.1
             </footer>
         </div>
     );
