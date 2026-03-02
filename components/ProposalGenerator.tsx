@@ -355,6 +355,43 @@ export const ProposalGenerator: React.FC = () => {
                                 </div>
                             </div>
 
+                            <div className="bg-[#FAF5FF] border border-purple-100 rounded-[2.5rem] p-8 md:p-12 shadow-inner relative overflow-hidden">
+                                <h3 className="text-xl font-heading font-black text-purple-900 uppercase tracking-widest mb-8 flex items-center gap-3">
+                                    <List size={22} className="text-purple-600" />
+                                    Administrative Details
+                                </h3>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Bonificación Especial</label>
+                                        <input type="text" name="discountApplied" value={formData.discountApplied} onChange={handleInputChange} className="w-full bg-white border border-purple-200 rounded-2xl px-5 py-4 text-purple-900 font-medium focus:ring-2 focus:ring-purple-400 outline-none transition-all" placeholder="Ej: 50% dscto en matrícula..." />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purple-400 ml-1">Términos de Pago</label>
+                                        <input type="text" name="paymentTerms" value={formData.paymentTerms} onChange={handleInputChange} className="w-full bg-white border border-purple-200 rounded-2xl px-5 py-4 text-purple-900 font-medium focus:ring-2 focus:ring-purple-400 outline-none transition-all" placeholder="Ej: Mensualidad anticipada..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100">
+                                <h3 className="text-lg font-heading font-black text-mh-blue uppercase tracking-widest mb-8 flex items-center gap-3">
+                                    <CreditCard size={18} className="text-mh-gold" />
+                                    Canal de Recaudo
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {[
+                                        { id: 'MedHause', label: 'Cuenta Corporativa', sub: 'MedHause SAS' },
+                                        { id: 'Pedro', label: 'Dr. Pedro Vergara', sub: 'CEO / Estrategia' },
+                                        { id: 'Mafe', label: 'Ing. María Fernanda', sub: 'Admin / Operaciones' }
+                                    ].map((option) => (
+                                        <label key={option.id} className={`relative flex flex-col p-6 rounded-3xl border-2 transition-all cursor-pointer group hover:scale-[1.02] ${formData.paymentReceiver === option.id ? 'border-mh-gold bg-mh-gold/5 shadow-lg shadow-mh-gold/5' : 'border-slate-100 bg-slate-50 hover:border-slate-200'}`}>
+                                            <input type="radio" name="paymentReceiver" value={option.id} checked={formData.paymentReceiver === option.id} onChange={handleInputChange} className="absolute top-4 right-4 w-5 h-5 text-mh-gold focus:ring-mh-gold border-slate-300" />
+                                            <span className="text-sm font-black text-mh-blue uppercase mb-1">{option.label}</span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{option.sub}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="pt-12 flex justify-end">
                                 <button type="submit" className="bg-mh-blue text-white px-12 py-5 rounded-full font-black uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95">
                                     Construir Propuesta <ChevronRight size={18} className="inline ml-2 text-mh-gold" />
