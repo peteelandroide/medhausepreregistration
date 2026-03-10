@@ -70,6 +70,7 @@ export const AdminSchedule = () => {
     // Form state
     const [filterDoctorId, setFilterDoctorId] = useState<string>('all');
     const [formDoctorId, setFormDoctorId] = useState('');
+    const [formEndHour, setFormEndHour] = useState(8);
     const [formNotes, setFormNotes] = useState('');
     const [formPatientName, setFormPatientName] = useState('');
     const [formPatientPhone, setFormPatientPhone] = useState('');
@@ -197,6 +198,19 @@ export const AdminSchedule = () => {
         const dateStr = selectedDayObj.toISOString().split('T')[0];
 
         try {
+            // Check for overlaps in the selected time range
+            const hasOverlap = bookings.some(b => {
+                if (b.space_type !== selectedCell.space) return false;
+                if (b.booking_date !== dateStr) return false;
+
+                // Overlap condition: max(start1, start2) < min(end1, end2)
+                return Math.max(selectedCell.hour, b.start_hour) < Math.min(formEndHour, b.end_hour);
+            });
+
+            if (hasOverlap) {
+                throw new Error('El espacio ya está reservado en parte o en todo el horario seleccionado.');
+            }
+
             const { data, error } = await supabase
                 .from('schedule_bookings')
                 .insert({
@@ -204,7 +218,7 @@ export const AdminSchedule = () => {
                     space_type: selectedCell.space,
                     booking_date: dateStr,
                     start_hour: selectedCell.hour,
-                    end_hour: selectedCell.hour + 1, // Standard 1h block for now
+                    end_hour: formEndHour,
                     notes: formNotes || null,
                     patient_name: formPatientName || null,
                     patient_phone: formPatientPhone || null,
@@ -275,17 +289,36 @@ export const AdminSchedule = () => {
         e.preventDefault();
         if (!selectedBooking) return;
 
+        if ((editBookingForm.end_hour || 0) <= editBookingForm.start_hour) {
+            setFormError('La hora final debe ser posterior a la hora inicial.');
+            return;
+        }
+
         setIsSubmitting(true);
         setFormError('');
 
         try {
+            // Check for overlaps in the selected time range, excluding the current booking
+            const hasOverlap = bookings.some(b => {
+                if (b.id === selectedBooking.id) return false;
+                if (b.space_type !== editBookingForm.space_type) return false;
+                if (b.booking_date !== selectedBooking.booking_date) return false;
+
+                // Overlap condition: max(start1, start2) < min(end1, end2)
+                return Math.max(editBookingForm.start_hour, b.start_hour) < Math.min(editBookingForm.end_hour || editBookingForm.start_hour + 1, b.end_hour);
+            });
+
+            if (hasOverlap) {
+                throw new Error('El espacio ya está reservado en parte o en todo el horario seleccionado.');
+            }
+
             const { error } = await supabase
                 .from('schedule_bookings')
                 .update({
                     doctor_id: editBookingForm.doctor_id,
                     space_type: editBookingForm.space_type,
                     start_hour: editBookingForm.start_hour,
-                    end_hour: (editBookingForm.start_hour || 0) + 1,
+                    end_hour: editBookingForm.end_hour || editBookingForm.start_hour + 1,
                     notes: editBookingForm.notes,
                     patient_name: editBookingForm.patient_name,
                     patient_phone: editBookingForm.patient_phone,
@@ -293,12 +326,7 @@ export const AdminSchedule = () => {
                 })
                 .eq('id', selectedBooking.id);
 
-            if (error) {
-                if (error.code === '23505') {
-                    throw new Error('Este espacio ya está reservado en esta hora. Alguien más pudo haberlo reservado.');
-                }
-                throw error;
-            }
+            if (error) throw error;
 
             setIsEditingBooking(false);
             setShowDetailModal(false);
@@ -419,7 +447,14 @@ export const AdminSchedule = () => {
     }, [selectedDayObj]);
 
     const getBookingForCell = (space: string, hour: number) => {
+        // Return booking if the *start_hour* exactly matches the grid row hour,
+        // so we only render the card once at the top of the booked block
         return bookings.find(b => b.space_type === space && b.start_hour === hour);
+    };
+
+    const isCellOccupied = (space: string, hour: number) => {
+        // Check if ANY booking covers this hour block
+        return bookings.some(b => b.space_type === space && hour >= b.start_hour && hour < b.end_hour);
     };
 
     // Views
@@ -589,6 +624,7 @@ export const AdminSchedule = () => {
 
                                         {SPACE_TYPES.map(space => {
                                             const booking = getBookingForCell(space, hour);
+                                            const isOccupiedByAnother = !booking && isCellOccupied(space, hour);
 
                                             return (
                                                 <div
@@ -621,9 +657,15 @@ export const AdminSchedule = () => {
                                                                 {booking.procedure || booking.notes || 'Reservado'}
                                                             </div>
                                                         </div>
+                                                    ) : isOccupiedByAnother ? (
+                                                        <div className="flex-1 m-1 rounded-lg bg-slate-50/50 opacity-0 pointer-events-none"></div>
                                                     ) : (
                                                         <button
-                                                            onClick={() => { setSelectedCell({ space, hour }); setShowAddModal(true); }}
+                                                            onClick={() => {
+                                                                setSelectedCell({ space, hour });
+                                                                setFormEndHour(hour + 1);
+                                                                setShowAddModal(true);
+                                                            }}
                                                             className="w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
                                                         >
                                                             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-mh-blue shadow-inner border border-slate-200">
@@ -723,8 +765,22 @@ export const AdminSchedule = () => {
                                 </div>
                                 <div className="w-[1px] bg-blue-100"></div>
                                 <div className="flex-1">
-                                    <span className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Horario</span>
-                                    <span className="font-heading font-bold text-mh-blue">{formatHour(selectedCell.hour)} - {formatHour(selectedCell.hour + 1)}</span>
+                                    <span className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Hora Inicio</span>
+                                    <span className="font-heading font-bold text-mh-blue">{formatHour(selectedCell.hour)}</span>
+                                </div>
+                                <div className="w-[1px] bg-blue-100"></div>
+                                <div className="flex-1">
+                                    <label className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Hora Fin</label>
+                                    <select
+                                        value={formEndHour}
+                                        onChange={e => setFormEndHour(parseInt(e.target.value))}
+                                        className="font-heading font-bold text-mh-blue bg-transparent border-b-2 border-blue-200 outline-none w-full pb-0.5 cursor-pointer"
+                                    >
+                                        {[...Array(20 - selectedCell.hour)].map((_, i) => {
+                                            const h = selectedCell.hour + i + 1;
+                                            return <option key={h} value={h}>{formatHour(h)}</option>;
+                                        })}
+                                    </select>
                                 </div>
                             </div>
 
@@ -950,6 +1006,8 @@ export const AdminSchedule = () => {
                                                 ))}
                                             </select>
                                         </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
                                         <div>
                                             <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Hora (Inicio)</label>
                                             <select
@@ -960,6 +1018,19 @@ export const AdminSchedule = () => {
                                                 {[7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].map(h => (
                                                     <option key={h} value={h}>{formatHour(h)}</option>
                                                 ))}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Hora (Fin)</label>
+                                            <select
+                                                value={editBookingForm.end_hour || (editBookingForm.start_hour || 7) + 1}
+                                                onChange={e => setEditBookingForm({ ...editBookingForm, end_hour: parseInt(e.target.value) })}
+                                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm"
+                                            >
+                                                {[...Array(20 - (editBookingForm.start_hour || 7))].map((_, i) => {
+                                                    const h = (editBookingForm.start_hour || 7) + i + 1;
+                                                    return <option key={h} value={h}>{formatHour(h)}</option>;
+                                                })}
                                             </select>
                                         </div>
                                     </div>
