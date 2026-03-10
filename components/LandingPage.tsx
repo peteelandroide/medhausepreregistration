@@ -19,7 +19,7 @@ const SPACE_TYPES = [
         id: 'PREMIUM',
         name: 'Premium',
         priceMember: 100000,
-        priceList: 120000,
+        priceList: 130000,
         desc: 'La máxima expresión de lujo para especialistas de alto nivel.',
         icon: <Star size={20} />,
         img: '/PREMIUM.jpg',
@@ -28,7 +28,7 @@ const SPACE_TYPES = [
     {
         id: 'ESTANDAR',
         name: 'Estándar',
-        priceMember: 75000,
+        priceMember: 85000,
         priceList: 100000,
         desc: 'Perfecto para especialidades médicas y estética básica.',
         icon: <Zap size={20} />,
