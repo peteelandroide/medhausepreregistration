@@ -23,9 +23,10 @@ import { Footer } from './components/Footer';
 import { CheckCircle } from 'lucide-react';
 import { MetaPixel, trackPageView } from './components/MetaPixel';
 import { KoluConsulting } from './components/KoluConsulting';
+import { AdminSchedule } from './components/AdminSchedule';
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function App() {
       else if (v === 'generate') setView('generate');
       else if (v === 'proposal-preview') setView('proposal-preview');
       else if (v === 'kolu') setView('kolu');
+      else if (v === 'admin-schedule') setView('admin-schedule');
       else setView('landing');
 
       // Track PageView whenever view changes matching URL
@@ -181,6 +183,10 @@ export default function App() {
 
     if (view === 'kolu') {
       return <KoluConsulting onBack={handleBack} />;
+    }
+
+    if (view === 'admin-schedule') {
+      return <AdminSchedule />;
     }
 
     return (
