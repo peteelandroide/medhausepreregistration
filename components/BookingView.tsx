@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from 'react';
-import { Star, Clock, ArrowLeft, ChevronRight, Zap, Info, Calendar, FileText, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Star, Clock, ArrowLeft, ChevronRight, Zap, Info, Calendar, FileText, CheckCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { Footer } from './Footer';
 
 // Reusing constants or defining them if they were local. 
@@ -16,7 +15,9 @@ const IMAGES = {
 };
 
 const SPACE_TYPES = [
-    { id: 'PREMIUM', name: 'Premium', basePrice: 100000, desc: 'Consultorio premium con camilla y mobiliario moderno.', icon: <Star size={20} />, img: IMAGES.medium }
+    { id: 'PREMIUM', name: 'Premium', basePrice: 130000, memberPrice: 100000, desc: 'La máxima expresión de lujo para especialistas de alto nivel.', icon: <Star size={20} />, img: '/PREMIUM.jpg' },
+    { id: 'ESTANDAR', name: 'Estándar', basePrice: 100000, memberPrice: 85000, desc: 'Perfecto para especialidades médicas y estética básica.', icon: <Zap size={20} />, img: '/ESTANDAR_3_2.jpg' },
+    { id: 'BASICO', name: 'Básico', basePrice: 65000, memberPrice: 50000, desc: 'Funcionalidad pura para consulta general y psicología.', icon: <ShieldCheck size={20} />, img: '/BASICO_HORIZONTAL.jpg' }
 ];
 
 export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?: (data: any) => void }) => {
@@ -54,9 +55,8 @@ export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?:
     };
 
     const calculateSlotPrice = (hour: number, date: Date) => {
-        let price = selectedSpace.basePrice;
+        let price = isPremium ? selectedSpace.memberPrice : selectedSpace.basePrice;
         if (isPrimeTime(hour, date)) price *= 1.15;
-        if (isPremium) price *= 0.85;
         return Math.round(price);
     };
 
@@ -222,11 +222,11 @@ export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?:
                                     const isPrime = isPrimeTime(h, selectedDate);
 
                                     // Calcular precios
-                                    let base = selectedSpace.basePrice;
-                                    if (isPrime) base *= 1.15;
+                                    const base = selectedSpace.basePrice;
+                                    const mBase = selectedSpace.memberPrice;
 
-                                    const standardPrice = Math.round(base);
-                                    const memberPrice = Math.round(base * 0.85);
+                                    const standardPrice = Math.round(isPrime ? base * 1.15 : base);
+                                    const memberPrice = Math.round(isPrime ? mBase * 1.15 : mBase);
 
                                     // FIX: Remove restriction for Saturdays
                                     const isRestricted = false;
@@ -337,12 +337,12 @@ export const BookingView = ({ onClose, onBook }: { onClose: () => void; onBook?:
                                 <div className="space-y-3 px-2">
                                     <div className="flex justify-between items-center text-xs">
                                         <span className="text-slate-500">Tarifa Base ({selectionMetrics.baseHours}h)</span>
-                                        <span className="font-bold text-slate-700">{formatPrice(selectionMetrics.baseHours * (isPremium ? selectedSpace.basePrice * 0.85 : selectedSpace.basePrice))}</span>
+                                        <span className="font-bold text-slate-700">{formatPrice(selectionMetrics.baseHours * (isPremium ? selectedSpace.memberPrice : selectedSpace.basePrice))}</span>
                                     </div>
                                     {selectionMetrics.primeHours > 0 && (
                                         <div className="flex justify-between items-center text-xs">
                                             <span className="text-slate-500 flex items-center gap-1"><Zap size={10} className="text-mh-gold" /> Tarifa Prime ({selectionMetrics.primeHours}h)</span>
-                                            <span className="font-bold text-slate-700">{formatPrice(selectionMetrics.primeHours * (isPremium ? selectedSpace.basePrice * 1.15 * 0.85 : selectedSpace.basePrice * 1.15))}</span>
+                                            <span className="font-bold text-slate-700">{formatPrice(selectionMetrics.primeHours * (isPremium ? selectedSpace.memberPrice * 1.15 : selectedSpace.basePrice * 1.15))}</span>
                                         </div>
                                     )}
                                     {isPremium && (

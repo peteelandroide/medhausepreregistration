@@ -118,13 +118,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onBookClick, onRegiste
                         <Logo variant="dark" size="sm" />
                     </div>
                     <div className="flex items-center gap-4">
-                        {/* Botón Agendar Horas */}
-                        <button onClick={() => {
-                            trackEvent('ButtonClick', { button_name: 'Navbar Agendar' });
-                            onBookClick();
-                        }} className="hidden md:flex text-xs font-bold text-mh-blue border border-slate-200 bg-slate-50 hover:bg-white hover:border-mh-blue hover:shadow-lg px-6 py-3 rounded-full transition-all items-center gap-2 group tracking-wide">
-                            <Calendar size={16} className="text-slate-400 group-hover:text-mh-blue transition-colors" /> AGENDAR VISITA
-                        </button>
+
                         {/* Botón Preregistro */}
                         <button onClick={() => {
                             trackEvent('ButtonClick', { button_name: 'Navbar Preregistro' });
