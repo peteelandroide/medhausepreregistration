@@ -62,7 +62,7 @@ export const TVShowcaseJohn: React.FC = () => {
                         <img
                             src="/dr-john/dr-john-2.png"
                             alt="Dr. John Sánchez 2"
-                            className="w-full h-full object-cover object-top"
+                            className="w-full h-full object-cover object-[center_25%]"
                         />
                     </div>
                 </div>
