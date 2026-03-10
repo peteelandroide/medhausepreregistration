@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import { Star, Clock, ArrowLeft, ChevronRight, Zap, Info, Calendar, FileText, CheckCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { Footer } from './Footer';
 
