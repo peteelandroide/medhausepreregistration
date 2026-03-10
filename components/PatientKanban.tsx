@@ -23,6 +23,83 @@ interface Doctor {
     specialty: string | null;
 }
 
+const PatientForm = ({ formData, setFormData, onSubmit, title, submitText, onClose, isSubmitting, formError, doctors }: {
+    formData: any; setFormData: (v: any) => void; onSubmit: (e: React.FormEvent) => void; title: string; submitText: string; onClose: () => void; isSubmitting: boolean; formError: string; doctors: Doctor[];
+}) => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+        <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center shrink-0">
+                <h3 className="font-heading font-black text-slate-800">{title}</h3>
+                <button onClick={onClose}
+                    className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors">
+                    <X size={20} />
+                </button>
+            </div>
+            <form onSubmit={onSubmit} className="p-6 space-y-4 overflow-y-auto flex-1">
+                {formError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium">{formError}</div>
+                )}
+                <div>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Doctor</label>
+                    <select value={formData.doctor_id} onChange={e => setFormData({ ...formData, doctor_id: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" required>
+                        {doctors.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                    </select>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nombre Paciente *</label>
+                        <input type="text" value={formData.patient_name} onChange={e => setFormData({ ...formData, patient_name: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" required />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Teléfono</label>
+                        <input type="text" value={formData.patient_phone || ''} onChange={e => setFormData({ ...formData, patient_phone: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email</label>
+                        <input type="email" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Último Procedimiento</label>
+                        <input type="text" value={formData.last_procedure || ''} onChange={e => setFormData({ ...formData, last_procedure: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                    </div>
+                </div>
+                {formData.last_visit_date !== undefined && (
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Última Visita</label>
+                        <input type="date" value={formData.last_visit_date || ''} onChange={e => setFormData({ ...formData, last_visit_date: e.target.value || null })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                    </div>
+                )}
+                <div>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Estado</label>
+                    <select value={formData.kanban_stage} onChange={e => setFormData({ ...formData, kanban_stage: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm">
+                        {PATIENT_STAGES.map(s => <option key={s} value={s}>{PATIENT_STAGE_LABELS[s]}</option>)}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Notas</label>
+                    <textarea value={formData.notes || ''} onChange={e => setFormData({ ...formData, notes: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm h-32 resize-none" />
+                </div>
+                <div className="flex gap-2 pt-2">
+                    <button type="submit" disabled={isSubmitting}
+                        className="flex-1 bg-mh-blue text-white font-bold py-3 rounded-xl hover:bg-mh-blue/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+                        <Save size={16} /> {isSubmitting ? 'Guardando...' : submitText}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+);
+
 const PATIENT_STAGES = ['nuevo', 'en_tratamiento', 'seguimiento', 'recontactar', 'finalizado'];
 const PATIENT_STAGE_LABELS: Record<string, string> = {
     'nuevo': '🆕 Nuevos',
@@ -86,7 +163,7 @@ export const PatientKanban = ({ onBack }: { onBack: () => void }) => {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [newPatient.doctor_id]);
 
     useEffect(() => { fetchData(); }, [fetchData]);
 
@@ -213,82 +290,6 @@ export const PatientKanban = ({ onBack }: { onBack: () => void }) => {
         }
     };
 
-    const PatientForm = ({ formData, setFormData, onSubmit, title, submitText }: {
-        formData: any; setFormData: (v: any) => void; onSubmit: (e: React.FormEvent) => void; title: string; submitText: string;
-    }) => (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-            <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-                <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center shrink-0">
-                    <h3 className="font-heading font-black text-slate-800">{title}</h3>
-                    <button onClick={() => { setShowAddModal(false); setShowEditModal(false); setEditingPatient(null); }}
-                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors">
-                        <X size={20} />
-                    </button>
-                </div>
-                <form onSubmit={onSubmit} className="p-6 space-y-4 overflow-y-auto flex-1">
-                    {formError && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium">{formError}</div>
-                    )}
-                    <div>
-                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Doctor</label>
-                        <select value={formData.doctor_id} onChange={e => setFormData({ ...formData, doctor_id: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" required>
-                            {doctors.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
-                        </select>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nombre Paciente *</label>
-                            <input type="text" value={formData.patient_name} onChange={e => setFormData({ ...formData, patient_name: e.target.value })}
-                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" required />
-                        </div>
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Teléfono</label>
-                            <input type="text" value={formData.patient_phone || ''} onChange={e => setFormData({ ...formData, patient_phone: e.target.value })}
-                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email</label>
-                            <input type="email" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                        </div>
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Último Procedimiento</label>
-                            <input type="text" value={formData.last_procedure || ''} onChange={e => setFormData({ ...formData, last_procedure: e.target.value })}
-                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                        </div>
-                    </div>
-                    {formData.last_visit_date !== undefined && (
-                        <div>
-                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Última Visita</label>
-                            <input type="date" value={formData.last_visit_date || ''} onChange={e => setFormData({ ...formData, last_visit_date: e.target.value || null })}
-                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                        </div>
-                    )}
-                    <div>
-                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Estado</label>
-                        <select value={formData.kanban_stage} onChange={e => setFormData({ ...formData, kanban_stage: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm">
-                            {PATIENT_STAGES.map(s => <option key={s} value={s}>{PATIENT_STAGE_LABELS[s]}</option>)}
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Notas</label>
-                        <textarea value={formData.notes || ''} onChange={e => setFormData({ ...formData, notes: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm h-20 resize-none" />
-                    </div>
-                    <div className="flex gap-2 pt-2">
-                        <button type="submit" disabled={isSubmitting}
-                            className="flex-1 bg-mh-blue text-white font-bold py-3 rounded-xl hover:bg-mh-blue/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
-                            <Save size={16} /> {isSubmitting ? 'Guardando...' : submitText}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-100 font-sans">
@@ -439,6 +440,10 @@ export const PatientKanban = ({ onBack }: { onBack: () => void }) => {
                     onSubmit={handleAddPatient}
                     title="Nuevo Paciente"
                     submitText="Crear Paciente"
+                    onClose={() => setShowAddModal(false)}
+                    isSubmitting={isSubmitting}
+                    formError={formError}
+                    doctors={doctors}
                 />
             )}
 
@@ -450,6 +455,10 @@ export const PatientKanban = ({ onBack }: { onBack: () => void }) => {
                     onSubmit={handleUpdatePatient}
                     title="Editar Paciente"
                     submitText="Guardar Cambios"
+                    onClose={() => { setShowEditModal(false); setEditingPatient(null); }}
+                    isSubmitting={isSubmitting}
+                    formError={formError}
+                    doctors={doctors}
                 />
             )}
         </div>

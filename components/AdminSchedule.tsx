@@ -91,6 +91,8 @@ export const AdminSchedule = () => {
 
     // Additional patients for booking
     const [additionalPatients, setAdditionalPatients] = useState<{ name: string; phone: string; procedure: string }[]>([]);
+    const [editAdditionalPatients, setEditAdditionalPatients] = useState<{ name: string; phone: string; procedure: string }[]>([]);
+    const [existingBookingPatients, setExistingBookingPatients] = useState<BookingPatient[]>([]);
 
     // Doctor form state
     const [newDoctorName, setNewDoctorName] = useState('');
@@ -359,8 +361,34 @@ export const AdminSchedule = () => {
 
             if (error) throw error;
 
+            // Handle booking patients changes
+            // 1. Delete existing patients that were removed
+            const currentExistingIds = existingBookingPatients.map(p => p.id);
+            const originalIds = (selectedBooking.booking_patients || []).map(p => p.id);
+            const removedIds = originalIds.filter(id => !currentExistingIds.includes(id));
+            if (removedIds.length > 0) {
+                await supabase.from('booking_patients').delete().in('id', removedIds);
+            }
+
+            // 2. Insert new additional patients
+            if (editAdditionalPatients.length > 0) {
+                const patientsToInsert = editAdditionalPatients
+                    .filter(p => p.name.trim())
+                    .map(p => ({
+                        booking_id: selectedBooking.id,
+                        patient_name: p.name.trim(),
+                        patient_phone: p.phone || null,
+                        procedure: p.procedure || null
+                    }));
+                if (patientsToInsert.length > 0) {
+                    await supabase.from('booking_patients').insert(patientsToInsert);
+                }
+            }
+
             setIsEditingBooking(false);
             setShowDetailModal(false);
+            setEditAdditionalPatients([]);
+            setExistingBookingPatients([]);
             fetchData();
         } catch (err: any) {
             setFormError(err.message || 'Error al actualizar la reserva');
@@ -668,11 +696,13 @@ export const AdminSchedule = () => {
                                         {SPACE_TYPES.map(space => {
                                             const booking = getBookingForCell(space, hour);
                                             const isOccupiedByAnother = !booking && isCellOccupied(space, hour);
+                                            const duration = booking ? (booking.end_hour - booking.start_hour) : 1;
 
                                             return (
                                                 <div
                                                     key={`${space}-${hour}`}
-                                                    className="col-span-1 border-r last:border-0 border-slate-100 relative h-16 sm:h-20 flex"
+                                                    className={`col-span-1 border-r last:border-0 border-slate-100 relative flex`}
+                                                    style={{ height: '5rem' }}
                                                 >
                                                     {booking ? (
                                                         <div
@@ -681,14 +711,17 @@ export const AdminSchedule = () => {
                                                                 setEditBookingForm(booking);
                                                                 setIsEditingBooking(false);
                                                                 setFormError('');
+                                                                setExistingBookingPatients(booking.booking_patients || []);
+                                                                setEditAdditionalPatients([]);
                                                                 setShowDetailModal(true);
                                                             }}
-                                                            className={`absolute inset-1 rounded-lg border flex flex-col justify-center px-2 cursor-pointer shadow-sm hover:shadow-md transition-all overflow-hidden ${filterDoctorId !== 'all' && booking.doctor_id !== filterDoctorId ? 'opacity-20 hover:opacity-100 grayscale' : ''}`}
+                                                            className={`absolute left-1 right-1 top-1 rounded-lg border flex flex-col justify-start px-2 py-1.5 cursor-pointer shadow-sm hover:shadow-md transition-all overflow-hidden z-10 ${filterDoctorId !== 'all' && booking.doctor_id !== filterDoctorId ? 'opacity-20 hover:opacity-100 grayscale' : ''}`}
                                                             style={{
                                                                 backgroundColor: `${booking.doctors?.color}15`,
                                                                 borderColor: `${booking.doctors?.color}40`,
                                                                 borderLeftWidth: '4px',
-                                                                borderLeftColor: booking.doctors?.color || '#3B82F6'
+                                                                borderLeftColor: booking.doctors?.color || '#3B82F6',
+                                                                height: duration > 1 ? `calc(${duration} * 5rem - 0.5rem)` : 'calc(100% - 0.5rem)'
                                                             }}
                                                         >
                                                             <div className="flex items-center gap-1 truncate">
@@ -699,17 +732,23 @@ export const AdminSchedule = () => {
                                                                     {booking.doctors?.name || 'Doctor Eliminado'}
                                                                 </span>
                                                             </div>
+                                                            <div className="text-[9px] text-slate-500 font-bold mt-0.5">
+                                                                {formatHour(booking.start_hour)} - {formatHour(booking.end_hour)}
+                                                            </div>
                                                             <div className="text-[9px] text-slate-500 truncate leading-tight mt-0.5">
                                                                 {booking.patient_name ? <span className="font-semibold text-slate-700">{booking.patient_name}</span> : null}
                                                                 {(booking.booking_patients?.length || 0) > 0 && (
                                                                     <span className="ml-1 text-[8px] bg-blue-100 text-blue-600 px-1 rounded-full font-bold">+{booking.booking_patients?.length}</span>
                                                                 )}
-                                                                {booking.patient_name && (booking.notes || booking.procedure) ? ' - ' : ''}
-                                                                {booking.procedure || booking.notes || 'Reservado'}
                                                             </div>
+                                                            {duration > 1 && (booking.procedure || booking.notes) && (
+                                                                <div className="text-[9px] text-slate-400 truncate mt-1">
+                                                                    {booking.procedure || booking.notes}
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     ) : isOccupiedByAnother ? (
-                                                        <div className="flex-1 m-1 rounded-lg bg-slate-50/50 opacity-0 pointer-events-none"></div>
+                                                        <div className="flex-1 pointer-events-none"></div>
                                                     ) : (
                                                         <button
                                                             onClick={() => {
@@ -1210,6 +1249,58 @@ export const AdminSchedule = () => {
                                             rows={2}
                                         />
                                     </div>
+
+                                    {/* Multi-Patient Management in Edit */}
+                                    <div className="p-3 bg-purple-50/50 border border-purple-100 rounded-xl space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <h4 className="text-[9px] font-black tracking-widest uppercase text-purple-400">Pacientes Adicionales</h4>
+                                            <button type="button"
+                                                onClick={() => setEditAdditionalPatients([...editAdditionalPatients, { name: '', phone: '', procedure: '' }])}
+                                                className="text-[9px] font-bold text-purple-600 bg-purple-100 hover:bg-purple-200 px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1"
+                                            >
+                                                <Plus size={9} /> Agregar
+                                            </button>
+                                        </div>
+                                        {/* Existing patients (can be removed) */}
+                                        {existingBookingPatients.map(bp => (
+                                            <div key={bp.id} className="flex items-center gap-1.5 bg-white rounded-lg px-2 py-1.5 border border-slate-200">
+                                                <User size={10} className="text-slate-400 shrink-0" />
+                                                <span className="text-xs font-bold text-slate-700 flex-1 truncate">{bp.patient_name}</span>
+                                                {bp.patient_phone && <span className="text-[9px] text-slate-400">{bp.patient_phone}</span>}
+                                                <button type="button" onClick={() => setExistingBookingPatients(existingBookingPatients.filter(p => p.id !== bp.id))}
+                                                    className="p-0.5 text-red-400 hover:text-red-600 rounded">
+                                                    <X size={12} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                        {/* New patients being added */}
+                                        {editAdditionalPatients.map((ap, idx) => (
+                                            <div key={`new-${idx}`} className="flex gap-1.5 items-start">
+                                                <div className="flex-1 grid grid-cols-3 gap-1">
+                                                    <input type="text" value={ap.name}
+                                                        onChange={e => { const u = [...editAdditionalPatients]; u[idx].name = e.target.value; setEditAdditionalPatients(u); }}
+                                                        className="px-2 py-1 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-[10px]"
+                                                        placeholder="Nombre" />
+                                                    <input type="text" value={ap.phone}
+                                                        onChange={e => { const u = [...editAdditionalPatients]; u[idx].phone = e.target.value; setEditAdditionalPatients(u); }}
+                                                        className="px-2 py-1 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-[10px]"
+                                                        placeholder="Teléfono" />
+                                                    <input type="text" value={ap.procedure}
+                                                        onChange={e => { const u = [...editAdditionalPatients]; u[idx].procedure = e.target.value; setEditAdditionalPatients(u); }}
+                                                        className="px-2 py-1 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-[10px]"
+                                                        placeholder="Proced." />
+                                                </div>
+                                                <button type="button" onClick={() => setEditAdditionalPatients(editAdditionalPatients.filter((_, i) => i !== idx))}
+                                                    className="p-0.5 text-red-400 hover:text-red-600 rounded mt-0.5">
+                                                    <X size={12} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                        {existingBookingPatients.length === 0 && editAdditionalPatients.length === 0 && (
+                                            <p className="text-[9px] text-purple-300 text-center py-1">Sin pacientes adicionales</p>
+                                        )}
+                                    </div>
+
                                     <div className="flex gap-2 pt-2">
                                         <button
                                             type="button"

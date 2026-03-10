@@ -43,6 +43,129 @@ const MEMBERSHIP_COLORS: Record<string, string> = {
     'PREMIUM': '#F59E0B'
 };
 
+const DoctorForm = ({ editingDoctor, setEditingDoctor, onSave, onClose, isSubmitting, formError }: {
+    editingDoctor: Doctor; setEditingDoctor: (d: Doctor) => void; onSave: (e: React.FormEvent) => void; onClose: () => void; isSubmitting: boolean; formError: string;
+}) => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+        <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center shrink-0">
+                <h3 className="font-heading font-black text-slate-800">Editar Doctor</h3>
+                <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors">
+                    <X size={20} />
+                </button>
+            </div>
+            <form onSubmit={onSave} className="p-6 space-y-4 overflow-y-auto flex-1">
+                {formError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium flex items-center gap-2">
+                        <AlertTriangle size={14} /> {formError}
+                    </div>
+                )}
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nombre</label>
+                        <input type="text" value={editingDoctor.name} onChange={e => setEditingDoctor({ ...editingDoctor, name: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" required />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Especialidad</label>
+                        <input type="text" value={editingDoctor.specialty || ''} onChange={e => setEditingDoctor({ ...editingDoctor, specialty: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" />
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Teléfono</label>
+                        <input type="text" value={editingDoctor.phone || ''} onChange={e => setEditingDoctor({ ...editingDoctor, phone: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Color</label>
+                        <input type="color" value={editingDoctor.color} onChange={e => setEditingDoctor({ ...editingDoctor, color: e.target.value })}
+                            className="w-full h-10 rounded-lg border border-slate-200 cursor-pointer" />
+                    </div>
+                </div>
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                    <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3">Membresía</h4>
+                    <div className="grid grid-cols-3 gap-2 mb-3">
+                        {(['BASICO', 'ESTANDAR', 'PREMIUM'] as const).map(type => (
+                            <button key={type} type="button"
+                                onClick={() => setEditingDoctor({ ...editingDoctor, membership_type: type })}
+                                className={`py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all border-2 ${editingDoctor.membership_type === type
+                                    ? 'text-white shadow-lg scale-105'
+                                    : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                                    }`}
+                                style={editingDoctor.membership_type === type ? {
+                                    backgroundColor: MEMBERSHIP_COLORS[type],
+                                    borderColor: MEMBERSHIP_COLORS[type]
+                                } : {}}
+                            >
+                                {MEMBERSHIP_LABELS[type]}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Horas</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Compradas</label>
+                            <input type="number" min="0" value={editingDoctor.hours_purchased}
+                                onChange={e => setEditingDoctor({ ...editingDoctor, hours_purchased: parseInt(e.target.value) || 0 })}
+                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                        </div>
+                        <div>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Usadas</label>
+                            <input type="number" min="0" value={editingDoctor.hours_used}
+                                onChange={e => setEditingDoctor({ ...editingDoctor, hours_used: parseInt(e.target.value) || 0 })}
+                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                        </div>
+                        <div>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Fecha Compra</label>
+                            <input type="date" value={editingDoctor.hours_purchase_date || ''}
+                                onChange={e => setEditingDoctor({ ...editingDoctor, hours_purchase_date: e.target.value || null })}
+                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                        </div>
+                        <div>
+                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Vencimiento</label>
+                            <input type="date" value={editingDoctor.hours_expiry_date || ''}
+                                onChange={e => setEditingDoctor({ ...editingDoctor, hours_expiry_date: e.target.value || null })}
+                                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    <label className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl border border-purple-100 cursor-pointer hover:bg-purple-100 transition-colors">
+                        <input type="checkbox" checked={editingDoctor.has_video}
+                            onChange={e => setEditingDoctor({ ...editingDoctor, has_video: e.target.checked })}
+                            className="w-4 h-4 accent-purple-600 rounded" />
+                        <div>
+                            <span className="text-xs font-bold text-purple-700 flex items-center gap-1"><Video size={12} /> Video grabado</span>
+                        </div>
+                    </label>
+                    <div>
+                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Estado Kanban</label>
+                        <select value={editingDoctor.kanban_stage}
+                            onChange={e => setEditingDoctor({ ...editingDoctor, kanban_stage: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm">
+                            {(['activo', 'por_renovar', 'vencido', 'inactivo']).map(s => <option key={s} value={s}>{STAGE_LABELS[s]}</option>)}
+                        </select>
+                    </div>
+                </div>
+                <div className="flex gap-2 pt-2">
+                    <button type="submit" disabled={isSubmitting}
+                        className="flex-1 bg-mh-blue text-white font-bold py-3 rounded-xl hover:bg-mh-blue/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+                        <Save size={16} /> {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
+                    </button>
+                    <button type="button" onClick={onClose}
+                        className="px-6 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+);
+
 export const DoctorKanban = ({ onBack }: { onBack: () => void }) => {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -333,135 +456,14 @@ export const DoctorKanban = ({ onBack }: { onBack: () => void }) => {
 
             {/* Edit Doctor Modal */}
             {showEditModal && editingDoctor && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-                    <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-                        <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center shrink-0">
-                            <h3 className="font-heading font-black text-slate-800">Editar Doctor</h3>
-                            <button onClick={() => { setShowEditModal(false); setEditingDoctor(null); }} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors">
-                                <X size={20} />
-                            </button>
-                        </div>
-                        <form onSubmit={handleSaveDoctor} className="p-6 space-y-4 overflow-y-auto flex-1">
-                            {formError && (
-                                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-medium flex items-center gap-2">
-                                    <AlertTriangle size={14} /> {formError}
-                                </div>
-                            )}
-
-                            {/* Basic Info */}
-                            <div className="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nombre</label>
-                                    <input type="text" value={editingDoctor.name} onChange={e => setEditingDoctor({ ...editingDoctor, name: e.target.value })}
-                                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" required />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Especialidad</label>
-                                    <input type="text" value={editingDoctor.specialty || ''} onChange={e => setEditingDoctor({ ...editingDoctor, specialty: e.target.value })}
-                                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Teléfono</label>
-                                    <input type="text" value={editingDoctor.phone || ''} onChange={e => setEditingDoctor({ ...editingDoctor, phone: e.target.value })}
-                                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue focus:ring-1 outline-none text-sm" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Color</label>
-                                    <input type="color" value={editingDoctor.color} onChange={e => setEditingDoctor({ ...editingDoctor, color: e.target.value })}
-                                        className="w-full h-10 rounded-lg border border-slate-200 cursor-pointer" />
-                                </div>
-                            </div>
-
-                            {/* Membership */}
-                            <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                                <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3">Membresía</h4>
-                                <div className="grid grid-cols-3 gap-2 mb-3">
-                                    {(['BASICO', 'ESTANDAR', 'PREMIUM'] as const).map(type => (
-                                        <button key={type} type="button"
-                                            onClick={() => setEditingDoctor({ ...editingDoctor, membership_type: type })}
-                                            className={`py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all border-2 ${editingDoctor.membership_type === type
-                                                ? 'text-white shadow-lg scale-105'
-                                                : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                                                }`}
-                                            style={editingDoctor.membership_type === type ? {
-                                                backgroundColor: MEMBERSHIP_COLORS[type],
-                                                borderColor: MEMBERSHIP_COLORS[type]
-                                            } : {}}
-                                        >
-                                            {MEMBERSHIP_LABELS[type]}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Hours */}
-                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Horas</h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Compradas</label>
-                                        <input type="number" min="0" value={editingDoctor.hours_purchased}
-                                            onChange={e => setEditingDoctor({ ...editingDoctor, hours_purchased: parseInt(e.target.value) || 0 })}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Usadas</label>
-                                        <input type="number" min="0" value={editingDoctor.hours_used}
-                                            onChange={e => setEditingDoctor({ ...editingDoctor, hours_used: parseInt(e.target.value) || 0 })}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Fecha Compra</label>
-                                        <input type="date" value={editingDoctor.hours_purchase_date || ''}
-                                            onChange={e => setEditingDoctor({ ...editingDoctor, hours_purchase_date: e.target.value || null })}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">Vencimiento</label>
-                                        <input type="date" value={editingDoctor.hours_expiry_date || ''}
-                                            onChange={e => setEditingDoctor({ ...editingDoctor, hours_expiry_date: e.target.value || null })}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Video & Stage */}
-                            <div className="grid grid-cols-2 gap-3">
-                                <label className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl border border-purple-100 cursor-pointer hover:bg-purple-100 transition-colors">
-                                    <input type="checkbox" checked={editingDoctor.has_video}
-                                        onChange={e => setEditingDoctor({ ...editingDoctor, has_video: e.target.checked })}
-                                        className="w-4 h-4 accent-purple-600 rounded" />
-                                    <div>
-                                        <span className="text-xs font-bold text-purple-700 flex items-center gap-1"><Video size={12} /> Video grabado</span>
-                                    </div>
-                                </label>
-                                <div>
-                                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Estado Kanban</label>
-                                    <select value={editingDoctor.kanban_stage}
-                                        onChange={e => setEditingDoctor({ ...editingDoctor, kanban_stage: e.target.value })}
-                                        className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-sm">
-                                        {KANBAN_STAGES.map(s => <option key={s} value={s}>{STAGE_LABELS[s]}</option>)}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Actions */}
-                            <div className="flex gap-2 pt-2">
-                                <button type="submit" disabled={isSubmitting}
-                                    className="flex-1 bg-mh-blue text-white font-bold py-3 rounded-xl hover:bg-mh-blue/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
-                                    <Save size={16} /> {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
-                                </button>
-                                <button type="button" onClick={() => { setShowEditModal(false); setEditingDoctor(null); }}
-                                    className="px-6 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
-                                    Cancelar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <DoctorForm
+                    editingDoctor={editingDoctor}
+                    setEditingDoctor={setEditingDoctor}
+                    onSave={handleSaveDoctor}
+                    onClose={() => { setShowEditModal(false); setEditingDoctor(null); }}
+                    isSubmitting={isSubmitting}
+                    formError={formError}
+                />
             )}
         </div>
     );
