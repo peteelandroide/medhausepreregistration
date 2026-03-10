@@ -26,9 +26,9 @@ const ROOM_TYPES = [
         name: 'Estándar',
         description: 'Perfecto para especialidades médicas y estética básica.',
         detailedDescription: 'Equilibrio ideal entre confort y funcionalidad clínica. Equipado para exámenes físicos completos y procedimientos ambulatorios simples.',
-        priceMember: 75000,
+        priceMember: 85000,
         priceList: 100000,
-        savings: '26%',
+        savings: '15%',
         features: ['Lavamanos', 'Camilla de Examen', 'Escritorio Médico', 'Mobiliario Premium', 'Iluminación Ajustable'],
         specialties: ['Dermatología', 'Estética Facial', 'Fisioterapia', 'Medicina Interna', 'Pediatría'],
         images: ['/ESTANDAR_3_2.jpg', '/ESTANDAR_3_4.jpg']
@@ -39,8 +39,8 @@ const ROOM_TYPES = [
         description: 'La máxima expresión de lujo para especialistas de alto nivel.',
         detailedDescription: 'Diseñado para procedimientos que requieren lo mejor. Incluye infraestructura especializada para lograr resultados superiores y una experiencia de paciente inigualable.',
         priceMember: 100000,
-        priceList: 120000,
-        savings: '17%',
+        priceList: 130000,
+        savings: '23%',
         features: ['Telón de Antes y Después', 'Silla Especializada para Procedimientos', 'Vista Panorámica', 'Acabados de Lujo', 'Iluminación de Estudio'],
         specialties: ['Cirugía Plástica', 'Medicina Estética Avanzada', 'Harmonización Orofacial', 'Urología'],
         images: ['/PREMIUM.jpg', '/PREMIUM_2.jpg']

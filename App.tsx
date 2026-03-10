@@ -14,6 +14,7 @@ import { DoctorLandingAfro } from './components/DoctorLandingAfro';
 import { DoctorLandingAfroEn } from './components/DoctorLandingAfroEn';
 import { TVShowcase } from './components/TVShowcase';
 import { TVShowcaseOmar } from './components/TVShowcaseOmar';
+import { TVShowcaseJohn } from './components/TVShowcaseJohn';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
 import { ProposalGenerator } from './components/ProposalGenerator';
@@ -24,7 +25,7 @@ import { MetaPixel, trackPageView } from './components/MetaPixel';
 import { KoluConsulting } from './components/KoluConsulting';
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu'>('landing');
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function App() {
       else if (v === 'tv') setView('tv');
       else if (v === 'tv-showcase') setView('tv-showcase');
       else if (v === 'tv-omar') setView('tv-omar');
+      else if (v === 'tv-john') setView('tv-john');
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
       else if (v === 'generate') setView('generate');
@@ -149,6 +151,10 @@ export default function App() {
 
     if (view === 'tv-omar') {
       return <TVShowcaseOmar />;
+    }
+
+    if (view === 'tv-john') {
+      return <TVShowcaseJohn />;
     }
 
     if (view === 'privacy') {
