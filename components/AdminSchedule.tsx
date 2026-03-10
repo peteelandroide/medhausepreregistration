@@ -17,6 +17,15 @@ interface Doctor {
     phone: string | null;
 }
 
+interface BookingPatient {
+    id: string;
+    booking_id: string;
+    patient_name: string;
+    patient_phone: string | null;
+    procedure: string | null;
+    notes: string | null;
+}
+
 interface Booking {
     id: string;
     doctor_id: string;
@@ -28,7 +37,9 @@ interface Booking {
     patient_name: string | null;
     patient_phone: string | null;
     procedure: string | null;
+    is_confirmed: boolean;
     doctors?: Doctor; // Joined data
+    booking_patients?: BookingPatient[];
 }
 
 export const AdminSchedule = () => {
@@ -77,6 +88,9 @@ export const AdminSchedule = () => {
     const [formProcedure, setFormProcedure] = useState('');
     const [formError, setFormError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Additional patients for booking
+    const [additionalPatients, setAdditionalPatients] = useState<{ name: string; phone: string; procedure: string }[]>([]);
 
     // Doctor form state
     const [newDoctorName, setNewDoctorName] = useState('');
@@ -134,7 +148,8 @@ export const AdminSchedule = () => {
                 .from('schedule_bookings')
                 .select(`
           *,
-          doctors ( id, name, specialty, color, phone )
+          doctors ( id, name, specialty, color, phone ),
+          booking_patients ( id, patient_name, patient_phone, procedure, notes )
         `)
                 .eq('booking_date', dateStr);
 
@@ -234,12 +249,28 @@ export const AdminSchedule = () => {
                 throw error;
             }
 
+            // Insert additional patients if any
+            if (additionalPatients.length > 0 && data) {
+                const patientsToInsert = additionalPatients
+                    .filter(p => p.name.trim())
+                    .map(p => ({
+                        booking_id: data.id,
+                        patient_name: p.name.trim(),
+                        patient_phone: p.phone || null,
+                        procedure: p.procedure || null
+                    }));
+                if (patientsToInsert.length > 0) {
+                    await supabase.from('booking_patients').insert(patientsToInsert);
+                }
+            }
+
             // Success
             setShowAddModal(false);
             setFormNotes('');
             setFormPatientName('');
             setFormPatientPhone('');
             setFormProcedure('');
+            setAdditionalPatients([]);
             fetchData(); // Refresh data
 
         } catch (err: any) {
@@ -522,13 +553,25 @@ export const AdminSchedule = () => {
                         MedHause <span className="text-mh-gold text-2xl leading-none">.</span> <span className="text-slate-400 font-normal text-sm ml-2 hidden sm:inline">Scheduler</span>
                     </h1>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 flex-wrap">
                     <button
                         onClick={() => setShowManageDoctorsModal(true)}
                         className="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-100 text-mh-blue hover:bg-slate-200 rounded-full text-sm font-bold transition-colors"
                     >
                         <User size={16} /> Gestor Doctores
                     </button>
+                    <a
+                        href="?view=doctor-kanban"
+                        className="hidden sm:flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-full text-sm font-bold transition-colors border border-amber-200"
+                    >
+                        📊 Kanban Drs.
+                    </a>
+                    <a
+                        href="?view=patient-kanban"
+                        className="hidden sm:flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-full text-sm font-bold transition-colors border border-purple-200"
+                    >
+                        👥 Pacientes
+                    </a>
                     <div className="h-8 w-[1px] bg-slate-200 hidden sm:block"></div>
                     <button
                         onClick={handleLogout}
@@ -648,11 +691,19 @@ export const AdminSchedule = () => {
                                                                 borderLeftColor: booking.doctors?.color || '#3B82F6'
                                                             }}
                                                         >
-                                                            <div className="truncate text-xs font-bold" style={{ color: booking.doctors?.color }}>
-                                                                {booking.doctors?.name || 'Doctor Eliminado'}
+                                                            <div className="flex items-center gap-1 truncate">
+                                                                {booking.is_confirmed && (
+                                                                    <CheckCircle size={10} className="text-green-500 shrink-0" />
+                                                                )}
+                                                                <span className="truncate text-xs font-bold" style={{ color: booking.doctors?.color }}>
+                                                                    {booking.doctors?.name || 'Doctor Eliminado'}
+                                                                </span>
                                                             </div>
                                                             <div className="text-[9px] text-slate-500 truncate leading-tight mt-0.5">
                                                                 {booking.patient_name ? <span className="font-semibold text-slate-700">{booking.patient_name}</span> : null}
+                                                                {(booking.booking_patients?.length || 0) > 0 && (
+                                                                    <span className="ml-1 text-[8px] bg-blue-100 text-blue-600 px-1 rounded-full font-bold">+{booking.booking_patients?.length}</span>
+                                                                )}
                                                                 {booking.patient_name && (booking.notes || booking.procedure) ? ' - ' : ''}
                                                                 {booking.procedure || booking.notes || 'Reservado'}
                                                             </div>
@@ -860,6 +911,44 @@ export const AdminSchedule = () => {
                                 </div>
                             </div>
 
+                            {/* Additional Patients */}
+                            <div className="p-4 bg-purple-50/50 border border-purple-100 rounded-2xl space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <h4 className="text-[10px] font-black tracking-widest uppercase text-purple-400">Pacientes Adicionales</h4>
+                                    <button type="button"
+                                        onClick={() => setAdditionalPatients([...additionalPatients, { name: '', phone: '', procedure: '' }])}
+                                        className="text-[10px] font-bold text-purple-600 bg-purple-100 hover:bg-purple-200 px-2 py-1 rounded-lg transition-colors flex items-center gap-1"
+                                    >
+                                        <Plus size={10} /> Agregar
+                                    </button>
+                                </div>
+                                {additionalPatients.map((ap, idx) => (
+                                    <div key={idx} className="flex gap-2 items-start">
+                                        <div className="flex-1 grid grid-cols-3 gap-1.5">
+                                            <input type="text" value={ap.name}
+                                                onChange={e => { const u = [...additionalPatients]; u[idx].name = e.target.value; setAdditionalPatients(u); }}
+                                                className="px-2 py-1.5 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-xs"
+                                                placeholder="Nombre" />
+                                            <input type="text" value={ap.phone}
+                                                onChange={e => { const u = [...additionalPatients]; u[idx].phone = e.target.value; setAdditionalPatients(u); }}
+                                                className="px-2 py-1.5 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-xs"
+                                                placeholder="Teléfono" />
+                                            <input type="text" value={ap.procedure}
+                                                onChange={e => { const u = [...additionalPatients]; u[idx].procedure = e.target.value; setAdditionalPatients(u); }}
+                                                className="px-2 py-1.5 rounded-lg border border-slate-200 focus:border-mh-blue outline-none text-xs"
+                                                placeholder="Procedimiento" />
+                                        </div>
+                                        <button type="button" onClick={() => setAdditionalPatients(additionalPatients.filter((_, i) => i !== idx))}
+                                            className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg mt-0.5">
+                                            <X size={14} />
+                                        </button>
+                                    </div>
+                                ))}
+                                {additionalPatients.length === 0 && (
+                                    <p className="text-[10px] text-purple-300 text-center py-1">Sin pacientes adicionales</p>
+                                )}
+                            </div>
+
                             <div className="pt-2">
                                 <button
                                     type="submit"
@@ -959,7 +1048,50 @@ export const AdminSchedule = () => {
                                                 </div>
                                             </div>
                                         )}
+
+                                        {/* Additional Patients List */}
+                                        {(selectedBooking.booking_patients?.length || 0) > 0 && (
+                                            <div className="border border-slate-100 rounded-xl overflow-hidden">
+                                                <div className="bg-slate-50 px-3 py-2 border-b border-slate-100">
+                                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">Pacientes Adicionales ({selectedBooking.booking_patients?.length})</span>
+                                                </div>
+                                                <div className="divide-y divide-slate-100">
+                                                    {selectedBooking.booking_patients?.map(bp => (
+                                                        <div key={bp.id} className="px-3 py-2 flex items-center gap-2">
+                                                            <User size={10} className="text-slate-400 shrink-0" />
+                                                            <div className="flex-1 min-w-0">
+                                                                <span className="text-xs font-bold text-slate-700 block truncate">{bp.patient_name}</span>
+                                                                {bp.patient_phone && <span className="text-[9px] text-slate-400">{bp.patient_phone}</span>}
+                                                                {bp.procedure && <span className="text-[9px] text-slate-500 ml-2">• {bp.procedure}</span>}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
+
+                                    {/* Confirmation Toggle */}
+                                    <button
+                                        onClick={async () => {
+                                            const newVal = !selectedBooking.is_confirmed;
+                                            try {
+                                                await supabase.from('schedule_bookings')
+                                                    .update({ is_confirmed: newVal })
+                                                    .eq('id', selectedBooking.id);
+                                                setSelectedBooking({ ...selectedBooking, is_confirmed: newVal });
+                                                fetchData();
+                                            } catch (err) { console.error(err); }
+                                        }}
+                                        className={`w-full py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${selectedBooking.is_confirmed
+                                            ? 'bg-green-50 text-green-700 border-2 border-green-200 hover:bg-green-100'
+                                            : 'bg-amber-50 text-amber-700 border-2 border-amber-200 hover:bg-amber-100'
+                                            }`}
+                                    >
+                                        <CheckCircle size={16} />
+                                        {selectedBooking.is_confirmed ? 'Agenda Confirmada ✓' : 'Marcar como Confirmada'}
+                                    </button>
+
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => setIsEditingBooking(true)}
