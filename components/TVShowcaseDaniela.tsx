@@ -48,25 +48,25 @@ export const TVShowcaseDaniela: React.FC = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-stretch gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-4 shrink-0">
-                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-4 shrink-0 w-48">
+                    <div className="w-full h-48 shrink-0 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img 
                             src="/dr-daniela/dr-daniela-1.jpeg" 
                             alt="Dra. Daniela Correa 1" 
                             className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
-                    <div className="w-48 h-32 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                    <div className="w-full flex-1 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80 min-h-[8rem]">
                         <img 
                             src="/dr-daniela/dr-daniela-2.jpeg" 
                             alt="Dra. Daniela Correa 2" 
-                            className="w-full h-full object-cover object-[center_20%]"
+                            className="w-full h-full object-cover object-[center_30%]"
                         />
                     </div>
                 </div>
-                <div>
+                <div className="flex-1 flex flex-col justify-center">
                     <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4">
                         Especialista Destacada
                     </span>
