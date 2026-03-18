@@ -48,17 +48,17 @@ export const TVShowcaseDaniela: React.FC = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-stretch gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-4 shrink-0 w-48">
-                    <div className="w-full h-48 shrink-0 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-4 shrink-0">
+                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img 
                             src="/dr-daniela/dr-daniela-1.jpeg" 
                             alt="Dra. Daniela Correa 1" 
                             className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
-                    <div className="w-full flex-1 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80 min-h-[8rem]">
+                    <div className="w-48 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img 
                             src="/dr-daniela/dr-daniela-2.jpeg" 
                             alt="Dra. Daniela Correa 2" 
@@ -66,7 +66,7 @@ export const TVShowcaseDaniela: React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className="flex-1 flex flex-col justify-center">
+                <div className="flex-1">
                     <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4">
                         Especialista Destacada
                     </span>
@@ -78,10 +78,10 @@ export const TVShowcaseDaniela: React.FC = () => {
                     </p>
                     <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
                         <p className="text-lg text-slate-300 font-light leading-relaxed">
-                            Formada en la prestigiosa <strong className="text-white font-normal">Universidad de Antioquia</strong>, con múltiples especializaciones en cirugía estética avanzada e instituciones internacionales.
+                            Formada en la <strong className="text-white font-normal">Universidad de Antioquia</strong>, con especializaciones internacionales en cirugía estética avanzada.
                         </p>
                         <p className="text-lg text-slate-300 font-light leading-relaxed">
-                            A la vanguardia en <strong className="text-white font-normal">rinoplastia ultrasónica, abdominoplastia y liposucción BodyTite</strong>, siendo un referente médico nacional e internacional.
+                            A la vanguardia en <strong className="text-white font-normal">rinoplastia ultrasónica, abdominoplastia y BodyTite</strong>. Referente a nivel internacional.
                         </p>
                     </div>
                 </div>
