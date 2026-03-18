@@ -62,7 +62,7 @@ export const TVShowcaseDaniela: React.FC = () => {
                         <img 
                             src="/dr-daniela/dr-daniela-2.jpeg" 
                             alt="Dra. Daniela Correa 2" 
-                            className="w-full h-full object-cover object-top"
+                            className="w-full h-full object-cover object-[center_20%]"
                         />
                     </div>
                 </div>
@@ -76,9 +76,14 @@ export const TVShowcaseDaniela: React.FC = () => {
                     <p className="text-2xl text-mh-gold font-bold uppercase tracking-widest mb-4">
                         Cirujana Plástica | U de Antioquia
                     </p>
-                    <p className="text-xl text-slate-300 font-light leading-relaxed italic border-l-4 border-mh-gold/50 pl-6">
-                        "Vanguardia en técnicas quirúrgicas para resultados de excelencia."
-                    </p>
+                    <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
+                        <p className="text-lg text-slate-300 font-light leading-relaxed">
+                            Formada en la prestigiosa <strong className="text-white font-normal">Universidad de Antioquia</strong>, con múltiples especializaciones en cirugía estética avanzada e instituciones internacionales.
+                        </p>
+                        <p className="text-lg text-slate-300 font-light leading-relaxed">
+                            A la vanguardia en <strong className="text-white font-normal">rinoplastia ultrasónica, abdominoplastia y liposucción BodyTite</strong>, siendo un referente médico nacional e internacional.
+                        </p>
+                    </div>
                 </div>
             </motion.div>
         </div>
