@@ -48,17 +48,17 @@ export const TVShowcaseSergio: React.FC = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+                className="relative w-full max-w-4xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-12 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-4 shrink-0">
-                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-5 shrink-0">
+                    <div className="w-56 h-56 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img 
                             src="/dr-sergio/dr-sergio-1.jpeg" 
                             alt="Dr. Sergio Arévalo 1" 
                             className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
-                    <div className="w-48 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                    <div className="w-56 h-48 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img 
                             src="/dr-sergio/dr-sergio-2.jpg" 
                             alt="Dr. Sergio Arévalo 2" 
@@ -70,17 +70,17 @@ export const TVShowcaseSergio: React.FC = () => {
                     <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4">
                         Especialista Destacado
                     </span>
-                    <h2 className="text-5xl font-heading font-black text-white uppercase italic leading-none mb-2">
+                    <h2 className="text-4xl font-heading font-black text-white uppercase italic leading-none mb-2">
                         Dr. Sergio Arévalo
                     </h2>
-                    <p className="text-2xl text-mh-gold font-bold uppercase tracking-widest mb-4">
+                    <p className="text-xl text-mh-gold font-bold uppercase tracking-widest mb-4">
                         Cirujano Plástico | Instituto Ivo Pitanguy
                     </p>
                     <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
-                        <p className="text-lg text-slate-300 font-light leading-relaxed">
+                        <p className="text-base text-slate-300 font-light leading-relaxed">
                             Especialista en <strong className="text-white font-normal">Mommy Makeover</strong> y contorno corporal avanzado: Mastopexia en L, LipoHD y Abdominoplastia.
                         </p>
-                        <p className="text-lg text-slate-300 font-light leading-relaxed">
+                        <p className="text-base text-slate-300 font-light leading-relaxed">
                             Formado bajo la excelencia del <strong className="text-white font-normal">Instituto Ivo Pitanguy</strong>. Trayectoria internacional con presencia en Rio de Janeiro, Medellín, Bogotá y Bucaramanga.
                         </p>
                     </div>
