@@ -16,6 +16,7 @@ import { TVShowcase } from './components/TVShowcase';
 import { TVShowcaseOmar } from './components/TVShowcaseOmar';
 import { TVShowcaseJohn } from './components/TVShowcaseJohn';
 import { TVShowcaseDaniela } from './components/TVShowcaseDaniela';
+import { TVShowcaseSergio } from './components/TVShowcaseSergio';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
 import { ProposalGenerator } from './components/ProposalGenerator';
@@ -31,7 +32,7 @@ import { PaymentCaroPotes } from './components/PaymentCaroPotes';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'tv-sergio' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro'>('landing');
 
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -55,6 +56,7 @@ export default function App() {
       else if (v === 'tv-omar') setView('tv-omar');
       else if (v === 'tv-john') setView('tv-john');
       else if (v === 'tv-daniela') setView('tv-daniela');
+      else if (v === 'tv-sergio') setView('tv-sergio');
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
       else if (v === 'generate') setView('generate');
@@ -172,6 +174,10 @@ export default function App() {
 
     if (view === 'tv-daniela') {
       return <TVShowcaseDaniela />;
+    }
+
+    if (view === 'tv-sergio') {
+      return <TVShowcaseSergio />;
     }
 
     if (view === 'privacy') {
