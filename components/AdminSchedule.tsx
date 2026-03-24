@@ -102,7 +102,12 @@ export const AdminSchedule = () => {
 
     // Load session
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.auth.getSession().then(({ data: { session }, error }) => {
+            if (error) {
+                console.warn('getSession error (may be rate limited):', error.message);
+                // Session stays null, login form will show
+                return;
+            }
             setSession(session);
             if (session) {
                 fetchData();
@@ -113,9 +118,6 @@ export const AdminSchedule = () => {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
-            if (session) {
-                fetchData();
-            }
         });
 
         return () => subscription.unsubscribe();
@@ -123,10 +125,10 @@ export const AdminSchedule = () => {
 
     // Fetch data
     useEffect(() => {
-        if (session) {
+        if (session?.access_token) {
             fetchData();
         }
-    }, [selectedDayObj, session]);
+    }, [selectedDayObj, session?.access_token]);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -195,7 +197,12 @@ export const AdminSchedule = () => {
             const { error } = await supabase.auth.signInWithPassword({ email, password });
             if (error) throw error;
         } catch (err: any) {
-            setAuthError(err.message || 'Error al iniciar sesión');
+            const msg = err.message || '';
+            if (err.status === 429 || msg.includes('rate limit') || msg.includes('Too Many Requests') || msg.includes('429')) {
+                setAuthError('Has excedido el límite de intentos. Por favor espera 2-3 minutos antes de volver a intentar.');
+            } else {
+                setAuthError(msg || 'Error al iniciar sesión');
+            }
         } finally {
             setIsLoggingIn(false);
         }
