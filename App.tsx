@@ -17,6 +17,7 @@ import { TVShowcaseOmar } from './components/TVShowcaseOmar';
 import { TVShowcaseJohn } from './components/TVShowcaseJohn';
 import { TVShowcaseDaniela } from './components/TVShowcaseDaniela';
 import { TVShowcaseSergio } from './components/TVShowcaseSergio';
+import { TVShowcaseVanessa } from './components/TVShowcaseVanessa';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
 import { ProposalGenerator } from './components/ProposalGenerator';
@@ -29,10 +30,11 @@ import { AdminSchedule } from './components/AdminSchedule';
 import { DoctorKanban } from './components/DoctorKanban';
 import { PatientKanban } from './components/PatientKanban';
 import { PaymentCaroPotes } from './components/PaymentCaroPotes';
+import { PricingToolCaroPotes } from './components/PricingToolCaroPotes';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'tv-sergio' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'tv-sergio' | 'tv-vanessa' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro' | 'precios-caro'>('landing');
 
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -57,6 +59,7 @@ export default function App() {
       else if (v === 'tv-john') setView('tv-john');
       else if (v === 'tv-daniela') setView('tv-daniela');
       else if (v === 'tv-sergio') setView('tv-sergio');
+      else if (v === 'tv-vanessa') setView('tv-vanessa');
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
       else if (v === 'generate') setView('generate');
@@ -66,6 +69,7 @@ export default function App() {
       else if (v === 'doctor-kanban') setView('doctor-kanban');
       else if (v === 'patient-kanban') setView('patient-kanban');
       else if (v === 'payment-caro') setView('payment-caro');
+      else if (v === 'precios-caro') setView('precios-caro');
       else setView('landing');
 
 
@@ -180,6 +184,10 @@ export default function App() {
       return <TVShowcaseSergio />;
     }
 
+    if (view === 'tv-vanessa') {
+      return <TVShowcaseVanessa />;
+    }
+
     if (view === 'privacy') {
       return <PrivacyPolicy onBack={handleBack} />;
     }
@@ -220,6 +228,10 @@ export default function App() {
 
     if (view === 'payment-caro') {
       return <PaymentCaroPotes onBack={handleBack} />;
+    }
+
+    if (view === 'precios-caro') {
+      return <PricingToolCaroPotes onBack={handleBack} />;
     }
 
 
