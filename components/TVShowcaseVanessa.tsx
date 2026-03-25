@@ -62,7 +62,7 @@ export const TVShowcaseVanessa: React.FC = () => {
                         <img 
                             src="/dra-vanessa/dra-vanessa-2.png" 
                             alt="Dra. Vanessa Flórez 2" 
-                            className="w-full h-full object-cover object-[center_40%]"
+                            className="w-full h-full object-cover object-bottom"
                         />
                     </div>
                 </div>
@@ -77,9 +77,6 @@ export const TVShowcaseVanessa: React.FC = () => {
                         Cirujana Maxilofacial | U de Antioquia
                     </p>
                     <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
-                        <p className="text-base text-slate-300 font-light leading-relaxed">
-                            Odontóloga y Especialista en <strong className="text-white font-normal">cirugía oral y maxilofacial</strong>.
-                        </p>
                         <p className="text-base text-slate-300 font-light leading-relaxed">
                             <strong className="text-white font-normal">Coordinadora del Posgrado de Cirugía Maxilofacial</strong> de la Universidad de Antioquia.
                         </p>
