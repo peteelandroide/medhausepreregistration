@@ -50,19 +50,26 @@ export const TVShowcaseEnmanuel: React.FC = () => {
                 transition={{ delay: 0.8, duration: 1 }}
                 className="relative w-full max-w-4xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-12 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-5 shrink-0">
-                    <div className="w-56 h-56 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-3 shrink-0">
+                    <div className="w-56 h-40 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img 
-                            src="/dr-enmanuel/dr-enmanuel-1.jpeg" 
-                            alt="Dr. Enmanuel Maturana 1" 
+                            src="/dr-enmanuel/dr-enmanuel-1.jpeg?v=2" 
+                            alt="Dr. Enmanuel Maturana" 
                             className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
-                    <div className="w-56 h-48 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                    <div className="w-56 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img 
-                            src="/dr-enmanuel/dr-enmanuel-2.png" 
-                            alt="Dr. Enmanuel Maturana 2" 
-                            className="w-full h-full object-cover object-[center_30%]"
+                            src="/dr-enmanuel/dr-enmanuel-2.png?v=2" 
+                            alt="Resultado 3.0" 
+                            className="w-full h-full object-cover object-bottom"
+                        />
+                    </div>
+                    <div className="w-56 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                        <img 
+                            src="/dr-enmanuel/dr-enmanuel-3.png?v=2" 
+                            alt="Resultado 2.5" 
+                            className="w-full h-full object-cover object-bottom"
                         />
                     </div>
                 </div>
@@ -79,9 +86,6 @@ export const TVShowcaseEnmanuel: React.FC = () => {
                     <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
                         <p className="text-base text-slate-300 font-light leading-relaxed">
                             Experticia como <strong className="text-white font-normal">Injector</strong> y especialista en <strong className="text-white font-normal">medicina Antienvejecimiento</strong>.
-                        </p>
-                        <p className="text-base text-slate-300 font-light leading-relaxed">
-                            Atención integral en <strong className="text-white font-normal">Cali, Valle del Cauca</strong> y <strong className="text-white font-normal">Quibdó, Chocó</strong>.
                         </p>
                         <p className="text-lg text-mh-gold font-medium italic mt-2">
                             "Tu mejor versión, nuestra misión"

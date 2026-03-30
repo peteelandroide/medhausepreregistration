@@ -6,7 +6,6 @@ import { TVShowcaseOmar } from './TVShowcaseOmar';
 import { TVShowcaseJohn } from './TVShowcaseJohn';
 import { TVShowcaseDaniela } from './TVShowcaseDaniela';
 import { TVShowcaseKeyla } from './TVShowcaseKeyla';
-import { TVShowcaseEnmanuel } from './TVShowcaseEnmanuel';
 
 const components = [
   TVShowcase,
@@ -15,8 +14,7 @@ const components = [
   TVShowcaseOmar,
   TVShowcaseJohn,
   TVShowcaseDaniela,
-  TVShowcaseKeyla,
-  TVShowcaseEnmanuel
+  TVShowcaseKeyla
 ];
 
 export const TVShowcaseAll: React.FC = () => {
