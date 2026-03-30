@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
 
-export const TVShowcaseDaniela: React.FC = () => {
+export const TVShowcaseEnmanuel: React.FC = () => {
     // Get zoom from URL params, default to 60 if not provided
     const [zoom, setZoom] = React.useState(60);
 
@@ -43,42 +43,48 @@ export const TVShowcaseDaniela: React.FC = () => {
                 </p>
             </motion.div>
 
-            {/* Feature Section: Dra. Daniela Correa */}
+            {/* Feature Section: Dr. Enmanuel Maturana */}
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 1 }}
-                className="relative w-full max-w-3xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-10 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
+                className="relative w-full max-w-4xl bg-white/5 backdrop-blur-2xl border-2 border-mh-gold/20 rounded-[4rem] p-10 flex items-center gap-12 text-left shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]"
             >
-                <div className="flex flex-col gap-4 shrink-0">
-                    <div className="w-48 h-48 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
+                <div className="flex flex-col gap-5 shrink-0">
+                    <div className="w-56 h-56 rounded-[2.5rem] overflow-hidden border-2 border-mh-gold/30">
                         <img 
-                            src="/dr-daniela/dr-daniela-1.jpeg" 
-                            alt="Dra. Daniela Correa 1" 
+                            src="/dr-enmanuel/dr-enmanuel-1.jpeg" 
+                            alt="Dr. Enmanuel Maturana 1" 
                             className="w-full h-full object-cover object-top scale-110"
                         />
                     </div>
-                    <div className="w-48 h-40 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
+                    <div className="w-56 h-48 rounded-[2rem] overflow-hidden border-2 border-mh-gold/30 opacity-80">
                         <img 
-                            src="/dr-daniela/dr-daniela-2.jpeg" 
-                            alt="Dra. Daniela Correa 2" 
+                            src="/dr-enmanuel/dr-enmanuel-2.png" 
+                            alt="Dr. Enmanuel Maturana 2" 
                             className="w-full h-full object-cover object-[center_30%]"
                         />
                     </div>
                 </div>
                 <div className="flex-1">
                     <span className="inline-block bg-mh-gold/20 text-mh-gold px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4">
-                        Especialista Destacada
+                        Especialista Destacado
                     </span>
-                    <h2 className="text-5xl font-heading font-black text-white uppercase italic leading-none mb-2">
-                        Dra. Daniela Correa
+                    <h2 className="text-4xl font-heading font-black text-white uppercase italic leading-none mb-2">
+                        Dr. Enmanuel Maturana
                     </h2>
-                    <p className="text-2xl text-mh-gold font-bold uppercase tracking-widest mb-4">
-                        Cirujana Plástica | U de Antioquia
+                    <p className="text-xl text-mh-gold font-bold uppercase tracking-widest mb-4">
+                        Médico Estético | Especialista Anti-Aging
                     </p>
                     <div className="border-l-4 border-mh-gold/50 pl-6 space-y-3">
-                        <p className="text-lg text-slate-300 font-light leading-relaxed">
-                            Formada en la <strong className="text-white font-normal">Universidad de Antioquia</strong>, con especializaciones internacionales en cirugía estética avanzada.
+                        <p className="text-base text-slate-300 font-light leading-relaxed">
+                            Experticia como <strong className="text-white font-normal">Injector</strong> y especialista en <strong className="text-white font-normal">medicina Antienvejecimiento</strong>.
+                        </p>
+                        <p className="text-base text-slate-300 font-light leading-relaxed">
+                            Atención integral en <strong className="text-white font-normal">Cali, Valle del Cauca</strong> y <strong className="text-white font-normal">Quibdó, Chocó</strong>.
+                        </p>
+                        <p className="text-lg text-mh-gold font-medium italic mt-2">
+                            "Tu mejor versión, nuestra misión"
                         </p>
                     </div>
                 </div>
@@ -92,7 +98,6 @@ export const TVShowcaseDaniela: React.FC = () => {
                 className="relative overflow-hidden bg-slate-950 shadow-2xl flex items-center justify-center"
                 style={{
                     // Width is 100vh and Height 100vw because it's a vertical box filling a horizontal signal
-                    // Scale 0.6 ensures visibility within the TV frame (more aggressive margins)
                     width: '100vh',
                     height: '100vw',
                     transform: `rotate(90deg) scale(${zoomScale})`,

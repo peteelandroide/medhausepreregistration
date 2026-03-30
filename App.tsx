@@ -19,6 +19,7 @@ import { TVShowcaseDaniela } from './components/TVShowcaseDaniela';
 import { TVShowcaseSergio } from './components/TVShowcaseSergio';
 import { TVShowcaseVanessa } from './components/TVShowcaseVanessa';
 import { TVShowcaseKeyla } from './components/TVShowcaseKeyla';
+import { TVShowcaseEnmanuel } from './components/TVShowcaseEnmanuel';
 import { TVShowcaseAll } from './components/TVShowcaseAll';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfUse } from './components/TermsOfUse';
@@ -36,7 +37,7 @@ import { PricingToolCaroPotes } from './components/PricingToolCaroPotes';
 
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'tv-sergio' | 'tv-vanessa' | 'tv-keyla' | 'tv-all' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro' | 'precios-caro'>('landing');
+  const [view, setView] = useState<'landing' | 'medicos' | 'colaboradores' | 'booking' | 'promo' | 'reservas' | 'pendon' | 'pitch' | 'doctor-pitch' | 'mafe-pitch' | 'doctor-caro' | 'doctor-afro' | 'doctor-afro-en' | 'tv' | 'tv-showcase' | 'tv-omar' | 'tv-john' | 'tv-daniela' | 'tv-sergio' | 'tv-vanessa' | 'tv-keyla' | 'tv-enmanuel' | 'tv-all' | 'privacy' | 'terms' | 'generate' | 'proposal-preview' | 'kolu' | 'admin-schedule' | 'doctor-kanban' | 'patient-kanban' | 'payment-caro' | 'precios-caro'>('landing');
 
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -63,6 +64,7 @@ export default function App() {
       else if (v === 'tv-sergio') setView('tv-sergio');
       else if (v === 'tv-vanessa') setView('tv-vanessa');
       else if (v === 'tv-keyla') setView('tv-keyla');
+      else if (v === 'tv-enmanuel') setView('tv-enmanuel');
       else if (v === 'tv-all') setView('tv-all');
       else if (v === 'privacy') setView('privacy');
       else if (v === 'terms') setView('terms');
@@ -194,6 +196,10 @@ export default function App() {
 
     if (view === 'tv-keyla') {
       return <TVShowcaseKeyla />;
+    }
+
+    if (view === 'tv-enmanuel') {
+      return <TVShowcaseEnmanuel />;
     }
 
     if (view === 'tv-all') {
